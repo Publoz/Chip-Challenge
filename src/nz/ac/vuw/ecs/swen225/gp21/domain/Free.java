@@ -31,6 +31,7 @@ public class Free extends AbstractTile{
 		}
 	}
 	
+	@Override
 	public boolean hasTreasure() {
 		return treasure;
 	}

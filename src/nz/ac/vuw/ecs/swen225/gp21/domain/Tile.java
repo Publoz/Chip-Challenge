@@ -12,4 +12,12 @@ public interface Tile {
 	 */
 	public boolean canMoveHere();	
 	
+	public String getActor();
+	
+	public void addActor(String actor);
+	
+	default public boolean hasTreasure() {
+		return false;
+	}
+	
 }
