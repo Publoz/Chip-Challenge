@@ -16,6 +16,8 @@ public interface Tile {
 	
 	public void addActor(String actor);
 	
+	public void removeActor();
+	
 	default public boolean hasTreasure() {
 		return false;
 	}
