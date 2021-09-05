@@ -24,6 +24,11 @@ public abstract class AbstractTile implements Tile{
 		}
 	}
 	
+	@Override
+	public void removeActor() {
+		actor = "";
+	}
+	
 	/**
 	 * Default behaviour for a free tile, simply returns whether
 	 * there is an actor here
