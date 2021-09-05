@@ -15,7 +15,7 @@ public class MainFrame extends JFrame{
 				this.setIconImage(logo.getImage());
 				
 				//set size and outline settings
-				this.setSize(800,600);
+				this.setSize(900,600);
 				this.setResizable(false);
 				this.setLayout(new GridLayout(1, 2));
 				this.getContentPane().setBackground(new Color(0, 120, 0));
