@@ -1,2 +1,7 @@
 /bin/
 *.class
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+chip-challenge.iml
+.idea/runConfigurations.xml
