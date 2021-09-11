@@ -30,7 +30,8 @@ public class Game {
 		treasureLeft = countTreasure();
 		chapPos = new Position(row, col);
 		maze[chapPos.getRow()][chapPos.getCol()].addActor("Chap");
-		assert(findChap().getRow() == row && findChap().getCol() == col); //check that chap loaded in correctly
+		assert(findChap().getRow() == row && findChap().getCol() == col); //check that chap loaded 
+																		  //in correctly
 	}
 	
 	/**
@@ -49,6 +50,12 @@ public class Game {
 			return true;
 		} else if(moveToTile instanceof Door){
 			if(Arrays.asList(keys).contains(((Door)moveToTile).getColour())){
+				return true;
+			} else {
+				return false;
+			}
+		} else if(moveToTile instanceof ExitLock){
+			if(treasureLeft == 0) {
 				return true;
 			} else {
 				return false;
@@ -73,14 +80,21 @@ public class Game {
 				throw new IllegalArgumentException("Cannot move onto occupied tile");
 			}
 			
-			moveToTile.addActor("Chap"); //Valid move so update 
 			pickup(moveToTile);
 			
 			if(moveToTile instanceof Door) {
 				removeKey(((Door)moveToTile).getColour());
 				maze[moveToPos.getRow()][moveToPos.getCol()] = new Free();
+			} else if(moveToTile instanceof ExitLock) {
+				if(countTreasure() != 0) {
+					throw new IllegalStateException("Chap cannot move onto exit lock while"
+							+ " treasure is left");
+				}
+				maze[moveToPos.getRow()][moveToPos.getCol()] = new Free();
 			}
-			
+				
+				
+			maze[moveToPos.getRow()][moveToPos.getCol()].addActor("Chap"); //Valid move so update 
 			removeChap();
 			chapPos = moveToPos;
 			
@@ -144,7 +158,7 @@ public class Game {
 				return;
 			}
 		}
-		throw new IllegalStateException("Keys was full");
+		throw new IllegalStateException("Keys is full");
 	}
 	
 	/**
