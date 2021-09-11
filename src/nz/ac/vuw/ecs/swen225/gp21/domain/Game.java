@@ -1,5 +1,7 @@
 package nz.ac.vuw.ecs.swen225.gp21.domain;
 
+import java.util.Arrays;
+
 public class Game {
 	
 	public static final int MAX_KEYS = 8;
@@ -24,14 +26,25 @@ public class Game {
 	}
 	
 	/**
-	 * Returns if an actor can move here
+	 * Returns a boolean if an actor can move here
+	 * 
+	 * Checks if the tile allows movement
+	 * Then checks if it is a door we have the key for
+	 * Otherwise return false
 	 * 
 	 * @param moveTo the position to move to
 	 * @return a boolean if valid
 	 */
 	public boolean validMove(Position moveTo) {
-		if(maze[moveTo.getRow()][moveTo.getCol()].canMoveHere()) {
+		Tile moveToTile = maze[moveTo.getRow()][moveTo.getCol()];
+		if(moveToTile.canMoveHere()) {
 			return true;
+		} else if(moveToTile instanceof Door){
+			if(Arrays.asList(keys).contains(((Door)moveToTile).getColour())){
+				return true;
+			} else {
+				return false;
+			}
 		} else {
 			return false;
 		}
@@ -52,8 +65,12 @@ public class Game {
 				throw new IllegalArgumentException("Cannot move onto occupied tile");
 			}
 			
-			moveToTile.addActor("Chap");
+			moveToTile.addActor("Chap"); //Valid move so update 
 			pickup(moveToTile);
+			if(moveToTile instanceof Door) {
+				removeKey(((Door)moveToTile).getColour());
+			}
+			
 			
 			removeChap();
 			chapPos = moveToPos;
@@ -62,18 +79,34 @@ public class Game {
 		}
 	}
 	
+	/**
+	 * Chap picks up items if there is one on this tile
+	 * 
+	 * Checks if tile has a key and if so calls addKey
+	 * Then checks if the tile has treasure and if so removes it
+	 * IllegalStateException is called if the treasureLeft doesn't match 
+	 * the amount of treasure left
+	 * 
+	 * @param moveTo the tile Chap is picking up items from
+	 */
 	public void pickup(Tile moveTo) {
 		if(moveTo.hasKey()) {
 			addKey(moveTo.getKey());
 		} else if(moveTo.hasTreasure()) {
 			moveTo.removeTreasure();
-			if(treasureLeft != countTreasure() + 1) {
-				throw new IllegalStateException("Treasure was not picked up");
-			}
+			assert(treasureLeft != countTreasure() + 1);
 			treasureLeft--;
 		}
 	}
 	
+	/**
+	 * Adds a key to Chap's inventory.
+	 * 
+	 * If the key is invalid, or if the keys are full an exception is thrown.
+	 * If the key is valid, add it to next free space in inventory.
+	 * 
+	 * @param key the key to add
+	 */
 	public void addKey(String key) {
 		if(key == null || key.equals("")) {
 			throw new IllegalArgumentException("No key to add");
@@ -88,8 +121,17 @@ public class Game {
 		throw new IllegalStateException("Keys was full");
 	}
 	
+	public void removeKey(String key) {
+		for(int i = 0; i < MAX_KEYS; i++) {
+			if(keys[i] == key) {
+				keys[i] = null;
+			}
+		}
+		throw new IllegalStateException("Key was not in inventory to remove");
+	}
+	
 	/**
-	 * Helper function to quickly remove chap from his current position
+	 * Helper function to quickly remove chap from his current position.
 	 */
 	public void removeChap() {
 		if(!maze[chapPos.getRow()][chapPos.getCol()].getActor().equals("Chap")){

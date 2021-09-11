@@ -8,7 +8,7 @@ public class Door extends AbstractTile{
 		this.colour = col;
 	}
 	
-	public String getCol() {
+	public String getColour() {
 		return colour;
 	}
 
