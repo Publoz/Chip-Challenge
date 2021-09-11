@@ -29,8 +29,12 @@ public abstract class AbstractTile implements Tile{
 		actor = "";
 	}
 	
+	public void removeTreasure() {
+		throw new IllegalStateException("This tile cannot contain treasure");
+	}
+	
 	/**
-	 * Default behaviour for a free tile, simply returns whether
+	 * Default behavior for a free tile, simply returns whether
 	 * there is an actor here
 	 * 
 	 * @return a boolean if an actor can move here

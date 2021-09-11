@@ -18,8 +18,20 @@ public interface Tile {
 	
 	public void removeActor();
 	
+	public void removeTreasure();
+	
 	default public boolean hasTreasure() {
 		return false;
 	}
+	
+	default public boolean hasKey() {
+		return false;
+	}
+	
+	default public String getKey() {
+		return null;
+	}
+	
+	
 	
 }

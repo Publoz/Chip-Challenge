@@ -31,6 +31,19 @@ public class Free extends AbstractTile{
 		}
 	}
 	
+	public String getKey() {
+		return key;
+	}
+	
+	@Override
+	public void removeTreasure() {
+		if(treasure) {
+			treasure = false;
+		} else {
+			throw new IllegalStateException("This free tile doesn't have treasure");
+		}
+	}
+	
 	@Override
 	public boolean hasTreasure() {
 		return treasure;

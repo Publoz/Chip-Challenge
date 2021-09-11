@@ -2,12 +2,15 @@ package nz.ac.vuw.ecs.swen225.gp21.domain;
 
 public class Game {
 	
+	public static final int MAX_KEYS = 8;
+	
 	private Tile[][] maze;
 	private int level;
 	private int timeLeft;
 	private int treasureLeft;
-	private String[] keys = new String[8];
+	private String[] keys = new String[MAX_KEYS];
 	private Position chapPos;
+	
 	
 	
 	public Game(Tile[][] maze, int levelNumber, int totalTime, int row, int col) {
@@ -50,11 +53,39 @@ public class Game {
 			}
 			
 			moveToTile.addActor("Chap");
+			pickup(moveToTile);
+			
 			removeChap();
 			chapPos = moveToPos;
 			
 			assert(findChap().equals(moveToPos));
 		}
+	}
+	
+	public void pickup(Tile moveTo) {
+		if(moveTo.hasKey()) {
+			addKey(moveTo.getKey());
+		} else if(moveTo.hasTreasure()) {
+			moveTo.removeTreasure();
+			if(treasureLeft != countTreasure() + 1) {
+				throw new IllegalStateException("Treasure was not picked up");
+			}
+			treasureLeft--;
+		}
+	}
+	
+	public void addKey(String key) {
+		if(key == null || key.equals("")) {
+			throw new IllegalArgumentException("No key to add");
+		}
+		
+		for(int i = 0; i < MAX_KEYS; i++) {
+			if(keys[i] == null) {
+				keys[i] = key;
+				return;
+			}
+		}
+		throw new IllegalStateException("Keys was full");
 	}
 	
 	/**
