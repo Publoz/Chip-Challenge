@@ -14,7 +14,15 @@ public class Game {
 	private Position chapPos;
 	
 	
-	
+	/**
+	 * Game constructor.
+	 * 
+	 * @param maze the 2d array of tiles
+	 * @param levelNumber what level this is
+	 * @param totalTime the total time in the level
+	 * @param row the row chap is in
+	 * @param col the col chap is in
+	 */
 	public Game(Tile[][] maze, int levelNumber, int totalTime, int row, int col) {
 		this.maze = maze;
 		this.level = levelNumber;
@@ -26,7 +34,7 @@ public class Game {
 	}
 	
 	/**
-	 * Returns a boolean if an actor can move here
+	 * Returns a boolean if an actor can move here.
 	 * 
 	 * Checks if the tile allows movement
 	 * Then checks if it is a door we have the key for
@@ -51,7 +59,7 @@ public class Game {
 	}
 	
 	/**
-	 * Moves chap in a direction
+	 * Moves chap in a direction.
 	 * 
 	 * Checks if move is valid and then updates the tiles
 	 * 
@@ -67,15 +75,33 @@ public class Game {
 			
 			moveToTile.addActor("Chap"); //Valid move so update 
 			pickup(moveToTile);
+			
 			if(moveToTile instanceof Door) {
 				removeKey(((Door)moveToTile).getColour());
+				maze[moveToPos.getRow()][moveToPos.getCol()] = new Free();
 			}
-			
 			
 			removeChap();
 			chapPos = moveToPos;
 			
 			assert(findChap().equals(moveToPos));
+			assert(chapInValidPos());
+		}
+	}
+	
+	/**
+	 * Checks if chap is currently standing on a valid tile.
+	 * 
+	 * @return a boolean if chap is on a valid tile
+	 */
+	public boolean chapInValidPos() {
+		Tile on = maze[chapPos.getRow()][chapPos.getCol()];
+		if(on instanceof Door || on instanceof Wall || on instanceof ExitLock) {
+			return false;
+		} else if(!on.getActor().equals("Chap")) {
+			throw new IllegalStateException("Chap is on an occupied tile");
+		} else {
+			return true;
 		}
 	}
 	
@@ -121,13 +147,21 @@ public class Game {
 		throw new IllegalStateException("Keys was full");
 	}
 	
+	/**
+	 * Removes a key from inventory.
+	 * 
+	 * Check if we have key and remove first instance
+	 * Throw IllegalArgumentException if we don't have key
+	 * 
+	 * @param key the key to remove
+	 */
 	public void removeKey(String key) {
 		for(int i = 0; i < MAX_KEYS; i++) {
 			if(keys[i] == key) {
 				keys[i] = null;
 			}
 		}
-		throw new IllegalStateException("Key was not in inventory to remove");
+		throw new IllegalArgumentException("Key was not in inventory to remove");
 	}
 	
 	/**
@@ -140,6 +174,11 @@ public class Game {
 		maze[chapPos.getRow()][chapPos.getCol()].removeActor();
 	}
 	
+	/**
+	 * Finds chap's position in the maze.
+	 * 
+	 * @return a position for where chap is
+	 */
 	public Position findChap() {
 		for(int i = 0; i < maze.length; i++) {
 			for(int j = 0; j < maze[0].length; j++) {
@@ -151,6 +190,11 @@ public class Game {
 		throw new IllegalStateException("Cannot find chap");
 	}
 	
+	/**
+	 * Counts how much treasure is left in the maze.
+	 * 
+	 * @return an int of the amount of treasure left
+	 */
 	public int countTreasure() {
 		int count = 0;
 		for(Tile[] tiles: maze) {

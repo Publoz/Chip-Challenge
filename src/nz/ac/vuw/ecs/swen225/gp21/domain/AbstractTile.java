@@ -3,7 +3,7 @@ package nz.ac.vuw.ecs.swen225.gp21.domain;
 public abstract class AbstractTile implements Tile{
 	protected String actor = "";
 	
-	@Override
+
 	public String getActor() {
 		return actor;
 	}
@@ -15,7 +15,6 @@ public abstract class AbstractTile implements Tile{
 	 * 
 	 * @param actor the actor to add
 	 */
-	@Override
 	public void addActor(String actor) {
 		if(this.actor.equals("")) {
 			this.actor = actor;
@@ -24,11 +23,12 @@ public abstract class AbstractTile implements Tile{
 		}
 	}
 	
-	@Override
+
 	public void removeActor() {
 		actor = "";
 	}
 	
+
 	public void removeTreasure() {
 		throw new IllegalStateException("This tile cannot contain treasure");
 	}
