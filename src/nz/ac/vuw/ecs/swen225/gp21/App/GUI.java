@@ -1,4 +1,4 @@
-package App;
+package nz.ac.vuw.ecs.swen225.gp21.App;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -21,6 +21,9 @@ import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextPane;
 
+import nz.ac.vuw.ecs.swen225.gp21.Persistency.XMLSaveLoad;
+import nz.ac.vuw.ecs.swen225.gp21.domain.Game;
+
 public class GUI {
 	
 	
@@ -28,6 +31,9 @@ public class GUI {
 	private JFrame mainFrame;
 	private int level = 1;
 	private boolean ctrlPressed = false;
+	
+	
+	private Game currentGame;
 	
 	
 	public GUI() throws FontFormatException, IOException {
@@ -116,10 +122,12 @@ public class GUI {
 	
 	private void CtrlPressedActions(KeyEvent e) {
 		if(e.getKeyCode()==88) {
-			JOptionPane.showMessageDialog(new JFrame(),"Exiting the game without saving.");
+			//JOptionPane.showOptionDialog(mainFrame, "Game is not saved. Are you sure you want to exit?", null, JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.INFORMATION_MESSAGE, null, new Object[]{""}, null);
+			JOptionPane.showConfirmDialog(new JFrame(),"Game is not saved. Are you sure you want to exit?");
 		}else if(e.getKeyCode()==83) {
 			JOptionPane.showMessageDialog(new JFrame(),"Saved and Exiting the game.");
 		}else if(e.getKeyCode()==82) {
+			currentGame = XMLSaveLoad.load();
 			JOptionPane.showMessageDialog(new JFrame(),"Resuming an already saved game.");
 		}else if(e.getKeyCode()==49) {
 			JOptionPane.showMessageDialog(new JFrame(),"Start a game from level 1.");
@@ -128,18 +136,24 @@ public class GUI {
 		} 
 	}
 	
+	
+	
 	private void CtrlNotPressedActions(KeyEvent e) {
 		if(e.getKeyCode()==32) {
-			JOptionPane.showMessageDialog(new JFrame(),"Game is paused.");
+			JOptionPane.showOptionDialog(mainFrame, "Game is paused", null, JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE, null, new Object[]{}, null);
 		}else if(e.getKeyCode()==27) {
-			JOptionPane.showMessageDialog(new JFrame(),"Resumes the game.");
+			//JOptionPane.showMessageDialog(new JFrame(),"Resumes the game.");
 		}else if(e.getKeyCode()==37) {
+			currentGame.moveChap("a");
 			JOptionPane.showMessageDialog(new JFrame(),"Moving left");
 		}else if(e.getKeyCode()==38) {
+			currentGame.moveChap("w");
 			JOptionPane.showMessageDialog(new JFrame(),"Moving up");
 		}else if(e.getKeyCode()==39) {
+			currentGame.moveChap("d");
 			JOptionPane.showMessageDialog(new JFrame(),"Moving right");
 		}else if(e.getKeyCode()==40) {
+			currentGame.moveChap("s");
 			JOptionPane.showMessageDialog(new JFrame(),"Moving down");
 		}
 	}

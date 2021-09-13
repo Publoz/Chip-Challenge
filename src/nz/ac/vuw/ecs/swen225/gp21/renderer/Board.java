@@ -1,7 +1,7 @@
 package nz.ac.vuw.ecs.swen225.gp21.renderer;
 
-import App.GUI;
-import App.MainFrame;
+import nz.ac.vuw.ecs.swen225.gp21.App.GUI;
+import nz.ac.vuw.ecs.swen225.gp21.App.MainFrame;
 
 import javax.swing.*;
 import java.awt.*;
