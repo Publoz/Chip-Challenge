@@ -91,6 +91,12 @@ public class Game {
 							+ " treasure is left");
 				}
 				maze[moveToPos.getRow()][moveToPos.getCol()] = new Free();
+			} else if(moveToTile instanceof Exit) {
+				if(treasureLeft != 0) {
+					throw new IllegalStateException("Chap cannot move onto exit while"
+							+ " treasure is left");
+				}
+				nextLevel();
 			}
 				
 				
@@ -101,6 +107,13 @@ public class Game {
 			assert(findChap().equals(moveToPos));
 			assert(chapInValidPos());
 		}
+	}
+	
+	/**
+	 * Will implement what happens when chap reaches the exit
+	 */
+	public void nextLevel() {
+		
 	}
 	
 	/**
@@ -219,6 +232,21 @@ public class Game {
 			}
 		}
 		return count;
+	}
+	
+	/**
+	 * Draws the maze on the screen, for testing purposes
+	 */
+	public void drawBoard() {
+		for (int row = 0; row < maze.length; row++) {
+			for (int col = 0; col < maze.length; col++) {
+				System.out.print(maze[row][col]);
+				System.out.print("|");
+				if (col == maze.length - 1) {
+					System.out.print("\n");
+				}
+			}
+		}
 	}
 	
 	

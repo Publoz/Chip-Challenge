@@ -8,6 +8,10 @@ public class Info extends AbstractTile{
 		this.information = info;
 	}
 	
+	public String getInformation() {
+		return information;
+	}
+	
 	
 	@Override
 	public boolean canMoveHere() {
