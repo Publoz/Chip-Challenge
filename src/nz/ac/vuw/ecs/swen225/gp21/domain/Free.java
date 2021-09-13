@@ -35,6 +35,10 @@ public class Free extends AbstractTile{
 		return key;
 	}
 	
+	public void removeKey() {
+		this.key = "";
+	}
+	
 	@Override
 	public void removeTreasure() {
 		if(treasure) {
@@ -56,13 +60,17 @@ public class Free extends AbstractTile{
 	}
 	
 	public String toString() {
-		if(key.equals("") && treasure == false) {
+		
+		if(actor.equals("Chap")) {
+			return "C";
+		} else if(key.equals("") && treasure == false) {
 			return "_";
 		} else if(treasure == true) {
 			return "T";
 		} else {
 			return key;
 		}
+		
 		
 	}
 

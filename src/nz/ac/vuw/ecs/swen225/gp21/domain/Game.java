@@ -8,7 +8,8 @@ public class Game {
 	
 	private Tile[][] maze;
 	private int level;
-	private int timeLeft;
+	private int totalTime;
+	private long startTime;
 	private int treasureLeft;
 	private String[] keys = new String[MAX_KEYS];
 	private Position chapPos;
@@ -26,7 +27,8 @@ public class Game {
 	public Game(Tile[][] maze, int levelNumber, int totalTime, int row, int col) {
 		this.maze = maze;
 		this.level = levelNumber;
-		timeLeft = totalTime;
+		totalTime = totalTime;
+		startTime = System.currentTimeMillis();
 		treasureLeft = countTreasure();
 		chapPos = new Position(row, col);
 		maze[chapPos.getRow()][chapPos.getCol()].addActor("Chap");
@@ -91,6 +93,12 @@ public class Game {
 							+ " treasure is left");
 				}
 				maze[moveToPos.getRow()][moveToPos.getCol()] = new Free();
+			} else if(moveToTile instanceof Exit) {
+				if(treasureLeft != 0) {
+					throw new IllegalStateException("Chap cannot move onto exit while"
+							+ " treasure is left");
+				}
+				nextLevel();
 			}
 				
 				
@@ -101,6 +109,13 @@ public class Game {
 			assert(findChap().equals(moveToPos));
 			assert(chapInValidPos());
 		}
+	}
+	
+	/**
+	 * Will implement what happens when chap reaches the exit
+	 */
+	public void nextLevel() {
+		
 	}
 	
 	/**
@@ -132,10 +147,12 @@ public class Game {
 	public void pickup(Tile moveTo) {
 		if(moveTo.hasKey()) {
 			addKey(moveTo.getKey());
+			((Free)moveTo).removeKey();
 		} else if(moveTo.hasTreasure()) {
 			moveTo.removeTreasure();
-			assert(treasureLeft != countTreasure() + 1);
 			treasureLeft--;
+			assert(treasureLeft == countTreasure());
+			
 		}
 	}
 	
@@ -171,8 +188,9 @@ public class Game {
 	 */
 	public void removeKey(String key) {
 		for(int i = 0; i < MAX_KEYS; i++) {
-			if(keys[i] == key) {
+			if(keys[i] != null && keys[i].equals(key)) {
 				keys[i] = null;
+				return;
 			}
 		}
 		throw new IllegalArgumentException("Key was not in inventory to remove");
@@ -221,5 +239,46 @@ public class Game {
 		return count;
 	}
 	
+	/**
+	 * Draws the maze on the screen, for testing purposes
+	 */
+	public String drawBoard() {
+		String board = "";
+		for (int row = 0; row < maze.length; row++) {
+			for (int col = 0; col < maze.length; col++) {
+				board += maze[row][col];
+				board += "|";
+				if (col == maze.length - 1) {
+					board += "\n";
+				}
+			}
+		}
+		return board;
+	}
+	
+	/**
+	 * Gets the maze for this level.
+	 * @return a 2d array of the tiles
+	 */
+	public Tile[][] getMaze(){
+		return maze;
+	}
+	
+	/**
+	 * Returns the time left in seconds.
+	 * @return an int of the seconds left
+	 */
+	public int timeLeft() {
+		int secondsBeen = (int) ((System.currentTimeMillis() - startTime) % 1000);
+		return totalTime - secondsBeen;
+	}
+	
+	/**
+	 * Get chaps current position.
+	 * @return the position of chap
+	 */
+	public Position getChap() {
+		return chapPos;
+	}
 	
 }

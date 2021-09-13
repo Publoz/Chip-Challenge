@@ -1,4 +1,4 @@
-package App;
+package nz.ac.vuw.ecs.swen225.gp21.App;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -14,8 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextPane;
 
 public class InfoPanel extends JPanel{
-	
-	String fontFilename="C:/Users/mjmof/eclipse-workspace/chip-challenge/src/App/digital-7.ttf";
+	String fontFilename="C:/Users/mjmof/eclipse-workspace/chip-challenge/src/nz/ac/vuw/ecs/swen225/gp21/App/digital-7.ttf";
 
 	public InfoPanel(String text, int value) throws FontFormatException, IOException {
 		this.setLayout(new GridLayout(2, 1));
