@@ -8,7 +8,8 @@ public class Game {
 	
 	private Tile[][] maze;
 	private int level;
-	private int timeLeft;
+	private int totalTime;
+	private long startTime;
 	private int treasureLeft;
 	private String[] keys = new String[MAX_KEYS];
 	private Position chapPos;
@@ -26,7 +27,8 @@ public class Game {
 	public Game(Tile[][] maze, int levelNumber, int totalTime, int row, int col) {
 		this.maze = maze;
 		this.level = levelNumber;
-		timeLeft = totalTime;
+		totalTime = totalTime;
+		startTime = System.currentTimeMillis();
 		treasureLeft = countTreasure();
 		chapPos = new Position(row, col);
 		maze[chapPos.getRow()][chapPos.getCol()].addActor("Chap");
@@ -254,5 +256,29 @@ public class Game {
 		return board;
 	}
 	
+	/**
+	 * Gets the maze for this level.
+	 * @return a 2d array of the tiles
+	 */
+	public Tile[][] getMaze(){
+		return maze;
+	}
+	
+	/**
+	 * Returns the time left in seconds.
+	 * @return an int of the seconds left
+	 */
+	public int timeLeft() {
+		int secondsBeen = (int) ((System.currentTimeMillis() - startTime) % 1000);
+		return totalTime - secondsBeen;
+	}
+	
+	/**
+	 * Get chaps current position.
+	 * @return the position of chap
+	 */
+	public Position getChap() {
+		return chapPos;
+	}
 	
 }
