@@ -145,10 +145,12 @@ public class Game {
 	public void pickup(Tile moveTo) {
 		if(moveTo.hasKey()) {
 			addKey(moveTo.getKey());
+			((Free)moveTo).removeKey();
 		} else if(moveTo.hasTreasure()) {
 			moveTo.removeTreasure();
-			assert(treasureLeft != countTreasure() + 1);
 			treasureLeft--;
+			assert(treasureLeft == countTreasure());
+			
 		}
 	}
 	
@@ -184,8 +186,9 @@ public class Game {
 	 */
 	public void removeKey(String key) {
 		for(int i = 0; i < MAX_KEYS; i++) {
-			if(keys[i] == key) {
+			if(keys[i] != null && keys[i].equals(key)) {
 				keys[i] = null;
+				return;
 			}
 		}
 		throw new IllegalArgumentException("Key was not in inventory to remove");
@@ -237,16 +240,18 @@ public class Game {
 	/**
 	 * Draws the maze on the screen, for testing purposes
 	 */
-	public void drawBoard() {
+	public String drawBoard() {
+		String board = "";
 		for (int row = 0; row < maze.length; row++) {
 			for (int col = 0; col < maze.length; col++) {
-				System.out.print(maze[row][col]);
-				System.out.print("|");
+				board += maze[row][col];
+				board += "|";
 				if (col == maze.length - 1) {
-					System.out.print("\n");
+					board += "\n";
 				}
 			}
 		}
+		return board;
 	}
 	
 	

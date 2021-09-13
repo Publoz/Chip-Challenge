@@ -35,6 +35,10 @@ public class Free extends AbstractTile{
 		return key;
 	}
 	
+	public void removeKey() {
+		this.key = "";
+	}
+	
 	@Override
 	public void removeTreasure() {
 		if(treasure) {
