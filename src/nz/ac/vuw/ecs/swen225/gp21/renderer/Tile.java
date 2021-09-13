@@ -8,9 +8,11 @@ import java.io.IOException;
 
 
 public class Tile {
+    int x, y;
     BufferedImage img = null;
-    public Tile() {
-
+    public Tile(int xpos, int ypos) {
+        this.x = xpos;
+        this.y = ypos;
 
         try {
             img = ImageIO.read(Tile.class.getResource("tile.png"));
@@ -20,7 +22,7 @@ public class Tile {
     }
 
     public void draw(Graphics g){
-        g.drawImage(img, 1, 1, new ImageObserver() {
+        g.drawImage(img, this.x*66, this.y*66, new ImageObserver() {
             @Override
             public boolean imageUpdate(Image img, int infoflags, int x, int y, int width, int height) {
                 return false;

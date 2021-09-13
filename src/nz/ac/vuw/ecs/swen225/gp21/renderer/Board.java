@@ -15,8 +15,11 @@ public class Board {
     private Tile[][] tiles = new Tile[9][9];
 
     public Board() {
-        for (Tile[] row: tiles) {
-            Arrays.fill(row, new Tile());
+
+        for (int i = 0; i < tiles.length; i++) {
+            for (int j = 0; j < tiles[i].length; j++) {
+                tiles[i][j] = new Tile(i, j);
+            }
         }
 
         gameBoard = new JComponent() {
@@ -27,6 +30,8 @@ public class Board {
         mainFrame = new MainFrame("Chip's Challenge-Level " + "1");
         mainFrame.setLayout(null);
         int gameBoardWidth = mainFrame.getWidth() * 2 / 3;
+        int tileSize = gameBoardWidth/9;
+        System.out.println(tileSize);
         int boardBorder = border(gameBoardWidth, mainFrame.getHeight());
         gameBoard.setBounds(boardBorder, boardBorder, gameBoardWidth - 2 * boardBorder, mainFrame.getHeight() - 3 * boardBorder);
         gameBoard.setBackground(new Color(190, 190, 190));
