@@ -122,16 +122,26 @@ public class GUI {
 	
 	private void CtrlPressedActions(KeyEvent e) {
 		if(e.getKeyCode()==88) {
-			//JOptionPane.showOptionDialog(mainFrame, "Game is not saved. Are you sure you want to exit?", null, JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.INFORMATION_MESSAGE, null, new Object[]{""}, null);
-			JOptionPane.showConfirmDialog(new JFrame(),"Game is not saved. Are you sure you want to exit?");
+			int result = JOptionPane.showOptionDialog(mainFrame, "Game is not saved. Do you want to save it before exiting?", null, JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.INFORMATION_MESSAGE, null, new Object[]{"Yes", "No", "Cancel"}, null);
+			if(result!=JOptionPane.CANCEL_OPTION) {
+				if(result==JOptionPane.YES_OPTION) {
+				XMLSaveLoad.save(currentGame);
+				}
+				mainFrame.setVisible(false);
+				mainFrame.dispose();
+			}
 		}else if(e.getKeyCode()==83) {
+			XMLSaveLoad.save(currentGame);
+			mainFrame.setVisible(false);
+			mainFrame.dispose();
 			JOptionPane.showMessageDialog(new JFrame(),"Saved and Exiting the game.");
 		}else if(e.getKeyCode()==82) {
-			currentGame = XMLSaveLoad.load();
 			JOptionPane.showMessageDialog(new JFrame(),"Resuming an already saved game.");
 		}else if(e.getKeyCode()==49) {
+			currentGame = XMLSaveLoad.load();
 			JOptionPane.showMessageDialog(new JFrame(),"Start a game from level 1.");
 		}else if(e.getKeyCode()==50) {
+			currentGame = XMLSaveLoad.load();
 			JOptionPane.showMessageDialog(new JFrame(),"Start a game from level 2.");
 		} 
 	}

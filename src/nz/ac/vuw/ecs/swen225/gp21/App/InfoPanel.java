@@ -15,6 +15,7 @@ import javax.swing.JTextPane;
 
 public class InfoPanel extends JPanel{
 	String fontFilename="C:/Users/mjmof/eclipse-workspace/chip-challenge/src/nz/ac/vuw/ecs/swen225/gp21/App/digital-7.ttf";
+	
 
 	public InfoPanel(String text, int value) throws FontFormatException, IOException {
 		this.setLayout(new GridLayout(2, 1));
@@ -46,5 +47,9 @@ public class InfoPanel extends JPanel{
 		
 		this.add(infoLabel);
 		this.add(valuePanel);
+	}
+	
+	public void updateValue(int value) {
+		
 	}
 }
