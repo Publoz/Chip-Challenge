@@ -21,12 +21,13 @@ public class XMLSaveLoad {
 	 * 
 	 * With help from YouTube:
 	 * https://www.youtube.com/watch?v=H-aTpt4NG-s
+	 * @param level  Identifies which level to be loaded by the load method. 
 	 * @return	loaded level. 
 	 */
 	
-	public static Game load() {
+	public static Game load(int level) {
 		try {
-			FileInputStream fis = new FileInputStream(new File("./src/nz/ac/vuw/ecs/swen225/gp21/Persistency/levels/level1.xml"));
+			FileInputStream fis = new FileInputStream(new File("./src/nz/ac/vuw/ecs/swen225/gp21/Persistency/levels/level" + level + ".xml"));
 			XMLDecoder decoder = new XMLDecoder(fis);
 			Game loaded = (Game) decoder.readObject();
 			decoder.close();
