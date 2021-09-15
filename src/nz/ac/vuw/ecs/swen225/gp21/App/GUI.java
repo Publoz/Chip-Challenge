@@ -16,6 +16,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
@@ -28,8 +29,9 @@ public class GUI {
 	
 	
 	
-	private JFrame mainFrame;
-	private int level = 1;
+	private MainFrame mainFrame;
+	private int level;
+	private int timeLeft;
 	private boolean ctrlPressed = false;
 	
 	
@@ -40,6 +42,60 @@ public class GUI {
 		//set name and icon of the frame
 		mainFrame = new MainFrame("Chip's Challenge-Level "+level);
 		mainFrame.setLayout(null);
+		
+		
+		//create the menu bar		
+		JMenuItem saveMenuItem = mainFrame.getSaveItem();
+		saveMenuItem.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				XMLSaveLoad.save(currentGame);
+				JOptionPane.showMessageDialog(mainFrame, "Game Saved!");
+			}
+		});
+		mainFrame.setSaveItem(saveMenuItem);
+		
+		JMenuItem loadMenuItem = mainFrame.getLoadItem();
+		loadMenuItem.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				//XMLSaveLoad.load();
+				updateInfo();
+				JOptionPane.showMessageDialog(mainFrame, "Loading already saved game!");
+			}
+		});
+		mainFrame.setLoadItem(loadMenuItem);
+		
+		JMenuItem level1MenuItem = mainFrame.getLevel1Item();
+		level1MenuItem.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				currentGame = XMLSaveLoad.load(1);
+				updateInfo();
+			}
+		});
+		mainFrame.setLevel1Item(level1MenuItem);
+		
+		JMenuItem level2MenuItem = mainFrame.getLevel2Item();
+		level2MenuItem.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				currentGame = XMLSaveLoad.load(2);
+				updateInfo();
+			}
+		});
+		mainFrame.setLevel2Item(level2MenuItem);
+		
+		mainFrame.createMenuBar();
+		
 		
 		
 		//game board panel settings
@@ -73,7 +129,7 @@ public class GUI {
 		levelInfoPanel.add(chipsPanel);
 		levelInfoPanel.add(collectedItemsPanel);
 		
-		
+		//adding keyboard listeners
 		mainFrame.setFocusable(true);
 	    mainFrame.requestFocus();
 	    mainFrame.requestFocusInWindow();
@@ -136,12 +192,15 @@ public class GUI {
 			mainFrame.dispose();
 			JOptionPane.showMessageDialog(new JFrame(),"Saved and Exiting the game.");
 		}else if(e.getKeyCode()==82) {
+			updateInfo();
 			JOptionPane.showMessageDialog(new JFrame(),"Resuming an already saved game.");
 		}else if(e.getKeyCode()==49) {
-			currentGame = XMLSaveLoad.load();
+			currentGame = XMLSaveLoad.load(1);
+			updateInfo();
 			JOptionPane.showMessageDialog(new JFrame(),"Start a game from level 1.");
 		}else if(e.getKeyCode()==50) {
-			currentGame = XMLSaveLoad.load();
+			currentGame = XMLSaveLoad.load(2);
+			updateInfo();
 			JOptionPane.showMessageDialog(new JFrame(),"Start a game from level 2.");
 		} 
 	}
@@ -166,6 +225,11 @@ public class GUI {
 			currentGame.moveChap("s");
 			JOptionPane.showMessageDialog(new JFrame(),"Moving down");
 		}
+	}
+	
+	private void updateInfo() {
+		this.level = currentGame.getLevel();
+		this.timeLeft = currentGame.timeLeft();
 	}
 	
 	

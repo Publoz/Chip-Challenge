@@ -2,6 +2,7 @@ package nz.ac.vuw.ecs.swen225.gp21.App;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.FontFormatException;
 import java.awt.GraphicsEnvironment;
@@ -28,8 +29,9 @@ public class InfoPanel extends JPanel{
 		valuePanel.setSize(this.getWidth(), this.getHeight());
 		valuePanel.setLayout(new BorderLayout());
 		JTextPane infoValue = new JTextPane();
-		infoValue.setText("\t  "+value);
-		//infoValue.setSize(this.getWidth()/3, this.getHeight()/3);
+		infoValue.setPreferredSize(new Dimension(10, 20));
+		infoValue.setText("\t "+value);
+		infoValue.setSize(20, 30);
 		infoValue.setBackground(Color.black);
 		infoValue.setForeground(Color.GREEN);
 		

@@ -27,7 +27,7 @@ public class Game {
 	public Game(Tile[][] maze, int levelNumber, int totalTime, int row, int col) {
 		this.maze = maze;
 		this.level = levelNumber;
-		totalTime = totalTime;
+		this.totalTime = totalTime;
 		startTime = System.currentTimeMillis();
 		treasureLeft = countTreasure();
 		chapPos = new Position(row, col);
@@ -279,6 +279,10 @@ public class Game {
 	 */
 	public Position getChap() {
 		return chapPos;
+	}
+
+	public int getLevel() {
+		return level;
 	}
 	
 }
