@@ -258,7 +258,6 @@ public class Game {
 	
 	/**
 	 * Gets the maze for this level.
-	 * @return a 2d array of the tiles
 	 */
 	public Tile[][] getMaze(){
 		return maze;

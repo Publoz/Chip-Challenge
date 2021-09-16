@@ -11,6 +11,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -30,15 +33,25 @@ public class GUI {
 	
 	
 	private MainFrame mainFrame;
+	InfoPanel levelPanel;
+	InfoPanel timePanel;
+	InfoPanel chipsPanel;
+	
+	
 	private int level;
-	private int timeLeft;
+	private int timeLeft=100;
 	private boolean ctrlPressed = false;
+	private boolean gameOn = false;
+	
+	private TimerTask task;
+    private Timer timer;
+	
 	
 	
 	private Game currentGame;
 	
 	
-	public GUI() throws FontFormatException, IOException {
+	public GUI() throws FontFormatException, IOException, InterruptedException {
 		//set name and icon of the frame
 		mainFrame = new MainFrame("Chip's Challenge-Level "+level);
 		mainFrame.setLayout(null);
@@ -114,9 +127,9 @@ public class GUI {
 		levelInfoPanel.setBackground(new Color(190,190,190));
 		
 		
-		InfoPanel levelPanel = new InfoPanel("LEVEL", level);
-		InfoPanel timePanel = new InfoPanel("TIME", 100);
-		InfoPanel chipsPanel = new InfoPanel("CHIPS LEFT", 0);
+		levelPanel = new InfoPanel("LEVEL", level);
+		timePanel = new InfoPanel("TIME", 100);
+		chipsPanel = new InfoPanel("CHIPS LEFT", 0);
 		
 		JTable collectedItemsPanel = new JTable(2, 4);
 		collectedItemsPanel.setShowGrid(true);
@@ -162,7 +175,10 @@ public class GUI {
 				}
 			}
 		});
+	
 		
+		
+		startTimer(true);
 		
 		mainFrame.add(gameBoard);
 		mainFrame.add(levelInfoPanel);
@@ -209,7 +225,11 @@ public class GUI {
 	
 	private void CtrlNotPressedActions(KeyEvent e) {
 		if(e.getKeyCode()==32) {
-			JOptionPane.showOptionDialog(mainFrame, "Game is paused", null, JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE, null, new Object[]{}, null);
+			startTimer(false);
+			int optionChosen = JOptionPane.showOptionDialog(mainFrame, "Game is paused", null, JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE, null, new Object[]{}, null);
+			if(optionChosen==JOptionPane.CLOSED_OPTION) {
+				startTimer(true);
+			}
 		}else if(e.getKeyCode()==27) {
 			//JOptionPane.showMessageDialog(new JFrame(),"Resumes the game.");
 		}else if(e.getKeyCode()==37) {
@@ -233,9 +253,28 @@ public class GUI {
 	}
 	
 	
+	private void startTimer(boolean gameOn) {
+		if(gameOn) {
+			 task = new TimerTask() {
+			        public void run() {
+			        	timePanel.updateValue(timeLeft--);
+			        }
+			    };
+			timer = new Timer("Timer");
+	    	timer.schedule(task, 0, 1000);
+	    }else if(timer!=null){
+	    	timer.cancel();
+	    	task=null;
+	    	timer = null;
+	    }
+		
+	}
 	
 	
-	public static void main(String[] args) throws FontFormatException, IOException {
+	
+	
+	public static void main(String[] args) throws FontFormatException, IOException, InterruptedException {
+		//Timer update
 		new GUI();
 	}
 }

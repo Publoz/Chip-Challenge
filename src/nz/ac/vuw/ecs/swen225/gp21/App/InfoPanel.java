@@ -16,7 +16,7 @@ import javax.swing.JTextPane;
 
 public class InfoPanel extends JPanel{
 	String fontFilename="C:/Users/mjmof/eclipse-workspace/chip-challenge/src/nz/ac/vuw/ecs/swen225/gp21/App/digital-7.ttf";
-	
+	private JTextPane infoValue;
 
 	public InfoPanel(String text, int value) throws FontFormatException, IOException {
 		this.setLayout(new GridLayout(2, 1));
@@ -28,7 +28,7 @@ public class InfoPanel extends JPanel{
 		JPanel valuePanel = new JPanel();
 		valuePanel.setSize(this.getWidth(), this.getHeight());
 		valuePanel.setLayout(new BorderLayout());
-		JTextPane infoValue = new JTextPane();
+		infoValue = new JTextPane();
 		infoValue.setPreferredSize(new Dimension(10, 20));
 		infoValue.setText("\t "+value);
 		infoValue.setSize(20, 30);
@@ -52,6 +52,6 @@ public class InfoPanel extends JPanel{
 	}
 	
 	public void updateValue(int value) {
-		
+		infoValue.setText("\t "+value);
 	}
 }
