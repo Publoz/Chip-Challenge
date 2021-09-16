@@ -1,6 +1,8 @@
-<Game levelNumber="1" totalTime="120" row="2" col="2">
+<Game levelNumber="1" totalTime="120" row="1" col="1">
 	<Tiles>
-		<Free key='""' treasure="false"></Free>
-		<Free key='""' treasure="false"></Free>
-		<Free key='""' treasure="false"></Free>
-		<Free key='""' treasure="false"></Free></Tiles></Game>
+		<Items>
+			<Tile type="Free" key='""' treasure="False"></Tile>
+			<Tile type="Free" key='""' treasure="False"></Tile></Items>
+		<Items>
+			<Tile type="Free" key='""' treasure="False"></Tile>
+			<Tile type="Free" key='""' treasure="False"></Tile></Items></Tiles></Game>
