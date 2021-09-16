@@ -1,4 +1,4 @@
-<Game levelNumber="1" totalTime="120" row="2" col="2">
+<Game levelNumber="1" totalTime="120" row="1" col="1">
 	<Tiles>
 		<Items>
 			<Tile type="Free" key='""' treasure="False"></Tile>
