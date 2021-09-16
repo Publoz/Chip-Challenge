@@ -15,7 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextPane;
 
 public class InfoPanel extends JPanel{
-	String fontFilename="C:/Users/mjmof/eclipse-workspace/chip-challenge/src/nz/ac/vuw/ecs/swen225/gp21/App/digital-7.ttf";
+	String fontFilename="../chip-challenge/src/nz/ac/vuw/ecs/swen225/gp21/App/digital-7.ttf";
 	private JTextPane infoValue;
 
 	public InfoPanel(String text, int value) throws FontFormatException, IOException {
@@ -34,23 +34,23 @@ public class InfoPanel extends JPanel{
 		infoValue.setSize(20, 30);
 		infoValue.setBackground(Color.black);
 		infoValue.setForeground(Color.GREEN);
-		
+
 		Font font = Font.createFont(Font.TRUETYPE_FONT, new File(fontFilename));
 		font = font.deriveFont(Font.BOLD,50);
 
 		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
 		ge.registerFont(font);
-		
-		
+
+
 		infoValue.setFont(font);
 		infoValue.setEditable(false);
-		
+
 		valuePanel.add(infoValue, BorderLayout.CENTER);
-		
+
 		this.add(infoLabel);
 		this.add(valuePanel);
 	}
-	
+
 	public void updateValue(int value) {
 		infoValue.setText("\t "+value);
 	}
