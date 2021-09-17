@@ -1,40 +1,68 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Game levelNumber="1" totalTime="43" row="2" col="2">
+<Game levelNumber="1" totalTime="60" row="2" col="2">
   <Tiles>
-    <Items>
-      <Tile type="Wall" />
-      <Tile type="Wall" />
-      <Tile type="Wall" />
-      <Tile type="Wall" />
-      <Tile type="Wall" />
-    </Items>
-    <Items>
-      <Tile type="Wall" />
-      <Tile type="Free" key="" treasure="false" />
-      <Tile type="Free" key="" treasure="false" />
-      <Tile type="Free" key="" treasure="false" />
-      <Tile type="Wall" />
-    </Items>
-    <Items>
-      <Tile type="Wall" />
-      <Tile type="Free" key="" treasure="false" />
-      <Tile type="Free" key="" treasure="false" />
-      <Tile type="Free" key="" treasure="false" />
-      <Tile type="Wall" />
-    </Items>
-    <Items>
-      <Tile type="Wall" />
-      <Tile type="Free" key="" treasure="false" />
-      <Tile type="Free" key="" treasure="false" />
-      <Tile type="Free" key="" treasure="false" />
-      <Tile type="Wall" />
-    </Items>
-    <Items>
-      <Tile type="Wall" />
-      <Tile type="Wall" />
-      <Tile type="Wall" />
-      <Tile type="Wall" />
-      <Tile type="Wall" />
-    </Items>
+    <Row>
+      <Wall />
+      <Wall />
+      <Wall />
+      <Wall />
+      <Wall />
+      <Wall />
+      <Wall />
+    </Row>
+    <Row>
+      <Wall />
+      <Door colour="#" />
+      <Free key="" treasure="false" />
+      <Free key="" treasure="false" />
+      <Free key="" treasure="false" />
+      <Free key="" treasure="false" />
+      <Wall />
+    </Row>
+    <Row>
+      <Wall />
+      <Exit />
+      <Free key="" treasure="false" />
+      <Free key="" treasure="false" />
+      <Free key="" treasure="false" />
+      <Free key="" treasure="false" />
+      <Wall />
+    </Row>
+    <Row>
+      <Wall />
+      <ExitLock />
+      <Free key="" treasure="false" />
+      <Free key="" treasure="false" />
+      <Free key="" treasure="false" />
+      <Free key="" treasure="false" />
+      <Wall />
+    </Row>
+    <Row>
+      <Wall />
+      <Info info="Some information" />
+      <Free key="" treasure="false" />
+      <Free key="" treasure="false" />
+      <Free key="" treasure="false" />
+      <Free key="" treasure="false" />
+      <Wall />
+    </Row>
+    <Row>
+      <Wall />
+      <Free key="#" treasure="false" />
+      <Free key="" treasure="false" />
+      <Free key="" treasure="false" />
+      <Free key="" treasure="false" />
+      <Free key="" treasure="false" />
+      <Wall />
+    </Row>
+    <Row>
+      <Wall />
+      <Free key="" treasure="true" />
+      <Wall />
+      <Wall />
+      <Wall />
+      <Wall />
+      <Wall />
+    </Row>
   </Tiles>
 </Game>

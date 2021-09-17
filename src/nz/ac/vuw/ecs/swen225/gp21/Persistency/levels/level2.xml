@@ -1,0 +1,17 @@
+<Game levelNumber="2" totalTime="60" row="7" col="5">
+	<Tiles>
+		<Items>
+			<Tile type="Wall"></Tile>
+			<Tile type="Wall"></Tile>
+			<Tile type="Wall"></Tile>
+			<Tile type="Wall"></Tile>
+			<Tile type="Wall"></Tile>
+			<Tile type="Wall"></Tile>
+			<Tile type="Wall"></Tile>
+			<Tile type="Wall"></Tile>
+			<Tile type="Wall"></Tile>
+			<Tile type="Wall"></Tile>
+			<Tile type="Wall"></Tile></Items>
+		<Items>
+			<Tile type="Wall"></Tile>
+			<Tile type="Wall"></Tile></Items></Tiles></Game>

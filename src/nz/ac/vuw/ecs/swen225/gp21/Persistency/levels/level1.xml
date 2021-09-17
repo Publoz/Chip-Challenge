@@ -1,36 +1,39 @@
 <Game levelNumber="1" totalTime="120" row="2" col="2">
 	<Tiles>
-		<Items>
-			<Tile type = "Wall"></Tile>
-			<Tile type = "Wall"></Tile>
-			<Tile type = "Wall"></Tile>
-			<Tile type = "Wall"></Tile>
-			<Tile type = "Wall"></Tile></Items>
-		<Items>
-			<Tile type = "Wall"></Tile>
-			<Tile type="Free" key='""' treasure="False"></Tile>
-			<Tile type="Free" key='""' treasure="False"></Tile>
-			<Tile type="Free" key='""' treasure="False"></Tile>
-			<Tile type = "Wall"></Tile></Items>
-		<Items>
-			<Tile type = "Wall"></Tile>
-			<Tile type="Free" key='""' treasure="False"></Tile>
-			<Tile type="Free" key='""' treasure="False"></Tile>
-			<Tile type="Free" key='""' treasure="False"></Tile>
-			<Tile type = "Wall"></Tile></Items>
-		<Items>
-			<Tile type = "Wall"></Tile>
-			<Tile type="Free" key='""' treasure="False"></Tile>
-			<Tile type="Door" colour='"green"'></Tile>
-			<Tile type="Free" key='""' treasure="False"></Tile>
-			<Tile type = "Wall"></Tile></Items>
-		<Items>
-			<Tile type = "Wall"></Tile>
-			<Tile type = "Wall"></Tile>
-			<Tile type = "Wall"></Tile>
-			<Tile type = "Wall"></Tile>
-			<Tile type = "Wall"></Tile></Items>
-		
-		</Tiles>
-		</Game>
-			
+		<Row>
+			<Wall></Wall>
+			<Wall></Wall>
+			<Wall></Wall>
+			<Wall></Wall>
+			<Wall></Wall>
+		</Row>
+		<Row>
+			<Wall></Wall>
+			<Free key="" treasure="False"></Free>
+			<Free key="green" treasure="False"></Free>
+			<Free key="" treasure="False"></Free>
+			<Wall></Wall>
+		</Row>
+		<Row>
+			<Wall></Wall>
+			<Free key="" treasure="False"></Free>
+			<Free key="" treasure="False"></Free>
+			<Free key="" treasure="False"></Free>
+			<Wall></Wall>
+		</Row>
+		<Row>
+			<Wall></Wall>
+			<Free key="" treasure="False"></Free>
+			<Door colour="green"></Door>
+			<Free key="" treasure="False"></Free>
+			<Wall></Wall>
+		</Row>
+		<Row>
+			<Wall></Wall>
+			<Wall></Wall>
+			<Wall></Wall>
+			<Wall></Wall>
+			<Wall></Wall>
+		</Row>
+	</Tiles>
+</Game>
