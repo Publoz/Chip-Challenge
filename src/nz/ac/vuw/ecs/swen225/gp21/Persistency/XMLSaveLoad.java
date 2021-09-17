@@ -2,15 +2,10 @@ package nz.ac.vuw.ecs.swen225.gp21.Persistency;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NamedNodeMap;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
 
 import nz.ac.vuw.ecs.swen225.gp21.domain.Door;
 import nz.ac.vuw.ecs.swen225.gp21.domain.Free;
@@ -18,143 +13,166 @@ import nz.ac.vuw.ecs.swen225.gp21.domain.Game;
 import nz.ac.vuw.ecs.swen225.gp21.domain.Tile;
 import nz.ac.vuw.ecs.swen225.gp21.domain.Wall;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import java.io.File;
+import org.jdom2.Document;
+import org.jdom2.Element;
+import org.jdom2.JDOMException;
+import org.jdom2.input.SAXBuilder;
+import org.jdom2.output.Format;
+import org.jdom2.output.XMLOutputter;
 
-import javax.xml.namespace.NamespaceContext;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
+import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
+import java.util.List;
 
 public class XMLSaveLoad {
 
 	/**
-	 * Opens an XML file, converts it to a new Game object, and returns it.
+	 * Parses an XML file with the given filename and returns it as a new Game
+	 * object.
 	 * 
-	 * With help from Mkyong:
-	 * https://mkyong.com/java/how-to-read-xml-file-in-java-dom-parser/ With help
-	 * from Baeldung: https://www.baeldung.com/java-xpath
-	 * 
-	 * @param level Identifies which level to be loaded by the load method.
-	 * @return loaded level.
-	 * 
+	 * @param fileName In the format "name_of_file.xml"
+	 * @return The constructed game object.
 	 */
-	public static Game load(int level) {
-
+	// Help from https://mkyong.com/java/how-to-read-xml-file-in-java-jdom-example/
+	public static Game load(String fileName) {
 		try {
 			
-			File toLoad = new File("./src/nz/ac/vuw/ecs/swen225/gp21/Persistency/levels/level" + level + ".xml");
+			//Required steps to load XML document. 
+			SAXBuilder sax = new SAXBuilder();
+			Document doc = sax.build(new File("./src/nz/ac/vuw/ecs/swen225/gp21/Persistency/levels/" + fileName));
 			
-			//Steps required to parse XML:
-			FileInputStream fileIS = new FileInputStream(toLoad);
-			DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder builder = builderFactory.newDocumentBuilder();
-			Document xmlDocument = builder.parse(fileIS);
-			XPath xPath = XPathFactory.newInstance().newXPath();
+			//Get the "Game" element. 
+			Element root = doc.getRootElement();
 			
-			
-			//Get the root node (The Game node).
-			Node gameNode = (Node) xPath.compile("/Game").evaluate(xmlDocument, XPathConstants.NODE);
-			NamedNodeMap gameAttributes = gameNode.getAttributes();
+			//Get the attributes from the "Game" element. 
+			int levelNumber = Integer.parseInt(root.getAttributeValue("levelNumber"));
+			int totalTime = Integer.parseInt(root.getAttributeValue("totalTime"));
+			int chapRow = Integer.parseInt(root.getAttributeValue("row"));
+			int chapCol = Integer.parseInt(root.getAttributeValue("col"));
 
-			//Get attributes required for Game object constructor. 
-			int levelNumber = Integer.parseInt(gameAttributes.getNamedItem("levelNumber").getTextContent());
-			int totalTime = Integer.parseInt(gameAttributes.getNamedItem("totalTime").getTextContent());
-			int chapRow = Integer.parseInt(gameAttributes.getNamedItem("row").getTextContent());
-			int chapCol = Integer.parseInt(gameAttributes.getNamedItem("col").getTextContent());
+			//Get the parent element for all Tile elements.
+			Element tiles = root.getChild("Tiles");
 
-			//Get the list of lists of tiles. 
-			NodeList allTiles = (NodeList) xPath.compile("/Game/Tiles/Items").evaluate(xmlDocument, XPathConstants.NODESET);
-
-			//Calculate the rows and columns needed in our 2D array of tiles. 
-			int levelRows = allTiles.getLength();
-			NodeList tempColumn  = (NodeList) xPath.compile("/Game/Tiles/Items[1]/Tile").evaluate(xmlDocument, XPathConstants.NODESET); 
-			int levelCols = tempColumn.getLength();
+			//Calculate the rows and cols. We assume that the board is rectangular. 
+			int totalRows = tiles.getChildren().size();
+			int totalCols = tiles.getChildren().get(0).getChildren().size();
 			
-			//Initialise empty tiles 2D array. 
-			Tile[][] tiles = new Tile[levelRows][levelCols];
+			//Construct a 2D array using calculated dimensions.
+			Tile[][] maze = new Tile[totalRows][totalCols];
 
-			
-			//Loop through each column and row of the XML:
-			for (int x = 0; x < levelRows; x++) {
-				
-				//Grab all of the tiles within column at position x:
-				NodeList column = (NodeList) xPath.compile("/Game/Tiles/Items[" + (x + 1) + "]").evaluate(xmlDocument,
-						XPathConstants.NODESET);
+			//Loop through tiles element and construct tile objects using its children. 
+			for (int row = 0; row < totalRows; row++) {
+				Element currentItem = tiles.getChildren().get(row);
+				for (int col = 0; col < totalCols; col++) {
+					Element currentTile = currentItem.getChildren().get(col);
 					
-				for (int y = 0; y < levelCols; y++) {
-					
-					//Grab the tile at position (x, y):
-					Node tile = (Node) xPath.compile("/Game/Tiles/Items[" + (x + 1) + "]/Tile[" + (y + 1) + "]")
-							.evaluate(xmlDocument, XPathConstants.NODE);
-					
-					//Safety check, to ensure we don't have null pointer exceptions.
-					if (tile != null) {
-						
-						//Grab the attributes from the tile node. These will be used for constructing Tile objects.
-						NamedNodeMap tileAttributes = tile.getAttributes();
-						String type = tileAttributes.getNamedItem("type").getTextContent();
-
-						
-						//Create Tile subclass depending on "type" attribute. 
-						if (type.equals("Free")) {
-							
-							String key = tileAttributes.getNamedItem("key").getTextContent();
-							boolean treasure = Boolean
-									.parseBoolean(tileAttributes.getNamedItem("treasure").getTextContent());
-							
-							tiles[x][y] = new Free(key, treasure);
-							System.out.println(tiles[x][y].getClass());
-							
-						} else if (type.equals("Wall")) {
-							
-							tiles[x][y] = new Wall();
-							System.out.println(tiles[x][y].getClass());
-							
-						} else if (type.equals("Door")) {
-							
-							String colour = tileAttributes.getNamedItem("colour").getTextContent();
-							tiles[x][y] = new Door(colour);
-							System.out.println(tiles[x][y].getClass());
-							
-						}
-
+					//Find the currentTiles type and construct different subtypes of Tile depending on that attribute.
+					String type = currentTile.getAttributeValue("type");
+					if (type.equals("Free")) {
+						String key = currentTile.getAttributeValue("key");
+						boolean treasure = Boolean.parseBoolean(currentTile.getAttributeValue("treasure"));
+						maze[row][col] = new Free(key, treasure);
+					} else if (type.equals("Wall")) {
+						maze[row][col] = new Wall();
+					} else if (type.equals("Door")) {
+						String colour = currentTile.getAttributeValue("colour");
+						maze[row][col] = new Door(colour);
 					}
-
 				}
-				
 			}
-			
-			return new Game(tiles, levelNumber, totalTime, chapRow, chapCol);
 
-		} catch (ParserConfigurationException | SAXException | IOException | XPathExpressionException e) {
-			System.out.println("Error loading level. Please ensure XML syntax is correct.");
+			return new Game(maze, levelNumber, totalTime, chapRow, chapCol);
+
+		} catch (IOException | JDOMException e) {
+			System.out.println("Error loading file." + e);
 		}
-		//Load failed, return null. 
+
+		//Could not load file. Return null. 
 		return null;
-		
 	}
 
 	/**
 	 * Saves the given game object to an XML file.
 	 * 
-	 * With help from YouTube: https://www.youtube.com/watch?v=H-aTpt4NG-s
+	 * With help from: https://www.journaldev.com/1211/jdom-write-xml-file-example-object
+	 * 
+	 * @param game	The object to convert to XML.  
+	 * @param outputFileName 	The filename to save it to. (Should be in the format "file_name.xml")
+	 *
 	 */
-	public static void save(Game game) {
+	public static void save(Game game, String outputFileName) {
+		
+		Document doc = new Document();
+		
+		//Create our root element and save it to a variable. 
+		doc.setRootElement(new Element("Game"));
+		Element root = doc.getRootElement();
 
+		//Add the game parameters as attributes. 
+		root.setAttribute("levelNumber", "" + game.getLevel());
+		root.setAttribute("totalTime", "" + game.timeLeft());
+		root.setAttribute("row", "" + game.findChap().getRow());
+		root.setAttribute("col", "" + game.findChap().getCol());
+
+		//Create a parent element which will contain all child Tiles. 
+		Element allTiles = new Element("Tiles");
+
+		Tile[][] maze = game.getMaze();
+		
+		//Loop through all indices of the maze:
+		for (int row = 0; row < maze.length; row++) {
+			//Get the current row of tiles. 
+			Element items = new Element("Items");
+			for (int col = 0; col < maze[row].length; col++) {
+				
+				Tile tileObject = maze[row][col];
+				
+				//Construct a tileElement to put all information from tileObject into. 
+				Element tileElement = new Element("Tile");
+				String tileClassName = tileObject.getClass().getSimpleName();
+				tileElement.setAttribute("type", tileClassName);
+				
+				//Save different attributes to tileElement depending on its type. 
+				if (tileObject instanceof Free) {
+					tileElement.setAttribute("key", ((Free) tileObject).getKey());
+					tileElement.setAttribute("treasure", "" + ((Free) tileObject).hasTreasure());
+				} else if (tileObject instanceof Door) {
+					tileElement.setAttribute("colour", ((Door) tileObject).getColour());
+				}
+				
+				//We can now add tileElement as a child of items. 
+				items.getChildren().add(tileElement);
+			}
+			//The row is complete. We can now add it as a child of allTiles. 
+			allTiles.getChildren().add(items);
+		}
+		
+		//We can now add the parent tile element as a child of root. 
+		root.getChildren().add(allTiles);
+
+		XMLOutputter xmlOutputter = new XMLOutputter(Format.getPrettyFormat());
+		try {
+			xmlOutputter.output(doc,
+					new FileOutputStream("./src/nz/ac/vuw/ecs/swen225/gp21/Persistency/levels/" + outputFileName));
+		} catch (IOException e) {
+			System.out.println("Error saving XML: " + e);
+		}
 	}
 
 	public static void main(String args[]) {
 
-		System.out.println(load(1).toString());
+		load("level1.xml");
+
+		Tile[][] board = new Tile[2][2];
+		board[0][0] = new Free("", false);
+		board[1][0] = new Door("Green");
+		board[0][1] = new Wall();
+		board[1][1] = new Free("", false);
+
+		Game g = new Game(board, 60, 1, 1, 1);
+
+		save(g, "saved.xml");
+
 	}
 
 }

@@ -1,4 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<java version="14" class="java.beans.XMLDecoder">
- <null/>
-</java>
+<Game levelNumber="1" totalTime="43" row="2" col="2">
+  <Tiles>
+    <Items>
+      <Tile type="Wall" />
+      <Tile type="Wall" />
+      <Tile type="Wall" />
+      <Tile type="Wall" />
+      <Tile type="Wall" />
+    </Items>
+    <Items>
+      <Tile type="Wall" />
+      <Tile type="Free" key="" treasure="false" />
+      <Tile type="Free" key="" treasure="false" />
+      <Tile type="Free" key="" treasure="false" />
+      <Tile type="Wall" />
+    </Items>
+    <Items>
+      <Tile type="Wall" />
+      <Tile type="Free" key="" treasure="false" />
+      <Tile type="Free" key="" treasure="false" />
+      <Tile type="Free" key="" treasure="false" />
+      <Tile type="Wall" />
+    </Items>
+    <Items>
+      <Tile type="Wall" />
+      <Tile type="Free" key="" treasure="false" />
+      <Tile type="Free" key="" treasure="false" />
+      <Tile type="Free" key="" treasure="false" />
+      <Tile type="Wall" />
+    </Items>
+    <Items>
+      <Tile type="Wall" />
+      <Tile type="Wall" />
+      <Tile type="Wall" />
+      <Tile type="Wall" />
+      <Tile type="Wall" />
+    </Items>
+  </Tiles>
+</Game>
