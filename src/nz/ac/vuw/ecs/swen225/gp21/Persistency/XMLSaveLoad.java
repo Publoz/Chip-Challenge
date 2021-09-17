@@ -67,8 +67,6 @@ public class XMLSaveLoad {
 			int totalRows = tiles.getChildren().size();
 			int totalCols = tiles.getChildren().get(0).getChildren().size();
 
-			System.out.println("totalRows: " + totalRows);
-			System.out.println("totalCols: " + totalCols);
 			// Construct a 2D array using calculated dimensions.
 			Tile[][] maze = new Tile[totalRows][totalCols];
 
@@ -184,17 +182,6 @@ public class XMLSaveLoad {
 		} catch (IOException e) {
 			throw new IOException("Error saving XML: " + e);
 		}
-	}
-
-	public static void main(String args[]) {
-
-		try {
-			Game current = load("level1.xml");
-			System.out.println(current.drawBoard());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
 	}
 
 }

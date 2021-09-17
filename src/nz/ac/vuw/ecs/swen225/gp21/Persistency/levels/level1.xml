@@ -1,4 +1,4 @@
-<Game levelNumber="1" totalTime="120" row="2" col="2">
+<Game levelNumber="2" totalTime="60" row="8" col="5">
 	<Tiles>
 		<Row>
 			<Wall></Wall>
@@ -6,34 +6,129 @@
 			<Wall></Wall>
 			<Wall></Wall>
 			<Wall></Wall>
-		</Row>
+			<Wall></Wall>
+			<Wall></Wall>
+			<Wall></Wall>
+			<Wall></Wall>
+			<Wall></Wall>
+			<Wall></Wall></Row>
 		<Row>
 			<Wall></Wall>
-			<Free key="" treasure="False"></Free>
-			<Free key="green" treasure="False"></Free>
-			<Free key="" treasure="False"></Free>
-			<Wall></Wall>
-		</Row>
-		<Row>
+			<Free key="" treasure="True"></Free>
+			<Free key="" treasure="True"></Free>
 			<Wall></Wall>
 			<Free key="" treasure="False"></Free>
-			<Free key="" treasure="False"></Free>
-			<Free key="" treasure="False"></Free>
-			<Wall></Wall>
-		</Row>
-		<Row>
-			<Wall></Wall>
-			<Free key="" treasure="False"></Free>
-			<Door colour="green"></Door>
+			<Exit></Exit>
 			<Free key="" treasure="False"></Free>
 			<Wall></Wall>
-		</Row>
+			<Free key="" treasure="True"></Free>
+			<Free key="g" treasure="False"></Free>
+			<Wall></Wall></Row>
 		<Row>
 			<Wall></Wall>
 			<Wall></Wall>
+			<Free key="" treasure="True"></Free>
+			<Wall></Wall>
+			<Free key="" treasure="False"></Free>
+			<Free key="" treasure="False"></Free>
+			<Free key="" treasure="False"></Free>
+			<Wall></Wall>
+			<Free key="" treasure="True"></Free>
+			<Wall></Wall>
+			<Wall></Wall></Row>
+		<Row>
+			<Wall></Wall>
+			<Wall></Wall>
+			<Door colour = "y"></Door>
+			<Wall></Wall>
+			<Wall></Wall>
+			<ExitLock></ExitLock>
+			<Wall></Wall>
+			<Wall></Wall>
+			<Free key="" treasure="True"></Free>
+			<Wall></Wall>
+			<Wall></Wall></Row>
+		<Row>
+			<Wall></Wall>
+			<Free key="" treasure="False"></Free>
+			<Free key="" treasure="False"></Free>
+			<Free key="" treasure="False"></Free>
+			<Free key="" treasure="False"></Free>
+			<Free key="" treasure="False"></Free>
+			<Free key="" treasure="False"></Free>
+			<Free key="" treasure="False"></Free>
+			<Free key="" treasure="False"></Free>
+			<Free key="" treasure="False"></Free>
+			<Wall></Wall></Row>
+		<Row>
+			<Wall></Wall>
+			<Free key="" treasure="False"></Free>
+			<Free key="" treasure="False"></Free>
+			<Free key="" treasure="False"></Free>
+			<Free key="" treasure="False"></Free>
+			<Info info="Pick up all of the treasures to proceed to the next level."></Info>
+			<Free key="" treasure="False"></Free>
+			<Free key="" treasure="False"></Free>
+			<Free key="" treasure="False"></Free>
+			<Free key="" treasure="False"></Free>
+			<Wall></Wall></Row>
+		<Row>
+			<Wall></Wall>
+			<Free key="" treasure="False"></Free>
+			<Free key="" treasure="False"></Free>
+			<Free key="" treasure="False"></Free>
+			<Free key="" treasure="False"></Free>
+			<Free key="" treasure="False"></Free>
+			<Free key="" treasure="False"></Free>
+			<Free key="" treasure="False"></Free>
+			<Free key="" treasure="False"></Free>
+			<Free key="" treasure="False"></Free>
+			<Wall></Wall></Row>
+		<Row>
+			<Wall></Wall>
+			<Wall></Wall>
+			<Door colour="g"></Door>
+			<Wall></Wall>
+			<Free key="" treasure="False"></Free>
+			<Free key="" treasure="False"></Free>
+			<Free key="" treasure="False"></Free>
+			<Wall></Wall>
+			<Door colour="b"></Door>
+			<Wall></Wall>
+			<Wall></Wall></Row>
+		<Row>
+			<Wall></Wall>
+			<Wall></Wall>
+			<Free key="" treasure="True"></Free>
+			<Wall></Wall>
+			<Free key="" treasure="False"></Free>
+			<Free key="" treasure="False"></Free>
+			<Free key="" treasure="False"></Free>
+			<Wall></Wall>
+			<Free key="" treasure="True"></Free>
+			<Wall></Wall>
+			<Wall></Wall></Row>
+		<Row>
+			<Wall></Wall>
+			<Free key="b" treasure="False"></Free>
+			<Free key="" treasure="True"></Free>
+			<Wall></Wall>
+			<Free key="" treasure="False"></Free>
+			<Free key="" treasure="False"></Free>
+			<Free key="" treasure="False"></Free>
+			<Wall></Wall>
+			<Free key="" treasure="True"></Free>
+			<Free key="y" treasure="False"></Free>
+			<Wall></Wall></Row>
+		<Row>
 			<Wall></Wall>
 			<Wall></Wall>
 			<Wall></Wall>
-		</Row>
-	</Tiles>
-</Game>
+			<Wall></Wall>
+			<Wall></Wall>
+			<Wall></Wall>
+			<Wall></Wall>
+			<Wall></Wall>
+			<Wall></Wall>
+			<Wall></Wall>
+			<Wall></Wall></Row></Tiles></Game>
