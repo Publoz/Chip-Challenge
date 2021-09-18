@@ -19,6 +19,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -53,6 +54,7 @@ public class GUI {
 
 	public GUI() throws FontFormatException, IOException, InterruptedException {
 		//set name and icon of the frame
+		new StartingFrame("Chip's Challenge");
 		mainFrame = new MainFrame("Chip's Challenge-Level "+level);
 		mainFrame.setLayout(null);
 
@@ -64,8 +66,13 @@ public class GUI {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				XMLSaveLoad.save(currentGame);
-				JOptionPane.showMessageDialog(mainFrame, "Game Saved!");
+				int saving = save();
+				if(saving>0) {
+					JOptionPane.showMessageDialog(mainFrame, "Game Saved!");
+				}else {
+					JOptionPane.showMessageDialog(mainFrame,"Saving failed!");
+
+				}
 			}
 		});
 		mainFrame.setSaveItem(saveMenuItem);
@@ -89,8 +96,10 @@ public class GUI {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				currentGame = XMLSaveLoad.load(1);
-				updateInfo();
+				int loading = load("level1.xml");
+				if(loading<0) {
+					JOptionPane.showMessageDialog(mainFrame,"Saving failed!");
+				}
 			}
 		});
 		mainFrame.setLevel1Item(level1MenuItem);
@@ -101,12 +110,14 @@ public class GUI {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				currentGame = XMLSaveLoad.load(2);
-				updateInfo();
+				int loading = load("level2.xml");
+				if(loading<0) {
+					JOptionPane.showMessageDialog(mainFrame,"Saving failed!");
+				}
 			}
 		});
 		mainFrame.setLevel2Item(level2MenuItem);
-
+		
 		mainFrame.createMenuBar();
 
 
@@ -184,6 +195,9 @@ public class GUI {
 
 
 		startTimer(true);
+		
+		
+		
 
 		mainFrame.add(gameBoard);
 		mainFrame.add(levelInfoPanel);
@@ -197,18 +211,26 @@ public class GUI {
 		return (int)((0.05)*num);
 	}
 
-	private void CtrlPressedActions(KeyEvent e) {
+	private void CtrlPressedActions(KeyEvent e){
 		if(e.getKeyCode()==88) {
 			int result = JOptionPane.showOptionDialog(mainFrame, "Game is not saved. Do you want to save it before exiting?", null, JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.INFORMATION_MESSAGE, null, new Object[]{"Yes", "No", "Cancel"}, null);
 			if(result!=JOptionPane.CANCEL_OPTION) {
 				if(result==JOptionPane.YES_OPTION) {
-				XMLSaveLoad.save(currentGame);
+					int saving = save();
+					if(saving<0) {
+						JOptionPane.showMessageDialog(mainFrame,"Saving failed!");
+						return;
+					}
 				}
 				mainFrame.setVisible(false);
 				mainFrame.dispose();
 			}
 		}else if(e.getKeyCode()==83) {
-			XMLSaveLoad.save(currentGame);
+			int saving = save();
+			if(saving<0) {
+				JOptionPane.showMessageDialog(mainFrame,"Saving failed!");
+				return;
+			}
 			mainFrame.setVisible(false);
 			mainFrame.dispose();
 			JOptionPane.showMessageDialog(new JFrame(),"Saved and Exiting the game.");
@@ -216,13 +238,15 @@ public class GUI {
 			updateInfo();
 			JOptionPane.showMessageDialog(new JFrame(),"Resuming an already saved game.");
 		}else if(e.getKeyCode()==49) {
-			currentGame = XMLSaveLoad.load(1);
-			updateInfo();
-			JOptionPane.showMessageDialog(new JFrame(),"Start a game from level 1.");
+			int loading = load("level1.xml");
+			if(loading<0) {
+				JOptionPane.showMessageDialog(mainFrame,"Saving failed!");
+			}
 		}else if(e.getKeyCode()==50) {
-			currentGame = XMLSaveLoad.load(2);
-			updateInfo();
-			JOptionPane.showMessageDialog(new JFrame(),"Start a game from level 2.");
+			int loading = load("level2.xml");
+			if(loading<0) {
+				JOptionPane.showMessageDialog(mainFrame,"Saving failed!");
+			}
 		}
 	}
 
@@ -274,7 +298,32 @@ public class GUI {
 	    }
 
 	}
+	
+	
+	private int save() {
+			String saveFilename = JOptionPane.showInputDialog("Please enter a name for the file:");
+			if(saveFilename==null || saveFilename.equals("")) {
+				return -1;
+			}
+			try {
+				XMLSaveLoad.save(currentGame, saveFilename);
+				return 1;
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				return -1;
+			}
+	}
+	private int load(String filename) {
 
+		try {
+			currentGame = XMLSaveLoad.load(filename);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			return -1;
+		}
+		updateInfo();
+		return 1;
+	}
 
 
 

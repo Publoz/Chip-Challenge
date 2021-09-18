@@ -18,6 +18,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 public class MainFrame extends JFrame{
 
@@ -27,6 +28,7 @@ public class MainFrame extends JFrame{
 	
 	private JMenuItem level1Item = new JMenuItem("Level 1");
 	private JMenuItem level2Item = new JMenuItem("Level 2");
+	
 	
 	public MainFrame(String title) {
 		//set name and icon of the frame
@@ -53,14 +55,6 @@ public class MainFrame extends JFrame{
 				          frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 				      }
 				    });
-				
-				//Menu bar
-				JMenuBar menuBar = new JMenuBar();
-				
-				
-				JMenu gameMenu = new JMenu("Game");
-				gameMenu.add(saveItem);
-				gameMenu.add(loadItem);
 	}
 	
 	
