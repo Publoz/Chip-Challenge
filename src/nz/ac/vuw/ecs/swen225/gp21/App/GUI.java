@@ -15,19 +15,11 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTable;
-import javax.swing.JTextPane;
+import javax.swing.*;
 
 import nz.ac.vuw.ecs.swen225.gp21.Persistency.XMLSaveLoad;
 import nz.ac.vuw.ecs.swen225.gp21.domain.Game;
+import nz.ac.vuw.ecs.swen225.gp21.renderer.Board;
 
 public class GUI {
 
@@ -123,7 +115,8 @@ public class GUI {
 
 
 		//game board panel settings
-		JPanel gameBoard = new JPanel();
+		Board boarddd = new Board(this.currentGame);
+		JComponent gameBoard = boarddd.getGameBoard();
 		int gameBoardWidth = mainFrame.getWidth()*2/3;
 		int boardBorder = border(gameBoardWidth, mainFrame.getHeight());
 		gameBoard.setBounds(boardBorder, boardBorder, gameBoardWidth-2*boardBorder, mainFrame.getHeight()-3*boardBorder);
