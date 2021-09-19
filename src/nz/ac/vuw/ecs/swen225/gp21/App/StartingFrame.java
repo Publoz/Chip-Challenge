@@ -20,11 +20,14 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
+import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.TitledBorder;
 
 public class StartingFrame extends JFrame{
 	
 	
+	private int action = -1;
 	
 	public StartingFrame(String title) {
 		//set name and icon of the frame
@@ -50,10 +53,11 @@ public class StartingFrame extends JFrame{
 				
 				
 				JPanel optionsPanel = new JPanel();
+				optionsPanel.setBorder(new LineBorder(new Color(0, 120, 0), this.getHeight()/8, false));
 				optionsPanel.setLayout(new GridLayout(3, 1));
-				JButton startButton = createButton("Start Game", new Color(0, 120, 0), new Color(200, 0, 200));
-				JButton loadButton = createButton("Continue a saved Game", new Color(0, 120, 0), Color.YELLOW);
-				JButton infoButton = createButton("Continue a saved Game", new Color(0, 120, 0), Color.BLACK);
+				JButton startButton = createButton("Start Game", new Color(0, 120, 0), new Color(200, 0, 200),1);
+				JButton loadButton = createButton("Continue a saved Game", new Color(0, 120, 0), Color.YELLOW,2);
+				JButton infoButton = createButton("More Info", new Color(0, 120, 0), Color.BLACK,3);
 				optionsPanel.add(startButton);
 				optionsPanel.add(loadButton);
 				optionsPanel.add(infoButton);
@@ -70,7 +74,7 @@ public class StartingFrame extends JFrame{
 	}
 	
 	
-	private JButton createButton(String name, Color color1, Color color2) {
+	private JButton createButton(String name, Color color1, Color color2, int actionValue) {
 		JButton button = new JButton(name);
 		button.setFont(new Font("MV Boli", Font.HANGING_BASELINE, 25));
 		button.setBorder(new BevelBorder(BevelBorder.RAISED));
@@ -105,6 +109,7 @@ public class StartingFrame extends JFrame{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
+				setAction(actionValue);
 			}
 		});
 		return button;
@@ -114,5 +119,15 @@ public class StartingFrame extends JFrame{
 	
 	public static void main(String[] args) {
 		new StartingFrame("Chip's Challenge");
+	}
+
+
+	public int getAction() {
+		return action;
+	}
+
+
+	public void setAction(int action) {
+		this.action = action;
 	}
 }

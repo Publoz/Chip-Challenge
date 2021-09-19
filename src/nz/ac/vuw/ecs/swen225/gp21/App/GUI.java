@@ -54,7 +54,7 @@ public class GUI {
 
 	public GUI() throws FontFormatException, IOException, InterruptedException {
 		//set name and icon of the frame
-		new StartingFrame("Chip's Challenge");
+		//StartingFrame start = new StartingFrame("Chip's Challenge");
 		mainFrame = new MainFrame("Chip's Challenge-Level "+level);
 		mainFrame.setLayout(null);
 

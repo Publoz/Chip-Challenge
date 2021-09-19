@@ -13,6 +13,7 @@ import java.io.IOException;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
+import javax.swing.border.LineBorder;
 
 public class InfoPanel extends JPanel{
 	String fontFilename="../chip-challenge/src/nz/ac/vuw/ecs/swen225/gp21/App/digital-7.ttf";
@@ -29,6 +30,7 @@ public class InfoPanel extends JPanel{
 		valuePanel.setSize(this.getWidth(), this.getHeight());
 		valuePanel.setLayout(new BorderLayout());
 		infoValue = new JTextPane();
+		infoValue.setBorder(new LineBorder(new Color(190,190,190), 10));
 		infoValue.setPreferredSize(new Dimension(10, 20));
 		infoValue.setText("\t "+value);
 		infoValue.setSize(20, 30);
