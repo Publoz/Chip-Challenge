@@ -158,4 +158,26 @@ public class PersistencyTests {
 			fail();
 		}
 	}
+	
+	@Test
+	/**
+	 * Testing loading of level 1.
+	 */
+	public void test6() {
+		
+		try {
+			Game toLoad = XMLSaveLoad.load("level2.xml");
+			String original = toLoad.drawBoard();
+			System.out.println(original);
+			XMLSaveLoad.save(toLoad, "saved.xml");
+			toLoad = XMLSaveLoad.load("saved.xml");
+			String finalString = toLoad.drawBoard();
+			System.out.println(finalString);
+			assert(original.equals(finalString));
+
+			
+		} catch (IOException e) {
+			fail();
+		}
+	}
 }
