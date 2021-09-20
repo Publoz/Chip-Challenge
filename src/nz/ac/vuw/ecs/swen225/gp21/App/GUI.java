@@ -19,6 +19,7 @@ import javax.swing.*;
 
 import nz.ac.vuw.ecs.swen225.gp21.Persistency.XMLSaveLoad;
 import nz.ac.vuw.ecs.swen225.gp21.domain.Game;
+import nz.ac.vuw.ecs.swen225.gp21.recorder.RecordAndPlay;
 import nz.ac.vuw.ecs.swen225.gp21.renderer.Board;
 
 public class GUI {
@@ -35,6 +36,7 @@ public class GUI {
 	private int timeLeft=100;
 	private boolean ctrlPressed = false;
 	private boolean gameOn = false;
+	private RecordAndPlay gameHistory;
 
 	private TimerTask task;
     private Timer timer;
@@ -49,6 +51,7 @@ public class GUI {
 		//StartingFrame start = new StartingFrame("Chip's Challenge");
 		mainFrame = new MainFrame("Chip's Challenge-Level "+level);
 		mainFrame.setLayout(null);
+		load("level1.xml");
 
 
 		//create the menu bar
@@ -256,15 +259,19 @@ public class GUI {
 			//JOptionPane.showMessageDialog(new JFrame(),"Resumes the game.");
 		}else if(e.getKeyCode()==37) {
 			currentGame.moveChap("a");
+			gameHistory.addMoves("a");
 			JOptionPane.showMessageDialog(new JFrame(),"Moving left");
 		}else if(e.getKeyCode()==38) {
 			currentGame.moveChap("w");
+			gameHistory.addMoves("w");
 			JOptionPane.showMessageDialog(new JFrame(),"Moving up");
 		}else if(e.getKeyCode()==39) {
 			currentGame.moveChap("d");
+			gameHistory.addMoves("d");
 			JOptionPane.showMessageDialog(new JFrame(),"Moving right");
 		}else if(e.getKeyCode()==40) {
 			currentGame.moveChap("s");
+			gameHistory.addMoves("s");
 			JOptionPane.showMessageDialog(new JFrame(),"Moving down");
 		}
 	}
@@ -300,6 +307,7 @@ public class GUI {
 			}
 			try {
 				XMLSaveLoad.save(currentGame, saveFilename);
+				gameHistory.save(gameHistory);
 				return 1;
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -310,6 +318,7 @@ public class GUI {
 
 		try {
 			currentGame = XMLSaveLoad.load(filename);
+			gameHistory = new RecordAndPlay();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			return -1;
