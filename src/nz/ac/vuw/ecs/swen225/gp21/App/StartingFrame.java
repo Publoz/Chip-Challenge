@@ -2,8 +2,10 @@ package nz.ac.vuw.ecs.swen225.gp21.App;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.Font;
+import java.awt.FontFormatException;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Insets;
@@ -11,6 +13,9 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -27,7 +32,6 @@ import javax.swing.border.TitledBorder;
 public class StartingFrame extends JFrame{
 	
 	
-	private int action = -1;
 	
 	public StartingFrame(String title) {
 		//set name and icon of the frame
@@ -80,6 +84,7 @@ public class StartingFrame extends JFrame{
 		button.setBorder(new BevelBorder(BevelBorder.RAISED));
 		button.setBackground(color1);
 		button.setForeground(color2);
+		JFrame frame = this;
 		button.addMouseListener(new MouseListener() {
 			
 			@Override
@@ -109,7 +114,27 @@ public class StartingFrame extends JFrame{
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				// TODO Auto-generated method stub
-				setAction(actionValue);
+				//setAction(actionValue);
+				if(actionValue==1) {
+					try {
+						frame.setVisible(false);
+						frame.dispose();
+						new GUI("level1.xml");
+					} catch (FontFormatException | IOException | InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}else if(actionValue==2) {
+					
+				}else if(actionValue==3) {
+					Desktop d = Desktop.getDesktop();
+					try {
+						d.browse(new URI("https://en.wikipedia.org/wiki/Chip%27s_Challenge#:~:text=The%20premise%20of%20the%20game,very%20exclusive%20Bit%20Busters%20Club."));
+					} catch (IOException | URISyntaxException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
 			}
 		});
 		return button;
@@ -119,15 +144,5 @@ public class StartingFrame extends JFrame{
 	
 	public static void main(String[] args) {
 		new StartingFrame("Chip's Challenge");
-	}
-
-
-	public int getAction() {
-		return action;
-	}
-
-
-	public void setAction(int action) {
-		this.action = action;
 	}
 }

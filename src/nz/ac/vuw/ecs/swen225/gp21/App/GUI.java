@@ -46,12 +46,10 @@ public class GUI {
 	private Game currentGame;
 
 
-	public GUI() throws FontFormatException, IOException, InterruptedException {
-		//set name and icon of the frame
-		//StartingFrame start = new StartingFrame("Chip's Challenge");
+	public GUI(String filename) throws FontFormatException, IOException, InterruptedException {
+		load(filename);
 		mainFrame = new MainFrame("Chip's Challenge-Level "+level);
 		mainFrame.setLayout(null);
-		load("level1.xml");
 
 
 		//create the menu bar
@@ -286,6 +284,14 @@ public class GUI {
 		if(gameOn) {
 			 task = new TimerTask() {
 			        public void run() {
+			        	if(timeLeft==-1) {
+			        		startTimer(false);
+			        		JOptionPane.showMessageDialog(new JFrame(), "GAME OVER\nYou ran out of time!", "Game Over", JOptionPane.ERROR_MESSAGE);
+			        		mainFrame.setVisible(false);
+			        		mainFrame.dispose();
+			        		new StartingFrame("Chip's Challenge");
+			    	    	return;
+			        	}
 			        	timePanel.updateValue(timeLeft--);
 			        }
 			    };
@@ -331,6 +337,7 @@ public class GUI {
 
 	public static void main(String[] args) throws FontFormatException, IOException, InterruptedException {
 		//Timer update
-		new GUI();
+		//new GUI();
+		new StartingFrame("Chip's Challenge");
 	}
 }

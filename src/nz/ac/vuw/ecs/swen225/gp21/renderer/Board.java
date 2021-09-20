@@ -46,7 +46,7 @@ public class Board {
         gameBoard.setBackground(new Color(190, 190, 190));
         gameBoard.setLayout(new GridLayout(9, 9));
         mainFrame.add(gameBoard);
-        mainFrame.setVisible(true);
+        //mainFrame.setVisible(true);
 
     }
     //emulation code
