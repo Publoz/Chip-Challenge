@@ -8,11 +8,11 @@ public class Free extends AbstractTile{
 	/**
 	 * Constructor if this free tile contains something
 	 * 
-	 * @param key the colour of the key
+	 * @param key the colour of the key, made lowercase
 	 * @param treasure if this tile contains treasure
 	 */
 	public Free(String key, boolean treasure) {
-		this.key = key;
+		this.key = key.toLowerCase();
 		this.treasure = treasure;
 	}
 	

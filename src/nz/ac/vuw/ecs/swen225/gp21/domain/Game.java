@@ -6,10 +6,14 @@ public class Game {
 	
 	public static final int MAX_KEYS = 8;
 	
+	
 	private Tile[][] maze;
 	private int level;
 	private int totalTime;
 	private long startTime;
+	private long totalPauseTime = -1;
+	private long startPauseTime;
+	private boolean paused = false;
 	private int treasureLeft;
 	private String[] keys = new String[MAX_KEYS];
 	private Position chapPos;
@@ -47,11 +51,16 @@ public class Game {
 	 * @return a boolean if valid
 	 */
 	public boolean validMove(Position moveTo) {
+		
+		if(paused) {
+			return false;
+		}
+		
 		Tile moveToTile = maze[moveTo.getRow()][moveTo.getCol()];
 		if(moveToTile.canMoveHere()) {
 			return true;
 		} else if(moveToTile instanceof Door){
-			if(Arrays.asList(keys).contains(((Door)moveToTile).getColour())){
+			if(Arrays.asList(keys).contains(((Door)moveToTile).getColour().toLowerCase())){
 				return true;
 			} else {
 				return false;
@@ -85,7 +94,7 @@ public class Game {
 			pickup(moveToTile);
 			
 			if(moveToTile instanceof Door) {
-				removeKey(((Door)moveToTile).getColour());
+				removeKey(((Door)moveToTile).getColour().toLowerCase());
 				maze[moveToPos.getRow()][moveToPos.getCol()] = new Free();
 			} else if(moveToTile instanceof ExitLock) {
 				if(countTreasure() != 0) {
@@ -257,6 +266,27 @@ public class Game {
 	}
 	
 	/**
+	 * Method to pause the game and stop the clock from going down
+	 */
+	public void pauseGame() {
+		startPauseTime = System.currentTimeMillis();
+		paused = true;
+	}
+	
+	/**
+	 * Called when the user wants to resume game
+	 * updates the time paused
+	 */
+	public void resumeGame() {
+		if(startPauseTime < 0) {
+			throw new IllegalStateException("Pause was not initiated");
+		}
+		totalPauseTime += System.currentTimeMillis() - startPauseTime;
+		startPauseTime = -1;
+		paused = false;
+	}
+	
+	/**
 	 * Gets the maze for this level.
 	 */
 	public Tile[][] getMaze(){
@@ -265,11 +295,21 @@ public class Game {
 	
 	/**
 	 * Returns the time left in seconds.
+	 * Takes into account time paused
 	 * @return an int of the seconds left
 	 */
 	public int timeLeft() {
-		int secondsBeen = (int) ((System.currentTimeMillis() - startTime) % 1000);
-		return totalTime - secondsBeen;
+		if(paused) {
+			int secondsBeen = (int) ((System.currentTimeMillis() - startTime) / 1000);
+			int pause = (int) (totalPauseTime / 1000);
+			//need to account that current pause hasn't updated
+			int currentPause = (int) ((System.currentTimeMillis() - startPauseTime) / 1000); 
+			return ((totalTime - secondsBeen)) + (pause + currentPause);				
+		} else {
+			int secondsBeen = (int) ((System.currentTimeMillis() - startTime) / 1000);
+			int pause = (int) (totalPauseTime / 1000);
+			return (totalTime - secondsBeen) + pause;
+		}
 	}
 	
 	/**
@@ -282,6 +322,11 @@ public class Game {
 
 	public int getLevel() {
 		return level;
+	}
+	
+	
+	public long getStartTime() {
+		return startTime;
 	}
 	
 }
