@@ -254,10 +254,10 @@ public class Game {
 	public String drawBoard() {
 		String board = "";
 		for (int row = 0; row < maze.length; row++) {
-			for (int col = 0; col < maze.length; col++) {
+			for (int col = 0; col < maze[0].length; col++) {
 				board += maze[row][col];
 				board += "|";
-				if (col == maze.length - 1) {
+				if (col == maze[0].length - 1) {
 					board += "\n";
 				}
 			}
