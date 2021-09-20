@@ -1,17 +1,13 @@
 package nz.ac.vuw.ecs.swen225.gp21.App;
 
 import java.awt.Color;
-import java.awt.Font;
 import java.awt.FontFormatException;
-import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.io.File;
 import java.io.IOException;
-import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -44,6 +40,7 @@ public class GUI {
 
 
 	private Game currentGame;
+	private Board renderBoard;
 
 
 	public GUI(String filename) throws FontFormatException, IOException, InterruptedException {
@@ -116,8 +113,8 @@ public class GUI {
 
 
 		//game board panel settings
-		Board boarddd = new Board(this.currentGame);
-		JComponent gameBoard = boarddd.getGameBoard();
+		renderBoard = new Board(this.currentGame);
+		JComponent gameBoard = renderBoard.getGameBoard();
 		int gameBoardWidth = mainFrame.getWidth()*2/3;
 		int boardBorder = border(gameBoardWidth, mainFrame.getHeight());
 		gameBoard.setBounds(boardBorder, boardBorder, gameBoardWidth-2*boardBorder, mainFrame.getHeight()-3*boardBorder);
@@ -258,20 +255,21 @@ public class GUI {
 		}else if(e.getKeyCode()==37) {
 			currentGame.moveChap("a");
 			gameHistory.addMoves("a");
-			JOptionPane.showMessageDialog(new JFrame(),"Moving left");
+			//JOptionPane.showMessageDialog(new JFrame(),"Moving left");
 		}else if(e.getKeyCode()==38) {
 			currentGame.moveChap("w");
 			gameHistory.addMoves("w");
-			JOptionPane.showMessageDialog(new JFrame(),"Moving up");
+			//JOptionPane.showMessageDialog(new JFrame(),"Moving up");
 		}else if(e.getKeyCode()==39) {
 			currentGame.moveChap("d");
 			gameHistory.addMoves("d");
-			JOptionPane.showMessageDialog(new JFrame(),"Moving right");
+			//JOptionPane.showMessageDialog(new JFrame(),"Moving right");
 		}else if(e.getKeyCode()==40) {
 			currentGame.moveChap("s");
 			gameHistory.addMoves("s");
-			JOptionPane.showMessageDialog(new JFrame(),"Moving down");
+			//JOptionPane.showMessageDialog(new JFrame(),"Moving down");
 		}
+		renderBoard.redraw(renderBoard.getGameBoard().getGraphics());
 	}
 
 	private void updateInfo() {
