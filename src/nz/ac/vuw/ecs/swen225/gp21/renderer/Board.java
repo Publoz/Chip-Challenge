@@ -15,14 +15,14 @@ public class Board {
     Graphics g;
     private JFrame mainFrame;
     private JComponent gameBoard;
-    private ArrayList<RenderTile> renderTiles = new ArrayList();
+    private RenderTile[][] renderTiles;
     private Tile[][] maze;
     private Position chapPos;
     private Game game;
     public Board(Game game) {
         this.game = game;
         this.maze = game.getMaze();
-
+        renderTiles = new RenderTile[maze.length][maze.length];
         /**
         for (int i = 0; i < tiles.length; i++) {
             for (int j = 0; j < tiles[i].length; j++) {
@@ -58,14 +58,11 @@ public class Board {
         chapPos = game.getChap();
         for (int row = 0; row < maze.length; row++) {
             for (int col = 0; col < maze.length; col++) {
-                renderTiles.add( new RenderTile(col, row, maze[row][col].toString()));
+                renderTiles[col][row] = ( new RenderTile(col- chapPos.getCol() + 4, row - chapPos.getRow() + 4, maze[row][col].toString()));
+                renderTiles[col][row].draw(g);
             }
         }
 
-
-        for(RenderTile t : renderTiles){
-            t.draw(g);
-        }
     }
 
 
