@@ -58,7 +58,7 @@ public class Board {
         chapPos = game.getChap();
         for (int row = 0; row < maze.length; row++) {
             for (int col = 0; col < maze.length; col++) {
-                renderTiles.add( new RenderTile(row, col, maze[row][col].toString()));
+                renderTiles.add( new RenderTile(col, row, maze[row][col].toString()));
             }
         }
 
@@ -69,11 +69,6 @@ public class Board {
     }
 
 
-
-    public static void main(String[] args) throws FontFormatException, IOException {
-        Game currentGame = XMLSaveLoad.load("level1.xml");
-        new Board(currentGame);
-    }
 
     public JComponent getGameBoard(){
         return this.gameBoard;
