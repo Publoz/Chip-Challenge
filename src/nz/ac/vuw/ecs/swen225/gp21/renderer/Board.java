@@ -40,7 +40,6 @@ public class Board {
         mainFrame.setLayout(null);
         int gameBoardWidth = mainFrame.getWidth() * 2 / 3;
         int tileSize = gameBoardWidth/9;
-        System.out.println(tileSize);
         int boardBorder = border(gameBoardWidth, mainFrame.getHeight());
         gameBoard.setBounds(boardBorder, boardBorder, gameBoardWidth - 2 * boardBorder, mainFrame.getHeight() - 3 * boardBorder);
         gameBoard.setBackground(new Color(190, 190, 190));
@@ -59,14 +58,12 @@ public class Board {
         chapPos = game.getChap();
         for (int row = 0; row < maze.length; row++) {
             for (int col = 0; col < maze.length; col++) {
-                System.out.println("\""+maze[row][col].getKey()+"\"");
                 renderTiles.add( new RenderTile(row, col, maze[row][col].toString()));
             }
         }
 
 
         for(RenderTile t : renderTiles){
-            System.out.println();
             t.draw(g);
         }
     }
