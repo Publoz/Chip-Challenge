@@ -1,4 +1,4 @@
-<Game levelNumber="2" totalTime="180" row="9" col="18">
+<Game levelNumber="2" totalTime="180" row="9" col="17">
 	<Tiles>
 		<Row y = "1">
 			<Wall></Wall>
