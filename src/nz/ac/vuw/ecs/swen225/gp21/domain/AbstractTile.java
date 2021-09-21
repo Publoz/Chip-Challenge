@@ -1,10 +1,10 @@
 package nz.ac.vuw.ecs.swen225.gp21.domain;
 
 public abstract class AbstractTile implements Tile{
-	protected String actor = "";
+	protected Actor actor = null;
 	
 
-	public String getActor() {
+	public Actor getActor() {
 		return actor;
 	}
 	
@@ -15,8 +15,8 @@ public abstract class AbstractTile implements Tile{
 	 * 
 	 * @param actor the actor to add
 	 */
-	public void addActor(String actor) {
-		if(this.actor.equals("")) {
+	public void addActor(Actor actor) {
+		if(this.actor == null) {
 			this.actor = actor;
 		} else {
 			throw new IllegalArgumentException("Tile already contains actor");
@@ -25,7 +25,7 @@ public abstract class AbstractTile implements Tile{
 	
 
 	public void removeActor() {
-		actor = "";
+		actor = null;
 	}
 	
 
@@ -34,16 +34,11 @@ public abstract class AbstractTile implements Tile{
 	}
 	
 	/**
-	 * Default behavior for a free tile, simply returns whether
-	 * there is an actor here
+	 * Default behavior, simply returns true
 	 * 
 	 * @return a boolean if an actor can move here
 	 */
 	public boolean canMoveHere() {
-		if(actor.equals("")) {
-			return true;
-		} else {
-			return false;
-		}
+		return true;
 	}
 }

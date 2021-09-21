@@ -16,7 +16,8 @@ public class Game {
 	private boolean paused = false;
 	private int treasureLeft;
 	private String[] keys = new String[MAX_KEYS];
-	private Position chapPos;
+	//private Position chapPos;
+	private Chap chap;
 	
 	
 	/**
@@ -34,8 +35,9 @@ public class Game {
 		this.totalTime = totalTime;
 		startTime = System.currentTimeMillis();
 		treasureLeft = countTreasure();
-		chapPos = new Position(row, col);
-		maze[chapPos.getRow()][chapPos.getCol()].addActor("Chap");
+		chap = new Chap(new Position(row, col));
+		//chapPos = new Position(row, col);
+		maze[chap.getPos().getRow()][chap.getPos().getCol()].addActor(chap);
 		assert(findChap().getRow() == row && findChap().getCol() == col); //check that chap loaded 
 																		  //in correctly
 	}
@@ -84,10 +86,10 @@ public class Game {
 	 * @param dir the direction to move (w, a, s, d)
 	 */
 	public void moveChap(String dir) {
-		if(validMove(chapPos.movePos(dir))) {
-			Position moveToPos = chapPos.movePos(dir);
+		if(validMove(chap.getPos().movePos(dir))) {
+			Position moveToPos = chap.getPos().movePos(dir);
 			Tile moveToTile = maze[moveToPos.getRow()][moveToPos.getCol()];
-			if(!moveToTile.getActor().equals("")) {
+			if(!(moveToTile.getActor() == null)) {
 				throw new IllegalArgumentException("Cannot move onto occupied tile");
 			}
 			
@@ -111,9 +113,9 @@ public class Game {
 			}
 				
 				
-			maze[moveToPos.getRow()][moveToPos.getCol()].addActor("Chap"); //Valid move so update 
+			maze[moveToPos.getRow()][moveToPos.getCol()].addActor(chap); //Valid move so update 
 			removeChap();
-			chapPos = moveToPos;
+			chap.setPos(moveToPos);
 			
 			assert(findChap().equals(moveToPos));
 			assert(chapInValidPos());
@@ -133,10 +135,10 @@ public class Game {
 	 * @return a boolean if chap is on a valid tile
 	 */
 	public boolean chapInValidPos() {
-		Tile on = maze[chapPos.getRow()][chapPos.getCol()];
+		Tile on = maze[chap.getPos().getRow()][chap.getPos().getCol()];
 		if(on instanceof Door || on instanceof Wall || on instanceof ExitLock) {
 			return false;
-		} else if(!on.getActor().equals("Chap")) {
+		} else if(!on.getActor().toString().equals("Chap")) {
 			throw new IllegalStateException("Chap is on an occupied tile");
 		} else {
 			return true;
@@ -209,10 +211,10 @@ public class Game {
 	 * Helper function to quickly remove chap from his current position.
 	 */
 	public void removeChap() {
-		if(!maze[chapPos.getRow()][chapPos.getCol()].getActor().equals("Chap")){
+		if(!maze[chap.getPos().getRow()][chap.getPos().getCol()].getActor().toString().equals("Chap")){
 			throw new IllegalStateException("Chap is not in his tile position");
 		}
-		maze[chapPos.getRow()][chapPos.getCol()].removeActor();
+		maze[chap.getPos().getRow()][chap.getPos().getCol()].removeActor();
 	}
 	
 	/**
@@ -223,7 +225,7 @@ public class Game {
 	public Position findChap() {
 		for(int i = 0; i < maze.length; i++) {
 			for(int j = 0; j < maze[0].length; j++) {
-				if(maze[i][j].getActor().equals("Chap")) {
+				if(maze[i][j].getActor() == chap) {
 					return new Position(i, j);
 				}
 			}
@@ -317,7 +319,7 @@ public class Game {
 	 * @return the position of chap
 	 */
 	public Position getChap() {
-		return chapPos;
+		return chap.getPos();
 	}
 
 	public int getLevel() {

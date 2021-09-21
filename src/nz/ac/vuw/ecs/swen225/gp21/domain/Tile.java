@@ -17,13 +17,13 @@ public interface Tile {
 	 * 
 	 * @return a string of the actor name
 	 */
-	public String getActor();
+	public Actor getActor();
 	
 	/**
 	 * Adds an actor to this tile.
 	 * @param actor the actor to add
 	 */
-	public void addActor(String actor);
+	public void addActor(Actor actor);
 	
 	/**
 	 * Remove the actor from this tile.
