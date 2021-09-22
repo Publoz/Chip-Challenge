@@ -330,5 +330,11 @@ public class Game {
 	public long getStartTime() {
 		return startTime;
 	}
+
+	public boolean isPaused() {
+		return paused;
+	}
+
+
 	
 }

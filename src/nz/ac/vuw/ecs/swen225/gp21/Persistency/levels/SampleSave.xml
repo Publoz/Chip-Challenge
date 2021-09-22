@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Game levelNumber="1" totalTime="36" row="1" col="8">
+  <Tiles>
+    <Row>
+      <Wall />
+      <Wall />
+      <Wall />
+      <Wall />
+      <Wall />
+      <Wall />
+      <Wall />
+      <Wall />
+      <Wall />
+      <Wall />
+      <Wall />
+    </Row>
+    <Row>
+      <Wall />
+      <Free key="" treasure="true" />
+      <Free key="" treasure="true" />
+      <Wall />
+      <Free key="" treasure="false" />
+      <Exit />
+      <Free key="" treasure="false" />
+      <Wall />
+      <Free key="" treasure="false" />
+      <Free key="" treasure="false" />
+      <Wall />
+    </Row>
+    <Row>
+      <Wall />
+      <Wall />
+      <Free key="" treasure="true" />
+      <Wall />
+      <Free key="" treasure="false" />
+      <Free key="" treasure="false" />
+      <Free key="" treasure="false" />
+      <Wall />
+      <Free key="" treasure="false" />
+      <Wall />
+      <Wall />
+    </Row>
+    <Row>
+      <Wall />
+      <Wall />
+      <Door colour="y" />
+      <Wall />
+      <Wall />
+      <ExitLock />
+      <Wall />
+      <Wall />
+      <Free key="" treasure="false" />
+      <Wall />
+      <Wall />
+    </Row>
+    <Row>
+      <Wall />
+      <Free key="" treasure="false" />
+      <Free key="" treasure="false" />
+      <Free key="" treasure="false" />
+      <Free key="" treasure="false" />
+      <Free key="" treasure="false" />
+      <Free key="" treasure="false" />
+      <Free key="" treasure="false" />
+      <Free key="" treasure="false" />
+      <Free key="" treasure="false" />
+      <Wall />
+    </Row>
+    <Row>
+      <Wall />
+      <Free key="" treasure="false" />
+      <Free key="" treasure="false" />
+      <Free key="" treasure="false" />
+      <Free key="" treasure="false" />
+      <Info info="Pick up all of the treasures to proceed to the next level." />
+      <Free key="" treasure="false" />
+      <Free key="" treasure="false" />
+      <Free key="" treasure="false" />
+      <Free key="" treasure="false" />
+      <Wall />
+    </Row>
+    <Row>
+      <Wall />
+      <Free key="" treasure="false" />
+      <Free key="" treasure="false" />
+      <Free key="" treasure="false" />
+      <Free key="" treasure="false" />
+      <Free key="" treasure="false" />
+      <Free key="" treasure="false" />
+      <Free key="" treasure="false" />
+      <Free key="" treasure="false" />
+      <Free key="" treasure="false" />
+      <Wall />
+    </Row>
+    <Row>
+      <Wall />
+      <Wall />
+      <Door colour="g" />
+      <Wall />
+      <Free key="" treasure="false" />
+      <Free key="" treasure="false" />
+      <Free key="" treasure="false" />
+      <Wall />
+      <Door colour="b" />
+      <Wall />
+      <Wall />
+    </Row>
+    <Row>
+      <Wall />
+      <Wall />
+      <Free key="" treasure="true" />
+      <Wall />
+      <Free key="" treasure="false" />
+      <Free key="" treasure="false" />
+      <Free key="" treasure="false" />
+      <Wall />
+      <Free key="" treasure="true" />
+      <Wall />
+      <Wall />
+    </Row>
+    <Row>
+      <Wall />
+      <Free key="b" treasure="false" />
+      <Free key="" treasure="true" />
+      <Wall />
+      <Free key="" treasure="false" />
+      <Free key="" treasure="false" />
+      <Free key="" treasure="false" />
+      <Wall />
+      <Free key="" treasure="true" />
+      <Free key="y" treasure="false" />
+      <Wall />
+    </Row>
+    <Row>
+      <Wall />
+      <Wall />
+      <Wall />
+      <Wall />
+      <Wall />
+      <Wall />
+      <Wall />
+      <Wall />
+      <Wall />
+      <Wall />
+      <Wall />
+    </Row>
+  </Tiles>
+</Game>

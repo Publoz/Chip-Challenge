@@ -29,9 +29,9 @@ public class GUI {
 
 
 	private int level;
-	private int timeLeft=100;
+	private int timeLeft;
+	private int treasuresLeft;
 	private boolean ctrlPressed = false;
-	private boolean gameOn = false;
 	private RecordAndPlay gameHistory;
 
 	private TimerTask task;
@@ -45,6 +45,8 @@ public class GUI {
 
 	public GUI(String filename) throws FontFormatException, IOException, InterruptedException {
 		load(filename);
+		updateInfo();
+		gameHistory = new RecordAndPlay();
 		mainFrame = new MainFrame("Chip's Challenge-Level "+level);
 		mainFrame.setLayout(null);
 
@@ -89,6 +91,15 @@ public class GUI {
 				int loading = load("level1.xml");
 				if(loading<0) {
 					JOptionPane.showMessageDialog(mainFrame,"Saving failed!");
+					return;
+				}
+				mainFrame.setVisible(false);
+				mainFrame.dispose();
+				try {
+					new GUI("level1.xml");
+				} catch (FontFormatException | IOException | InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
 			}
 		});
@@ -103,6 +114,15 @@ public class GUI {
 				int loading = load("level2.xml");
 				if(loading<0) {
 					JOptionPane.showMessageDialog(mainFrame,"Saving failed!");
+					return;
+				}
+				mainFrame.setVisible(false);
+				mainFrame.dispose();
+				try {
+					new GUI("level2.xml");
+				} catch (FontFormatException | IOException | InterruptedException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
 				}
 			}
 		});
@@ -130,24 +150,26 @@ public class GUI {
 
 
 		levelPanel = new InfoPanel("LEVEL", level);
-		timePanel = new InfoPanel("TIME", 100);
-		chipsPanel = new InfoPanel("CHIPS LEFT", 0);
+		timePanel = new InfoPanel("TIME", timeLeft);
+		chipsPanel = new InfoPanel("CHIPS LEFT", treasuresLeft);
 
-		JPanel collectedItemsPanel = new JPanel(new GridLayout(2, 4));
-		JLabel[] collectedItemsTileLabels = new JLabel[8];
-		ImageIcon collectedItemsTile = new ImageIcon("../chip-challenge/src/nz/ac/vuw/ecs/swen225/gp21/App/CollectedItemsTile.png");
-		System.out.println(collectedItemsTile.getIconHeight());
-		System.out.println(collectedItemsTile.getIconWidth());
-		for(int i=0 ; i<2 ; i++) {
-			collectedItemsTileLabels[i] = new JLabel(collectedItemsTile);
-			collectedItemsPanel.add(collectedItemsTileLabels[i]);
+		JPanel buttonsPanel = new JPanel(new GridLayout(2, 3));
+		JButton[] buttons = new JButton[6];
+		buttons[0] = new JButton("⏸");
+		buttons[1] = new JButton("⬆");
+		buttons[2] = new JButton("↩");
+		buttons[3] = new JButton("⬅");
+		buttons[4] = new JButton("⬇");
+		buttons[5] = new JButton("➡");
+		for(int i=0 ; i<6 ; i++) {
+			buttonsPanel.add(buttons[i]);
 		}
 
 
 		levelInfoPanel.add(levelPanel);
 		levelInfoPanel.add(timePanel);
 		levelInfoPanel.add(chipsPanel);
-		levelInfoPanel.add(collectedItemsPanel);
+		levelInfoPanel.add(buttonsPanel);
 
 		//adding keyboard listeners
 		mainFrame.setFocusable(true);
@@ -178,7 +200,12 @@ public class GUI {
 				if(e.getKeyCode()==17) {
 					ctrlPressed = true;
 				}else if(ctrlPressed) {
-					CtrlPressedActions(e);
+					try {
+						CtrlPressedActions(e);
+					} catch (FontFormatException | IOException | InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				}
 			}
 		});
@@ -202,7 +229,7 @@ public class GUI {
 		return (int)((0.05)*num);
 	}
 
-	private void CtrlPressedActions(KeyEvent e){
+	private void CtrlPressedActions(KeyEvent e) throws FontFormatException, IOException, InterruptedException{
 		if(e.getKeyCode()==88) {
 			int result = JOptionPane.showOptionDialog(mainFrame, "Game is not saved. Do you want to save it before exiting?", null, JOptionPane.YES_NO_CANCEL_OPTION,JOptionPane.INFORMATION_MESSAGE, null, new Object[]{"Yes", "No", "Cancel"}, null);
 			if(result!=JOptionPane.CANCEL_OPTION) {
@@ -232,12 +259,20 @@ public class GUI {
 			int loading = load("level1.xml");
 			if(loading<0) {
 				JOptionPane.showMessageDialog(mainFrame,"Saving failed!");
+				return;
 			}
+			mainFrame.setVisible(false);
+			mainFrame.dispose();
+			new GUI("level1.xml");
 		}else if(e.getKeyCode()==50) {
 			int loading = load("level2.xml");
 			if(loading<0) {
 				JOptionPane.showMessageDialog(mainFrame,"Saving failed!");
+				return;
 			}
+			mainFrame.setVisible(false);
+			mainFrame.dispose();
+			new GUI("level2.xml");
 		}
 	}
 
@@ -246,11 +281,13 @@ public class GUI {
 	private void CtrlNotPressedActions(KeyEvent e) {
 		if(e.getKeyCode()==32) {
 			startTimer(false);
+			currentGame.pauseGame();
 			int optionChosen = JOptionPane.showOptionDialog(mainFrame, "Game is paused", null, JOptionPane.DEFAULT_OPTION,JOptionPane.INFORMATION_MESSAGE, null, new Object[]{}, null);
 			if(optionChosen==JOptionPane.CLOSED_OPTION) {
 				startTimer(true);
 			}
 		}else if(e.getKeyCode()==27) {
+			currentGame.resumeGame();
 			//JOptionPane.showMessageDialog(new JFrame(),"Resumes the game.");
 		}else if(e.getKeyCode()==37) {
 			currentGame.moveChap("a");
@@ -268,13 +305,20 @@ public class GUI {
 			currentGame.moveChap("s");
 			gameHistory.addMoves("s");
 			//JOptionPane.showMessageDialog(new JFrame(),"Moving down");
+		}else {
+			return;
 		}
+		updateInfo();
 		renderBoard.redraw(renderBoard.getGameBoard().getGraphics());
 	}
 
 	private void updateInfo() {
 		this.level = currentGame.getLevel();
 		this.timeLeft = currentGame.timeLeft();
+		this.treasuresLeft = currentGame.countTreasure();
+		if(chipsPanel!=null) {
+			chipsPanel.updateValue(this.treasuresLeft);
+		}
 	}
 
 
@@ -321,13 +365,11 @@ public class GUI {
 	private int load(String filename) {
 
 		try {
-			currentGame = XMLSaveLoad.load(filename);
-			gameHistory = new RecordAndPlay();
+			currentGame =  XMLSaveLoad.load(filename);
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			return -1;
 		}
-		updateInfo();
 		return 1;
 	}
 
