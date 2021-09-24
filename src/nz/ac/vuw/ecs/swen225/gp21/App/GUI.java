@@ -12,6 +12,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.swing.*;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.LineBorder;
 
 import nz.ac.vuw.ecs.swen225.gp21.Persistency.XMLSaveLoad;
 import nz.ac.vuw.ecs.swen225.gp21.domain.Game;
@@ -155,15 +157,16 @@ public class GUI {
 
 		JPanel buttonsPanel = new JPanel(new GridLayout(2, 3));
 		JButton[] buttons = new JButton[6];
-		buttons[0] = new JButton("⏸");
-		buttons[1] = new JButton("⬆");
-		buttons[2] = new JButton("↩");
-		buttons[3] = new JButton("⬅");
-		buttons[4] = new JButton("⬇");
-		buttons[5] = new JButton("➡");
+		buttons[0] = createButton("⏸", 0);
+		buttons[1] = createButton("⬆", 1);
+		buttons[2] = createButton("↩", 2);
+		buttons[3] = createButton("⬅", 3);
+		buttons[4] = createButton("⬇", 4);
+		buttons[5] = createButton("➡", 5);
 		for(int i=0 ; i<6 ; i++) {
 			buttonsPanel.add(buttons[i]);
 		}
+		buttonsPanel.setBorder(new LineBorder(new Color(180, 180,180), 20));
 
 
 		levelInfoPanel.add(levelPanel);
@@ -227,6 +230,60 @@ public class GUI {
 	private int border(int width, int height) {
 		int num = width<height? height : width;
 		return (int)((0.05)*num);
+	}
+	
+	private JButton createButton(String label, int action) {
+		JButton button = new JButton(label);
+		button.setBackground(Color.black);
+		button.setForeground(Color.white);
+		button.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				switch(action) {
+					case 0:
+						currentGame.pauseGame();
+						startTimer(false);
+						JOptionPane.showMessageDialog(new JFrame(), "Game Paused");
+						currentGame.resumeGame();
+						startTimer(true);
+						break;
+					case 1:
+						currentGame.moveChap("w");
+						break;
+					case 2:
+						int restarting = JOptionPane.showOptionDialog(new JFrame(), "Are you sure you want to restart this level?", "Restart", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, null, e);
+						if(restarting==JOptionPane.YES_OPTION) {
+							mainFrame.setVisible(false);
+							startTimer(false);
+							currentGame.pauseGame();
+							mainFrame.dispose();
+							try {
+								new GUI("level"+level+".xml");
+							} catch (FontFormatException | IOException | InterruptedException e1) {
+								// TODO Auto-generated catch block
+								e1.printStackTrace();
+							}
+						}
+						break;
+					case 3:
+						currentGame.moveChap("a");
+						break;
+					case 4:
+						currentGame.moveChap("s");
+						break;
+					case 5:
+						currentGame.moveChap("d");
+						break;
+				}
+				if(!currentGame.isPaused()) {
+					updateInfo();
+					renderBoard.redraw(renderBoard.getGameBoard().getGraphics());
+				}
+			}
+		});
+		return button;
 	}
 
 	private void CtrlPressedActions(KeyEvent e) throws FontFormatException, IOException, InterruptedException{
