@@ -129,6 +129,7 @@ public class Tests {
 						"W|W|W|W|W|\n";
 		
 		assert(game.drawBoard().equals(answer));
+		assertEquals(true, game.getGameOver());
 
 	}
 	

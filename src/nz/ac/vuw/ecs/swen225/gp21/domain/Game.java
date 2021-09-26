@@ -18,6 +18,7 @@ public class Game {
 	private String[] keys = new String[MAX_KEYS];
 	//private Position chapPos;
 	private Chap chap;
+	private boolean gameOver = false;
 	
 	
 	/**
@@ -54,7 +55,7 @@ public class Game {
 	 */
 	public boolean validMove(Position moveTo) {
 		
-		if(paused) {
+		if(paused || gameOver) {
 			return false;
 		}
 		
@@ -109,7 +110,7 @@ public class Game {
 					throw new IllegalStateException("Chap cannot move onto exit while"
 							+ " treasure is left");
 				}
-				nextLevel();
+				gameOver = true;
 			}
 				
 				
@@ -122,12 +123,7 @@ public class Game {
 		}
 	}
 	
-	/**
-	 * Will implement what happens when chap reaches the exit
-	 */
-	public void nextLevel() {
-		
-	}
+	
 	
 	/**
 	 * Checks if chap is currently standing on a valid tile.
@@ -335,6 +331,12 @@ public class Game {
 		return paused;
 	}
 
+	/**
+	 * Gets the gameOver boolean field.
+	 */
+	public boolean getGameOver() {
+		return gameOver;
+	}
 
 	
 }
