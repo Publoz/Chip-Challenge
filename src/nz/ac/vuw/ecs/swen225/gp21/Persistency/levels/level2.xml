@@ -194,7 +194,7 @@
 			<Free key = "" treasure = "false" actor = "Spider"></Free>
 			<Wall></Wall>
 			<Wall></Wall>
-			<Free key = "" treasure = "false" actor = "Spider"></Free>
+			<Free key = "" treasure = "false" actor = ""></Free>
 			<Free key = "" treasure = "false" actor = ""></Free>
 			<Free key = "" treasure = "false" actor = ""></Free>
 			<Free key = "" treasure = "false" actor = ""></Free>

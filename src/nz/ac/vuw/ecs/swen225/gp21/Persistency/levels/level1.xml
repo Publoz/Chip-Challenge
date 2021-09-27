@@ -110,7 +110,7 @@
 			<Wall></Wall></Row>
 		<Row>
 			<Wall></Wall>
-			<Free key="g" treasure="False" actor = ""></Free>
+			<Free key="b" treasure="False" actor = ""></Free>
 			<Free key="" treasure="True" actor = ""></Free>
 			<Wall></Wall>
 			<Free key="" treasure="False" actor = ""></Free>
