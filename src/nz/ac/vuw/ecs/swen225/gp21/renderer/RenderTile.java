@@ -13,13 +13,14 @@ public class RenderTile {
     int x, y;
     String imgType;
     Tile tile;
-    private BufferedImage img,chap,empty,portal,lock,treasure,info,doorG,doorB,doorY,wall,key;
+    private BufferedImage img,chap,empty,portal,lock,treasure,info,doorG,doorB,doorY,wall,keyY,keyG,keyB;
 
     public RenderTile(int xpos, int ypos, String imgType, Tile t) {
         this.imgType = imgType;
         this.tile = t;
         this.x = xpos;
         this.y = ypos;
+        //preload all images instead of on board update.
         try {
             empty = ImageIO.read(RenderTile.class.getResource("empty.png"));
             chap = ImageIO.read(RenderTile.class.getResource("chap.png"));
@@ -31,7 +32,9 @@ public class RenderTile {
             doorB = ImageIO.read(RenderTile.class.getResource("doorblue.png"));
             doorY = ImageIO.read(RenderTile.class.getResource("dooryellow.png"));
             wall = ImageIO.read(RenderTile.class.getResource("wall.png"));
-            key = ImageIO.read(RenderTile.class.getResource("key.png"));
+            keyY = ImageIO.read(RenderTile.class.getResource("keyyellow.png"));
+            keyG = ImageIO.read(RenderTile.class.getResource("keygreen.png"));
+            keyB = ImageIO.read(RenderTile.class.getResource("keyblue.png"));
 
         } catch (IOException e) {
         }
@@ -51,9 +54,9 @@ public class RenderTile {
         if(tile instanceof Exit){ img = portal; }
         if(tile instanceof Info) { img = info;}
         if(tile.hasKey()){
-            if(tile.getKey().equals("g")){ img = key; }
-            if(tile.getKey().equals("b")){ img = key; }
-            if(tile.getKey().equals("y")){ img = key; }
+            if(tile.getKey().equals("g")){ img = keyY; }
+            if(tile.getKey().equals("b")){ img = keyB; }
+            if(tile.getKey().equals("y")){ img = keyG; }
         }
         if(tile.getActor() != null){img = chap;}
 
