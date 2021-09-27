@@ -53,6 +53,7 @@ public class PersistencyTests {
 			
 			assert (originalString.equals(loadedString));
 		} catch (IOException e) {
+			e.printStackTrace();
 			fail();
 		}
 	}
@@ -76,11 +77,11 @@ public class PersistencyTests {
 				}
 			}
 
-			maze[1][1] = new Door("#");
+			maze[1][1] = new Door("b");
 			maze[2][1] = new Exit();
 			maze[3][1] = new ExitLock();
 			maze[4][1] = new Info("Some information");
-			maze[5][1] = new Free("#", false);
+			maze[5][1] = new Free("b", false);
 			maze[6][1] = new Free("", true);
 
 			Game original = new Game(maze, 1, 60, 2, 2);
@@ -98,6 +99,7 @@ public class PersistencyTests {
 			assert (originalString.equals(loadedString));
 
 		} catch (IOException e) {
+			e.printStackTrace();
 			fail();
 		}
 	}
@@ -155,13 +157,14 @@ public class PersistencyTests {
 
 			
 		} catch (IOException e) {
+			e.printStackTrace();
 			fail();
 		}
 	}
 	
 	@Test
 	/**
-	 * Testing loading of level 1.
+	 * Testing loading of level 2.
 	 */
 	public void test6() {
 		
@@ -177,6 +180,7 @@ public class PersistencyTests {
 
 			
 		} catch (IOException e) {
+			e.printStackTrace();
 			fail();
 		}
 	}

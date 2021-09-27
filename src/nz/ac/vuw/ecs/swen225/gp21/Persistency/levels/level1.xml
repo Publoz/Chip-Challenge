@@ -14,26 +14,26 @@
 			<Wall></Wall></Row>
 		<Row>
 			<Wall></Wall>
-			<Free key="" treasure="True"></Free>
-			<Free key="" treasure="True"></Free>
+			<Free key="" treasure="True" actor = ""></Free>
+			<Free key="" treasure="True" actor = ""></Free>
 			<Wall></Wall>
-			<Free key="" treasure="False"></Free>
+			<Free key="" treasure="False" actor = ""></Free>
 			<Exit></Exit>
-			<Free key="" treasure="False"></Free>
+			<Free key="" treasure="False" actor = ""></Free>
 			<Wall></Wall>
-			<Free key="" treasure="True"></Free>
-			<Free key="g" treasure="False"></Free>
+			<Free key="" treasure="True" actor = ""></Free>
+			<Free key="g" treasure="False" actor = ""></Free>
 			<Wall></Wall></Row>
 		<Row>
 			<Wall></Wall>
 			<Wall></Wall>
-			<Free key="" treasure="True"></Free>
+			<Free key="" treasure="True" actor = ""></Free>
 			<Wall></Wall>
-			<Free key="" treasure="False"></Free>
-			<Free key="" treasure="False"></Free>
-			<Free key="" treasure="False"></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
 			<Wall></Wall>
-			<Free key="" treasure="True"></Free>
+			<Free key="" treasure="True" actor = ""></Free>
 			<Wall></Wall>
 			<Wall></Wall></Row>
 		<Row>
@@ -45,53 +45,53 @@
 			<ExitLock></ExitLock>
 			<Wall></Wall>
 			<Wall></Wall>
-			<Free key="" treasure="True"></Free>
+			<Free key="" treasure="True" actor = ""></Free>
 			<Wall></Wall>
 			<Wall></Wall></Row>
 		<Row>
 			<Wall></Wall>
-			<Free key="" treasure="False"></Free>
-			<Free key="" treasure="False"></Free>
-			<Free key="" treasure="False"></Free>
-			<Free key="" treasure="False"></Free>
-			<Free key="" treasure="False"></Free>
-			<Free key="" treasure="False"></Free>
-			<Free key="" treasure="False"></Free>
-			<Free key="" treasure="False"></Free>
-			<Free key="" treasure="False"></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
 			<Wall></Wall></Row>
 		<Row>
 			<Wall></Wall>
-			<Free key="" treasure="False"></Free>
-			<Free key="" treasure="False"></Free>
-			<Free key="" treasure="False"></Free>
-			<Free key="" treasure="False"></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
 			<Info info="Pick up all of the treasures to proceed to the next level."></Info>
-			<Free key="" treasure="False"></Free>
-			<Free key="" treasure="False"></Free>
-			<Free key="" treasure="False"></Free>
-			<Free key="" treasure="False"></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
 			<Wall></Wall></Row>
 		<Row>
 			<Wall></Wall>
-			<Free key="" treasure="False"></Free>
-			<Free key="" treasure="False"></Free>
-			<Free key="" treasure="False"></Free>
-			<Free key="" treasure="False"></Free>
-			<Free key="" treasure="False"></Free>
-			<Free key="" treasure="False"></Free>
-			<Free key="" treasure="False"></Free>
-			<Free key="" treasure="False"></Free>
-			<Free key="" treasure="False"></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
 			<Wall></Wall></Row>
 		<Row>
 			<Wall></Wall>
 			<Wall></Wall>
 			<Door colour="g"></Door>
 			<Wall></Wall>
-			<Free key="" treasure="False"></Free>
-			<Free key="" treasure="False"></Free>
-			<Free key="" treasure="False"></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
 			<Wall></Wall>
 			<Door colour="b"></Door>
 			<Wall></Wall>
@@ -99,26 +99,26 @@
 		<Row>
 			<Wall></Wall>
 			<Wall></Wall>
-			<Free key="" treasure="True"></Free>
+			<Free key="" treasure="True" actor = ""></Free>
 			<Wall></Wall>
-			<Free key="" treasure="False"></Free>
-			<Free key="" treasure="False"></Free>
-			<Free key="" treasure="False"></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
 			<Wall></Wall>
-			<Free key="" treasure="True"></Free>
+			<Free key="" treasure="True" actor = ""></Free>
 			<Wall></Wall>
 			<Wall></Wall></Row>
 		<Row>
 			<Wall></Wall>
-			<Free key="b" treasure="False"></Free>
-			<Free key="" treasure="True"></Free>
+			<Free key="g" treasure="False" actor = ""></Free>
+			<Free key="" treasure="True" actor = ""></Free>
 			<Wall></Wall>
-			<Free key="" treasure="False"></Free>
-			<Free key="" treasure="False"></Free>
-			<Free key="" treasure="False"></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
 			<Wall></Wall>
-			<Free key="" treasure="True"></Free>
-			<Free key="y" treasure="False"></Free>
+			<Free key="" treasure="True" actor = ""></Free>
+			<Free key="y" treasure="False" actor = ""></Free>
 			<Wall></Wall></Row>
 		<Row>
 			<Wall></Wall>

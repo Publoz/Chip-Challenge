@@ -1,18 +1,21 @@
 package nz.ac.vuw.ecs.swen225.gp21.Persistency;
 
-import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import nz.ac.vuw.ecs.swen225.gp21.domain.Actor;
 import nz.ac.vuw.ecs.swen225.gp21.domain.Door;
 import nz.ac.vuw.ecs.swen225.gp21.domain.Exit;
 import nz.ac.vuw.ecs.swen225.gp21.domain.ExitLock;
 import nz.ac.vuw.ecs.swen225.gp21.domain.Free;
 import nz.ac.vuw.ecs.swen225.gp21.domain.Game;
 import nz.ac.vuw.ecs.swen225.gp21.domain.Info;
+import nz.ac.vuw.ecs.swen225.gp21.domain.Position;
 import nz.ac.vuw.ecs.swen225.gp21.domain.Tile;
 import nz.ac.vuw.ecs.swen225.gp21.domain.Wall;
 
@@ -25,7 +28,9 @@ import org.jdom2.output.XMLOutputter;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+import java.net.URLClassLoader;
 
 public class XMLSaveLoad {
 
@@ -43,6 +48,29 @@ public class XMLSaveLoad {
 
 		if (!fileName.endsWith(".xml")) {
 			throw new IOException("Missing or incorrect file format.");
+		}
+
+		Class<?> spiderClass;
+
+		// Load in the external spider class from the Jar file.
+
+		try {
+			URL url = new URL("jar:file:./src/nz/ac/vuw/ecs/swen225/gp21/Persistency/levels/Spider.jar!/");
+			URLClassLoader ucl = new URLClassLoader(new URL[] { url });
+			spiderClass = ucl.loadClass("Spider");
+
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+			throw new IOException();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			throw new IOException("External class not found." + e);
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+			throw new IOException("IllegalArgumentException: " + e);
+		} catch (SecurityException e) {
+			e.printStackTrace();
+			throw new IOException("SecurityException: " + e);
 		}
 
 		try {
@@ -83,6 +111,24 @@ public class XMLSaveLoad {
 						String key = currentTile.getAttributeValue("key");
 						boolean treasure = Boolean.parseBoolean(currentTile.getAttributeValue("treasure"));
 						maze[row][col] = new Free(key, treasure);
+
+						// Check to see if there is an actor on this tile:
+						String actor = currentTile.getAttributeValue("actor");
+						if (actor != null && actor.equals("Spider")) {
+							Actor toAdd = null;
+							try {
+								// Load in the actor and add it to the tile.
+								toAdd = (Actor) spiderClass.getDeclaredConstructor(Position.class)
+										.newInstance(new Position(row, col));
+								maze[row][col].addActor(toAdd);
+								System.out.println(maze[row][col].getActor().toString());
+								System.out.println(maze[row][col].toString());
+							} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
+									| InvocationTargetException | NoSuchMethodException | SecurityException e) {
+								throw new IOException(e);
+							}
+						}
+
 					} else if (type.equals("Wall")) {
 						maze[row][col] = new Wall();
 					} else if (type.equals("Door")) {
