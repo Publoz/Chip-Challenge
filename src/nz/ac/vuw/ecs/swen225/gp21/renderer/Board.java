@@ -17,19 +17,19 @@ public class Board {
     private JComponent gameBoard;
     private RenderTile[][] renderTiles;
     private Tile[][] maze;
-    private Position chapPos;
+    private Position chapPos, lChapPos;
     private Game game;
     public Board(Game game) {
         this.game = game;
         this.maze = game.getMaze();
         renderTiles = new RenderTile[maze.length][maze.length];
-        /**
-        for (int i = 0; i < tiles.length; i++) {
-            for (int j = 0; j < tiles[i].length; j++) {
-                tiles[i][j] = new RenderTile(i, j);
+        chapPos = game.getChap();
+        lChapPos = game.getChap();
+        for (int row = 0; row < maze.length; row++) {
+            for (int col = 0; col < maze.length; col++) {
+                    renderTiles[col][row] = (new RenderTile(col, row, maze[row][col].toString(), maze[row][col]));
             }
         }
-        **/
         //emulation code
         gameBoard = new JComponent() {
             protected void paintComponent(Graphics g) {
@@ -54,14 +54,19 @@ public class Board {
         return (int)((0.05)*num);
     }
 
+
+
     public void redraw(Graphics g) {
         chapPos = game.getChap();
         for (int row = 0; row < maze.length; row++) {
             for (int col = 0; col < maze.length; col++) {
-                renderTiles[col][row] = ( new RenderTile(col- chapPos.getCol() + 4, row - chapPos.getRow() + 4, maze[row][col].toString()));
+                renderTiles[col][row].x = col- chapPos.getCol() + 4;
+                renderTiles[col][row].y = row - chapPos.getRow() + 4;
                 renderTiles[col][row].draw(g);
             }
         }
+
+
 
     }
 
