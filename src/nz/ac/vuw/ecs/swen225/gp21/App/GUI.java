@@ -383,12 +383,32 @@ public class GUI {
 		if(gameOn) {
 			 task = new TimerTask() {
 			        public void run() {
-			        	if(timeLeft==-1) {
+			        	if(currentGame.getGameOver() || timeLeft==-1) {
+			        		int finishing=-10;
 			        		startTimer(false);
-			        		JOptionPane.showMessageDialog(new JFrame(), "GAME OVER\nYou ran out of time!", "Game Over", JOptionPane.ERROR_MESSAGE);
+			        		if(timeLeft==-1) {
+			        			finishing = JOptionPane.showConfirmDialog(new JFrame(), "GAME OVER\nYou ran out of time!\nRestart this level?", "Game Over", JOptionPane.YES_NO_OPTION);
+			        		}else if(level==1){
+			        			finishing = JOptionPane.showConfirmDialog(new JFrame(), "Level completed!\n Go to the next level?", "Level Completed", JOptionPane.YES_NO_OPTION);
+			        		}else if(level==2) {
+			        			JOptionPane.showMessageDialog(new JFrame(), "CONGRADULATIONS!\nYou've completed the game,", "Game Completed", JOptionPane.INFORMATION_MESSAGE);
+			        		}
 			        		mainFrame.setVisible(false);
 			        		mainFrame.dispose();
-			        		new StartingFrame("Chip's Challenge");
+			        		if(finishing == JOptionPane.YES_OPTION) {
+		        				try {
+		        					if(timeLeft==-1) {
+		        						new GUI("level"+level+".xml");
+		        					}else {
+		        						new GUI("level"+(level+1)+".xml");
+		        					}
+								} catch (FontFormatException | IOException | InterruptedException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+		        			}else {
+		        				new StartingFrame("Chip's Challenge");
+		        			}
 			    	    	return;
 			        	}
 			        	timePanel.updateValue(timeLeft--);
