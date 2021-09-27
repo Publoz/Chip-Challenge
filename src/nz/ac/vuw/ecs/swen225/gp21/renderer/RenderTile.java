@@ -13,7 +13,7 @@ public class RenderTile {
     int x, y;
     String imgType;
     Tile tile;
-    private BufferedImage img,chap,empty,portal,lock,treasure,info,doorG,doorB,doorY,wall,keyY,keyG,keyB;
+    private BufferedImage img,chap,empty,portal,lock,treasure,info,doorG,doorB,doorY,wall,keyY,keyG,keyB,spider;
 
     public RenderTile(int xpos, int ypos, String imgType, Tile t) {
         this.imgType = imgType;
@@ -54,9 +54,10 @@ public class RenderTile {
         if(tile instanceof Exit){ img = portal; }
         if(tile instanceof Info) { img = info;}
         if(tile.hasKey()){
-            if(tile.getKey().equals("g")){ img = keyY; }
+            System.out.println(tile.getKey());
+            if(tile.getKey().equals("g")){ img = keyG; }
             if(tile.getKey().equals("b")){ img = keyB; }
-            if(tile.getKey().equals("y")){ img = keyG; }
+            if(tile.getKey().equals("y")){ img = keyY; }
         }
         if(tile.getActor() != null){img = chap;}
 
