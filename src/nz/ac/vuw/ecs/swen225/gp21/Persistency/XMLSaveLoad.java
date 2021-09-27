@@ -45,7 +45,9 @@ public class XMLSaveLoad {
 	 * @throws IOException If input file name is in the incorrect format.
 	 */
 	public static Game load(String fileName) throws IOException {
-
+		
+		System.out.println("Starting load of " + fileName);
+		long startTime = System.currentTimeMillis();
 		if (!fileName.endsWith(".xml")) {
 			throw new IOException("Missing or incorrect file format.");
 		}
@@ -121,8 +123,6 @@ public class XMLSaveLoad {
 								toAdd = (Actor) spiderClass.getDeclaredConstructor(Position.class)
 										.newInstance(new Position(row, col));
 								maze[row][col].addActor(toAdd);
-								System.out.println(maze[row][col].getActor().toString());
-								System.out.println(maze[row][col].toString());
 							} catch (InstantiationException | IllegalAccessException | IllegalArgumentException
 									| InvocationTargetException | NoSuchMethodException | SecurityException e) {
 								throw new IOException(e);
@@ -145,6 +145,8 @@ public class XMLSaveLoad {
 				}
 			}
 
+			long endTime = System.currentTimeMillis();
+			System.out.println("Loading time for level " + fileName + ": " + (endTime - startTime) + "ms");
 			return new Game(maze, levelNumber, totalTime, chapRow, chapCol);
 
 		} catch (IOException | JDOMException e) {
