@@ -60,19 +60,20 @@ public class Free extends AbstractTile{
 	}
 	
 	public String toString() {
-		
+
 		if(actor != null && actor.toString().equals("Chap")) {
 			return "C";
-		} else if(key.equals("") && treasure == false) {
+		} else if(actor != null){
+			return String.valueOf(actor.toString().charAt(0));
+		}
+		else if(key.equals("") && treasure == false) {
 			return "_";
 		} else if(treasure == true) {
 			return "T";
-		} else if(actor != null){
-			return String.valueOf(actor.toString().charAt(0));
 		} else {
 			return key;
 		}
-		
+
 		
 	}
 
