@@ -16,6 +16,7 @@ public class Game {
 	private boolean paused = false;
 	private int treasureLeft;
 	private String[] keys = new String[MAX_KEYS];
+
 	//private Position chapPos;
 	private Chap chap;
 	private boolean gameOver = false;
@@ -336,6 +337,10 @@ public class Game {
 	 */
 	public boolean getGameOver() {
 		return gameOver;
+	}
+	
+	public String[] getKeys() {
+		return keys;
 	}
 
 	

@@ -39,7 +39,7 @@ public class MainFrame extends JFrame{
 				//set size and outline settings
 				this.setSize(900,600);
 				this.setResizable(false);
-				this.setLayout(new GridLayout(1, 2));
+				this.setLayout(new GridLayout(1, 3));
 				this.getContentPane().setBackground(new Color(0, 120, 0));
 				
 				//Close operations

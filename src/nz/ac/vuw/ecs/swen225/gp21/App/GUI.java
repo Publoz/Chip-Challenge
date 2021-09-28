@@ -7,10 +7,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.LineBorder;
@@ -19,12 +21,17 @@ import nz.ac.vuw.ecs.swen225.gp21.Persistency.XMLSaveLoad;
 import nz.ac.vuw.ecs.swen225.gp21.domain.Game;
 import nz.ac.vuw.ecs.swen225.gp21.recorder.RecordAndPlay;
 import nz.ac.vuw.ecs.swen225.gp21.renderer.Board;
+import nz.ac.vuw.ecs.swen225.gp21.renderer.RenderTile;
 
 public class GUI {
 
 
 
 	private MainFrame mainFrame;
+	private JPanel collectedKeysPanel;
+	private JLabel yellowKey;
+	private JLabel greenKey;
+	private JLabel blueKey;
 	InfoPanel levelPanel;
 	InfoPanel timePanel;
 	InfoPanel chipsPanel;
@@ -43,6 +50,11 @@ public class GUI {
 
 	private Game currentGame;
 	private Board renderBoard;
+	
+	
+	ImageIcon keyY = new ImageIcon(RenderTile.class.getResource("keyyellow.png"));
+	ImageIcon keyG = new ImageIcon(RenderTile.class.getResource("keygreen.png"));
+	ImageIcon keyB = new ImageIcon(RenderTile.class.getResource("keyblue.png"));
 
 
 	public GUI(String filename) throws FontFormatException, IOException, InterruptedException {
@@ -51,7 +63,6 @@ public class GUI {
 		gameHistory = new RecordAndPlay();
 		mainFrame = new MainFrame("Chip's Challenge-Level "+level);
 		mainFrame.setLayout(null);
-
 
 		//create the menu bar
 		JMenuItem saveMenuItem = mainFrame.getSaveItem();
@@ -143,6 +154,18 @@ public class GUI {
 		gameBoard.setBackground(new Color(190,190,190));
 		gameBoard.setLayout(new GridLayout(9, 9));
 
+		
+		//game collectedKeysPanel
+		collectedKeysPanel = new JPanel();
+		collectedKeysPanel.setLayout(new GridLayout(3, 1));
+		collectedKeysPanel.setBounds(gameBoardWidth-boardBorder, boardBorder, boardBorder*2, mainFrame.getHeight()/4);
+		collectedKeysPanel.setBorder(new LineBorder(new Color(180,180,180), 3));
+		yellowKey = new JLabel();
+		yellowKey.setIcon(keyY);
+		greenKey = new JLabel();
+		greenKey.setIcon(keyG);
+		blueKey = new JLabel();
+		blueKey.setIcon(keyB);
 
 		//The game info panel settings
 		JPanel levelInfoPanel = new JPanel();
@@ -222,6 +245,7 @@ public class GUI {
 
 		mainFrame.add(gameBoard);
 		mainFrame.add(levelInfoPanel);
+		mainFrame.add(collectedKeysPanel);
 		mainFrame.setVisible(true);
 	}
 
@@ -375,6 +399,23 @@ public class GUI {
 		this.treasuresLeft = currentGame.countTreasure();
 		if(chipsPanel!=null) {
 			chipsPanel.updateValue(this.treasuresLeft);
+			for(String key : currentGame.getKeys()) {
+				if(key==null) return;
+				switch(key) {
+					case "y":
+						collectedKeysPanel.add(yellowKey);
+						//collectedKeysPanel.add(yellowKey);
+						break;
+					case "g":
+						collectedKeysPanel.add(greenKey);
+						break;
+					case "b":
+						collectedKeysPanel.add(blueKey);
+						break;
+					//default :
+						//throw new IllegalArgumentException();
+				}
+			}
 		}
 	}
 
@@ -391,7 +432,7 @@ public class GUI {
 			        		}else if(level==1){
 			        			finishing = JOptionPane.showConfirmDialog(new JFrame(), "Level completed!\n Go to the next level?", "Level Completed", JOptionPane.YES_NO_OPTION);
 			        		}else if(level==2) {
-			        			JOptionPane.showMessageDialog(new JFrame(), "CONGRADULATIONS!\nYou've completed the game,", "Game Completed", JOptionPane.INFORMATION_MESSAGE);
+			        			JOptionPane.showMessageDialog(new JFrame(), "CONGRADULATIONS!\nYou've completed the game", "Game Completed", JOptionPane.INFORMATION_MESSAGE);
 			        		}
 			        		mainFrame.setVisible(false);
 			        		mainFrame.dispose();
