@@ -3,8 +3,11 @@ import nz.ac.vuw.ecs.swen225.gp21.domain.Game;
 import nz.ac.vuw.ecs.swen225.gp21.domain.Position;
 import nz.ac.vuw.ecs.swen225.gp21.domain.Tile;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
 public class Board {
     private JComponent gameBoard;
@@ -12,6 +15,7 @@ public class Board {
     private Tile[][] maze;
     private Position chapPos, lChapPos;
     private Game game;
+    public static BufferedImage chap,empty,portal,lock,treasure,info,doorG,doorB,doorY,wall,keyY,keyG,keyB,spider;
     public Board(Game game) {
         this.game = game;
         this.maze = game.getMaze();
@@ -29,6 +33,27 @@ public class Board {
                 redraw(g);
             }
         };
+
+        //preload all image.
+
+        try {
+            empty = ImageIO.read(RenderTile.class.getResource("empty.png"));
+            chap = ImageIO.read(RenderTile.class.getResource("chap.png"));
+            portal = ImageIO.read(RenderTile.class.getResource("portal.png"));
+            lock = ImageIO.read(RenderTile.class.getResource("lock.png"));
+            treasure = ImageIO.read(RenderTile.class.getResource("treasure.png"));
+            info = ImageIO.read(RenderTile.class.getResource("info.png"));
+            doorG = ImageIO.read(RenderTile.class.getResource("doorgreen.png"));
+            doorB = ImageIO.read(RenderTile.class.getResource("doorblue.png"));
+            doorY = ImageIO.read(RenderTile.class.getResource("dooryellow.png"));
+            wall = ImageIO.read(RenderTile.class.getResource("wall.png"));
+            keyY = ImageIO.read(RenderTile.class.getResource("keyyellow.png"));
+            keyG = ImageIO.read(RenderTile.class.getResource("keygreen.png"));
+            keyB = ImageIO.read(RenderTile.class.getResource("keyblue.png"));
+
+        } catch (IOException e) {
+            System.out.println("Unable to load images");
+        }
 
     }
     public void redraw(Graphics g) {
