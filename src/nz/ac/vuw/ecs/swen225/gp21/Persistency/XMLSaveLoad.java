@@ -221,6 +221,11 @@ public class XMLSaveLoad {
 	}
 	
 	
+	/**
+	 * Loads in external actor from Level2.jar. Returns a Class object which can be instantiated. 
+	 * @return	Class object of external actor. 
+	 * @throws IOException	If there are any issues loading the Jar file.
+	 */
 	public static Class loadClass() throws IOException {
 		
 		Class<?> clazz;
