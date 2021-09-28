@@ -18,6 +18,7 @@ import nz.ac.vuw.ecs.swen225.gp21.domain.Info;
 import nz.ac.vuw.ecs.swen225.gp21.domain.Position;
 import nz.ac.vuw.ecs.swen225.gp21.domain.Tile;
 import nz.ac.vuw.ecs.swen225.gp21.domain.Wall;
+import nz.ac.vuw.ecs.swen225.gp21.domain.Chap;
 
 import org.jdom2.Document;
 import org.jdom2.Element;
@@ -46,35 +47,14 @@ public class XMLSaveLoad {
 	 */
 	public static Game load(String fileName) throws IOException {
 		
-		System.out.println("Starting load of " + fileName);
-		long startTime = System.currentTimeMillis();
 		if (!fileName.endsWith(".xml")) {
 			throw new IOException("Missing or incorrect file format.");
 		}
 
-		Class<?> spiderClass;
-
-		// Load in the external spider class from the Jar file.
-
-		try {
-			URL url = new URL("jar:file:./src/nz/ac/vuw/ecs/swen225/gp21/Persistency/levels/Level2.jar!/");
-			URLClassLoader ucl = new URLClassLoader(new URL[] { url });
-			spiderClass = ucl.loadClass("Spider");
-
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-			throw new IOException();
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
-			throw new IOException("External class not found." + e);
-		} catch (IllegalArgumentException e) {
-			e.printStackTrace();
-			throw new IOException("IllegalArgumentException: " + e);
-		} catch (SecurityException e) {
-			e.printStackTrace();
-			throw new IOException("SecurityException: " + e);
-		}
-
+		
+		
+		Class<?> spiderClass = loadClass();
+		
 		try {
 
 			// Required steps to load XML document.
@@ -145,8 +125,6 @@ public class XMLSaveLoad {
 				}
 			}
 
-			long endTime = System.currentTimeMillis();
-			System.out.println("Loading time for level " + fileName + ": " + (endTime - startTime) + "ms");
 			return new Game(maze, levelNumber, totalTime, chapRow, chapCol);
 
 		} catch (IOException | JDOMException e) {
@@ -174,6 +152,8 @@ public class XMLSaveLoad {
 		if (!outputFileName.endsWith(".xml")) {
 			throw new IOException("Missing or incorrect file format.");
 		}
+		
+		Class<?> spiderClass = loadClass();
 
 		Document doc = new Document();
 
@@ -205,8 +185,16 @@ public class XMLSaveLoad {
 
 				// Save different attributes to tileElement depending on its type.
 				if (tileObject instanceof Free) {
+			
 					tileElement.setAttribute("key", ((Free) tileObject).getKey());
 					tileElement.setAttribute("treasure", "" + ((Free) tileObject).hasTreasure());
+					//Sets actor attribute to "Spider" if there is one on the tile. 
+					Actor actorInTile = ((Free) tileObject).getActor();
+					if(actorInTile != null && actorInTile.getClass().getSimpleName().equals(spiderClass.getSimpleName())) {
+						tileElement.setAttribute("actor", "Spider");
+					} else {
+						tileElement.setAttribute("actor", "");
+					}
 				} else if (tileObject instanceof Door) {
 					tileElement.setAttribute("colour", ((Door) tileObject).getColour());
 				} else if (tileObject instanceof Info) {
@@ -230,6 +218,35 @@ public class XMLSaveLoad {
 		} catch (IOException e) {
 			throw new IOException("Error saving XML: " + e);
 		}
+	}
+	
+	
+	public static Class loadClass() throws IOException {
+		
+		Class<?> clazz;
+
+		// Load in the external spider class from the Jar file.
+
+		try {
+			URL url = new URL("jar:file:./src/nz/ac/vuw/ecs/swen225/gp21/Persistency/levels/Level2.jar!/");
+			URLClassLoader ucl = new URLClassLoader(new URL[] { url });
+			clazz = ucl.loadClass("Spider");
+
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+			throw new IOException();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+			throw new IOException("External class not found." + e);
+		} catch (IllegalArgumentException e) {
+			e.printStackTrace();
+			throw new IOException("IllegalArgumentException: " + e);
+		} catch (SecurityException e) {
+			e.printStackTrace();
+			throw new IOException("SecurityException: " + e);
+		}
+		
+		return clazz;
 	}
 
 }
