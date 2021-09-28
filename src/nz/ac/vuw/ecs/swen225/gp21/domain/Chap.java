@@ -1,5 +1,7 @@
 package nz.ac.vuw.ecs.swen225.gp21.domain;
 
+import java.awt.image.BufferedImage;
+
 public class Chap implements Actor{
 	
 	private Position chapPos;
@@ -10,7 +12,7 @@ public class Chap implements Actor{
 
 	@Override
 	public void move(Game game) {
-		throw new IllegalStateException("Chap is a special actor that doesn't use move");
+		throw new UnsupportedOperationException("Chap is a special actor that doesn't use move");
 		
 	}
 	
@@ -28,6 +30,11 @@ public class Chap implements Actor{
 	public void setPos(Position pos) {
 		chapPos = pos;
 		
+	}
+
+	@Override
+	public BufferedImage getImage() {
+		throw new UnsupportedOperationException("Chap is not an external actor");
 	}
 
 }

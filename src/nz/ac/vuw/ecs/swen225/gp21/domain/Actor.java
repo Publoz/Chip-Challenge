@@ -1,5 +1,7 @@
 package nz.ac.vuw.ecs.swen225.gp21.domain;
 
+import java.awt.image.BufferedImage;
+
 public interface Actor {
 
 	/**
@@ -13,5 +15,7 @@ public interface Actor {
 	public Position getPos();
 	
 	public void setPos(Position pos);
+	
+	public BufferedImage getImage();
 	
 }

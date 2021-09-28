@@ -1,5 +1,6 @@
 package nz.ac.vuw.ecs.swen225.gp21.domain;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Game {
@@ -16,6 +17,7 @@ public class Game {
 	private boolean paused = false;
 	private int treasureLeft;
 	private String[] keys = new String[MAX_KEYS];
+	private ArrayList<Actor> actors = new ArrayList<Actor>();
 
 	//private Position chapPos;
 	private Chap chap;
@@ -42,6 +44,24 @@ public class Game {
 		maze[chap.getPos().getRow()][chap.getPos().getCol()].addActor(chap);
 		assert(findChap().getRow() == row && findChap().getCol() == col); //check that chap loaded 
 																		  //in correctly
+		loadActors();
+	}
+	
+	/**
+	 * Loads the actors into an arraylist at the start of the game.
+	 * 
+	 * Skips Chap
+	 */
+	public void loadActors() {
+		for(int row = 0; row < maze.length; row++) {
+			for(int col = 0; col < maze[0].length; col++) {
+				if(maze[row][col].getActor() != null 
+						&& !(maze[row][col].getActor().toString().equals("Chap"))){
+					actors.add(maze[row][col].getActor());
+				}
+			}
+		}
+		assert(!actors.contains(chap));
 	}
 	
 	/**
@@ -121,6 +141,15 @@ public class Game {
 			
 			assert(findChap().equals(moveToPos));
 			assert(chapInValidPos());
+		}
+	}
+	
+	/**
+	 * Moves all the actors based on their move.
+	 */
+	public void updateActors() {
+		for(Actor act: actors) {
+			act.move(this);
 		}
 	}
 	
