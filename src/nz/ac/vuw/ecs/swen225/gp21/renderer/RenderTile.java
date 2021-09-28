@@ -54,7 +54,6 @@ public class RenderTile {
         if(tile instanceof Exit){ img = portal; }
         if(tile instanceof Info) { img = info;}
         if(tile.hasKey()){
-            System.out.println(tile.getKey());
             if(tile.getKey().equals("g")){ img = keyG; }
             if(tile.getKey().equals("b")){ img = keyB; }
             if(tile.getKey().equals("y")){ img = keyY; }
