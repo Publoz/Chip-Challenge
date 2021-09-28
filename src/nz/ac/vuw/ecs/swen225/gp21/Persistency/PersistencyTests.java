@@ -4,15 +4,18 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 
 import org.junit.jupiter.api.Test;
 
+import nz.ac.vuw.ecs.swen225.gp21.domain.Actor;
 import nz.ac.vuw.ecs.swen225.gp21.domain.Door;
 import nz.ac.vuw.ecs.swen225.gp21.domain.Exit;
 import nz.ac.vuw.ecs.swen225.gp21.domain.ExitLock;
 import nz.ac.vuw.ecs.swen225.gp21.domain.Free;
 import nz.ac.vuw.ecs.swen225.gp21.domain.Game;
 import nz.ac.vuw.ecs.swen225.gp21.domain.Info;
+import nz.ac.vuw.ecs.swen225.gp21.domain.Position;
 import nz.ac.vuw.ecs.swen225.gp21.domain.Tile;
 import nz.ac.vuw.ecs.swen225.gp21.domain.Wall;
 
@@ -51,7 +54,7 @@ public class PersistencyTests {
 
 			String loadedString = loaded.drawBoard();
 			
-			assert (originalString.equals(loadedString));
+			assertEquals(originalString , loadedString);
 		} catch (IOException e) {
 			e.printStackTrace();
 			fail();
@@ -96,7 +99,7 @@ public class PersistencyTests {
 			}
 
 			String loadedString = loaded.drawBoard();
-			assert (originalString.equals(loadedString));
+			assertEquals(originalString, loadedString);
 
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -147,13 +150,13 @@ public class PersistencyTests {
 		
 		try {
 			Game toLoad = XMLSaveLoad.load("level1.xml");
-			String original = toLoad.drawBoard();
-			System.out.println(original);
+			String originalString = toLoad.drawBoard();
+	
 			XMLSaveLoad.save(toLoad, "saved.xml");
 			toLoad = XMLSaveLoad.load("saved.xml");
 			String finalString = toLoad.drawBoard();
-			System.out.println(finalString);
-			assert(original.equals(finalString));
+		
+			assertEquals(originalString, finalString);
 
 			
 		} catch (IOException e) {
@@ -170,13 +173,11 @@ public class PersistencyTests {
 		
 		try {
 			Game toLoad = XMLSaveLoad.load("level2.xml");
-			String original = toLoad.drawBoard();
-			System.out.println(original);
+			String originalString = toLoad.drawBoard();
 			XMLSaveLoad.save(toLoad, "saved.xml");
 			toLoad = XMLSaveLoad.load("saved.xml");
 			String finalString = toLoad.drawBoard();
-			System.out.println(finalString);
-			assert(original.equals(finalString));
+			assertEquals(originalString, finalString);
 
 			
 		} catch (IOException e) {
@@ -184,4 +185,34 @@ public class PersistencyTests {
 			fail();
 		}
 	}
+	
+	@Test
+	/**
+	 * Testing loading and reloading Spider actor.
+	 */
+	public void test7() {
+		
+		try {
+		Class<?> spiderClass = XMLSaveLoad.loadClass();
+		Actor spiderObject = (Actor) spiderClass.getDeclaredConstructor(Position.class).newInstance(new Position(0, 0));
+		Tile[][] maze = new Tile[1][2];
+		Free toAdd = new Free();
+		toAdd.addActor(spiderObject);
+		maze[0][0] = (toAdd);
+		maze[0][1] = new Free();
+		
+		Game original = new Game(maze, 1, 1, 0, 1);
+		
+		XMLSaveLoad.save(original, "saved.xml");
+		Game loaded = XMLSaveLoad.load("saved.xml");
+		
+		assertEquals(original.drawBoard(), loaded.drawBoard());
+		
+		} catch (IOException | InstantiationException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException | SecurityException e) {
+			e.printStackTrace();
+			fail();
+		}
+
+	}
+	
 }
