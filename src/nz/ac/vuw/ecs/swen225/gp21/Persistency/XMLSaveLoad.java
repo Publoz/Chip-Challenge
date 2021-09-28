@@ -57,7 +57,7 @@ public class XMLSaveLoad {
 		// Load in the external spider class from the Jar file.
 
 		try {
-			URL url = new URL("jar:file:./src/nz/ac/vuw/ecs/swen225/gp21/Persistency/levels/Spider.jar!/");
+			URL url = new URL("jar:file:./src/nz/ac/vuw/ecs/swen225/gp21/Persistency/levels/Level2.jar!/");
 			URLClassLoader ucl = new URLClassLoader(new URL[] { url });
 			spiderClass = ucl.loadClass("Spider");
 
