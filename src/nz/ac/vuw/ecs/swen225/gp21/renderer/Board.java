@@ -7,6 +7,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 
 public class Board {
@@ -15,7 +16,7 @@ public class Board {
     private Tile[][] maze;
     private Position chapPos, lChapPos;
     private Game game;
-    public static BufferedImage chap,empty,portal,lock,treasure,info,doorG,doorB,doorY,wall,keyY,keyG,keyB,spider;
+    public static BufferedImage chap,empty,portal,lock,treasure,info,doorG,doorB,doorY,doorR,wall,keyY,keyG,keyB,keyR;
     public Board(Game game) {
         this.game = game;
         this.maze = game.getMaze();
@@ -46,10 +47,13 @@ public class Board {
             doorG = ImageIO.read(RenderTile.class.getResource("doorgreen.png"));
             doorB = ImageIO.read(RenderTile.class.getResource("doorblue.png"));
             doorY = ImageIO.read(RenderTile.class.getResource("dooryellow.png"));
+            doorR = ImageIO.read(RenderTile.class.getResource("doorred.png"));
             wall = ImageIO.read(RenderTile.class.getResource("wall.png"));
             keyY = ImageIO.read(RenderTile.class.getResource("keyyellow.png"));
             keyG = ImageIO.read(RenderTile.class.getResource("keygreen.png"));
             keyB = ImageIO.read(RenderTile.class.getResource("keyblue.png"));
+            keyR = ImageIO.read(RenderTile.class.getResource("keyred.png"));
+            //spider = ImageIO.read(new File("/src/nz/ac/vuw/ecs/swen225/gp21/Persistency/levels/Level2.jar/spider.png"));
 
         } catch (IOException e) {
             System.out.println("Unable to load images");

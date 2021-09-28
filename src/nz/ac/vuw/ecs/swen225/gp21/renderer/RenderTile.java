@@ -23,13 +23,17 @@ public class RenderTile {
 
     public void draw(Graphics g){
         img = Board.empty;
-        if(tile.hasTreasure()){img = Board.treasure;}
+
         if(tile instanceof Door){
             if(((Door) tile).getColour().equals("g")){ img = Board.doorG; }
             if(((Door) tile).getColour().equals("b")){ img = Board.doorB; }
             if(((Door) tile).getColour().equals("y")){ img = Board.doorY; }
+            if(((Door) tile).getColour().equals("r")){ img = Board.doorR; }
             if(tile.canMoveHere()){ img = Board.empty; }
+            if(tile.getActor() != null){ img = Board.empty; }
         }
+        if(tile instanceof Free){ img = Board.empty;}
+        if(tile.hasTreasure()){img = Board.treasure;}
         if(tile instanceof Wall){ img = Board.wall; }
         if(tile instanceof ExitLock){ img = Board.lock; }
         if(tile instanceof Exit){ img = Board.portal; }
@@ -38,8 +42,11 @@ public class RenderTile {
             if(tile.getKey().equals("g")){ img = Board.keyG; }
             if(tile.getKey().equals("b")){ img = Board.keyB; }
             if(tile.getKey().equals("y")){ img = Board.keyY; }
+            if(tile.getKey().equals("r")){ img = Board.keyR; }
+
         }
-        if(tile.getActor() != null){img = Board.chap;}
+        if(tile.getActor() instanceof Chap) {img = Board.chap;}
+        if(tile.getActor() != null && !(tile.getActor() instanceof Chap)){img = Board.chap;} //placeholder for plugin actor implementation
 
 
         g.drawImage(img, this.x * 60, this.y * 60, 60, 60, new ImageObserver() {
