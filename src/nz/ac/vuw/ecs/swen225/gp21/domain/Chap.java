@@ -37,4 +37,9 @@ public class Chap implements Actor{
 		throw new UnsupportedOperationException("Chap is not an external actor");
 	}
 
+	@Override
+	public boolean isDeadly() {
+		return false;
+	}
+
 }

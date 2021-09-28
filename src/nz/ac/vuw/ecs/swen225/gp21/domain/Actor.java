@@ -16,6 +16,18 @@ public interface Actor {
 	
 	public void setPos(Position pos);
 	
+	/**
+	 * Get the image of this actor
+	 * 
+	 * @return the BufferedImage of the actor
+	 */
 	public BufferedImage getImage();
+	
+	/**
+	 * Returns whether this actor will kill chap on contact.
+	 * 
+	 * @return a boolean if actor is lethal
+	 */
+	public boolean isDeadly();
 	
 }

@@ -34,11 +34,16 @@ public abstract class AbstractTile implements Tile{
 	}
 	
 	/**
-	 * Default behavior, simply returns true
+	 * Default behavior, returns based on whether occupying actor
+	 * isDeadly is false, otherwise return true.
 	 * 
 	 * @return a boolean if an actor can move here
 	 */
 	public boolean canMoveHere() {
-		return true;
+		if(actor != null && actor.isDeadly() == false) {
+			return false;
+		} else {
+			return true;
+		}
 	}
 }
