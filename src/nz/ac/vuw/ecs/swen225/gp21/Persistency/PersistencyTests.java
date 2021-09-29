@@ -226,7 +226,7 @@ public class PersistencyTests {
 
 			Class<?> spiderClass = XMLSaveLoad.loadClass();
 			Actor spiderObject = (Actor) spiderClass.getDeclaredConstructor(Position.class)
-					.newInstance(new Position(0, 0));
+					.newInstance(new Position(1, 1));
 			Tile[][] maze = new Tile[3][4];
 
 			for (int row = 0; row < maze.length; row++) {
@@ -244,10 +244,12 @@ public class PersistencyTests {
 			maze[1][1] = (toAdd);
 
 			Game original = new Game(maze, 1, 1, 1, 2);
-			
+			System.out.println(original.drawBoard());
 			
 			original.getMaze()[1][1].getActor().move(original);
-			fail();
+			
+			assert(original.getGameOver());
+			
 		} catch (IOException | InstantiationException | IllegalAccessException | IllegalArgumentException
 				| InvocationTargetException | NoSuchMethodException | SecurityException e) {
 			e.printStackTrace();
@@ -258,7 +260,7 @@ public class PersistencyTests {
 	
 	@Test
 	/**
-	 * Ensuring spider doesn't walk out of bounds.
+	 * Ensuring spider doesn't walk out of into a wall.
 	 */
 	public void test9() {
 
@@ -287,8 +289,18 @@ public class PersistencyTests {
 
 			//Move spider in random direction. The spider should not move since it is
 			//surrounded by walls. 
-			original.getMaze()[1][1].getActor().move(original);
-
+			
+			boolean thrown = false;
+			
+			try {
+				original.getMaze()[1][1].getActor().move(original);
+			} catch(IllegalStateException e) {
+				thrown = true;
+			}
+			if(!thrown) {
+				fail(); //No valid moves. It should have thrown an IllegalStateException.
+			}
+				
 		} catch (IOException | InstantiationException | IllegalAccessException | IllegalArgumentException
 				| InvocationTargetException | NoSuchMethodException | SecurityException e) {
 			e.printStackTrace();
@@ -296,6 +308,60 @@ public class PersistencyTests {
 		}
 
 	}
+	
+	@Test
+	/**
+	 * Ensuring spider moves to the only free tile.
+	 */
+	public void test10() {
+
+		try {
+
+			
+			Tile[][] maze = new Tile[3][6];
+
+			for (int row = 0; row < maze.length; row++) {
+				for (int col = 0; col < maze[0].length; col++) {
+					if (row == 0 || col == 0 || row == maze.length - 1 || col == maze[0].length - 1) {
+						maze[row][col] = new Wall();
+					} else {
+						maze[row][col] = new Free();
+					}
+				}
+			}
+
+			Class<?> spiderClass = XMLSaveLoad.loadClass();
+			Actor spiderObject = (Actor) spiderClass.getDeclaredConstructor(Position.class)
+					.newInstance(new Position(1, 1));
+			
+	
+			maze[1][1] = new Free();
+			maze[1][1].addActor(spiderObject);
+			maze[1][3] = new Wall();
+			Game game = new Game(maze, 1, 1, 1, 4);
+			String originalBoard = game.drawBoard();
+			Actor spider = game.getMaze()[1][1].getActor();
+			spider.move(game);
+			System.out.println(game.drawBoard());
+			spider.move(game);
+			System.out.println(game.drawBoard());
+			spider.move(game);
+			System.out.println(game.drawBoard());
+			spider.move(game);
+			System.out.println(game.drawBoard());
+			//Move spider in random direction. The spider should not move since it is
+			//surrounded by walls. 
+
+			assertEquals(originalBoard, game.drawBoard());
+	
+		} catch (IOException | InstantiationException | IllegalAccessException | IllegalArgumentException
+				| InvocationTargetException | NoSuchMethodException | SecurityException e) {
+			e.printStackTrace();
+			fail();
+		}
+
+	}
+	
 	
 	
 
