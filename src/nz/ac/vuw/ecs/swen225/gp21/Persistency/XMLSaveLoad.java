@@ -8,6 +8,7 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import nz.ac.vuw.ecs.swen225.gp21.domain.Acid;
 import nz.ac.vuw.ecs.swen225.gp21.domain.Actor;
 import nz.ac.vuw.ecs.swen225.gp21.domain.Door;
 import nz.ac.vuw.ecs.swen225.gp21.domain.Exit;
@@ -17,6 +18,7 @@ import nz.ac.vuw.ecs.swen225.gp21.domain.Game;
 import nz.ac.vuw.ecs.swen225.gp21.domain.Info;
 import nz.ac.vuw.ecs.swen225.gp21.domain.Position;
 import nz.ac.vuw.ecs.swen225.gp21.domain.Tile;
+import nz.ac.vuw.ecs.swen225.gp21.domain.Time;
 import nz.ac.vuw.ecs.swen225.gp21.domain.Wall;
 import nz.ac.vuw.ecs.swen225.gp21.domain.Chap;
 
@@ -121,6 +123,11 @@ public class XMLSaveLoad {
 					} else if (type.equals("Info")) {
 						String info = currentTile.getAttributeValue("info");
 						maze[row][col] = new Info(info);
+					} else if(type.equals("Time")) {
+						int bonus = Integer.parseInt(currentTile.getAttributeValue("seconds"));
+						maze[row][col] = new Time(bonus);
+					} else if(type.equals("Acid")) {
+						maze[row][col] = new Acid();
 					}
 				}
 			}
@@ -199,6 +206,8 @@ public class XMLSaveLoad {
 					tileElement.setAttribute("colour", ((Door) tileObject).getColour());
 				} else if (tileObject instanceof Info) {
 					tileElement.setAttribute("info", ((Info) tileObject).getInformation());
+				} else if(tileObject instanceof Time) {
+					tileElement.setAttribute("seconds", "" + ((Time) tileObject).getSeconds());
 				}
 
 				// We can now add tileElement as a child of items.

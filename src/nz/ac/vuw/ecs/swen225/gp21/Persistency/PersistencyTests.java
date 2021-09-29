@@ -8,6 +8,7 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.junit.jupiter.api.Test;
 
+import nz.ac.vuw.ecs.swen225.gp21.domain.Acid;
 import nz.ac.vuw.ecs.swen225.gp21.domain.Actor;
 import nz.ac.vuw.ecs.swen225.gp21.domain.Door;
 import nz.ac.vuw.ecs.swen225.gp21.domain.Exit;
@@ -17,6 +18,7 @@ import nz.ac.vuw.ecs.swen225.gp21.domain.Game;
 import nz.ac.vuw.ecs.swen225.gp21.domain.Info;
 import nz.ac.vuw.ecs.swen225.gp21.domain.Position;
 import nz.ac.vuw.ecs.swen225.gp21.domain.Tile;
+import nz.ac.vuw.ecs.swen225.gp21.domain.Time;
 import nz.ac.vuw.ecs.swen225.gp21.domain.Wall;
 
 public class PersistencyTests {
@@ -68,25 +70,25 @@ public class PersistencyTests {
 	public void test2() {
 
 		try {
-			Tile[][] maze = new Tile[7][7];
-			for (int row = 0; row < 7; row++) {
-				for (int col = 0; col < 7; col++) {
-					if (row == 0 || col == 0 || row == maze.length - 1 || col == maze.length - 1) {
-						maze[row][col] = new Wall();
-					} else {
-						maze[row][col] = new Free();
-					}
-				}
+			
+			Tile[][] maze = new Tile[10][1];
+
+			for(int i = 0; i < maze.length; i++) {
+				maze[i][0] = new Free();
 			}
+			
+			maze[0][0] = new Free();	//Chap's tile
+			maze[1][0] = new Door("b");
+			maze[2][0] = new Exit();
+			maze[3][0] = new ExitLock();
+			maze[4][0] = new Info("Some information");
+			maze[5][0]= new Free("b", false);
+			maze[6][0] = new Free("", true);
+			maze[7][0] = new Wall();
+			maze[8][0] = new Time(10);
+			maze[9][0] = new Acid();
 
-			maze[1][1] = new Door("b");
-			maze[2][1] = new Exit();
-			maze[3][1] = new ExitLock();
-			maze[4][1] = new Info("Some information");
-			maze[5][1] = new Free("b", false);
-			maze[6][1] = new Free("", true);
-
-			Game original = new Game(maze, 1, 60, 2, 2);
+			Game original = new Game(maze, 1, 60, 0, 0);
 			String originalString = original.drawBoard();
 
 			XMLSaveLoad.save(original, "saved.xml");
@@ -177,6 +179,7 @@ public class PersistencyTests {
 			XMLSaveLoad.save(toLoad, "saved.xml");
 			toLoad = XMLSaveLoad.load("saved.xml");
 			String finalString = toLoad.drawBoard();
+	
 			assertEquals(originalString, finalString);
 
 		} catch (IOException e) {
@@ -285,22 +288,19 @@ public class PersistencyTests {
 			toAdd.addActor(spiderObject);
 			maze[1][1] = (toAdd);
 			maze[1][2] = new Wall();
-			Game original = new Game(maze, 1, 1, 1, 3);
+			Game game = new Game(maze, 1, 1, 1, 3);
 
-			//Move spider in random direction. The spider should not move since it is
-			//surrounded by walls. 
+			String originalBoard = game.drawBoard();
 			
-			boolean thrown = false;
+			Actor spider = game.getMaze()[1][1].getActor();
+			spider.move(game);
+			spider.move(game);
+			spider.move(game);
+			spider.move(game);
 			
-			try {
-				original.getMaze()[1][1].getActor().move(original);
-			} catch(IllegalStateException e) {
-				thrown = true;
-			}
-			if(!thrown) {
-				fail(); //No valid moves. It should have thrown an IllegalStateException.
-			}
-				
+			//Spider should stay stationary since it has no where to walk. 
+			assertEquals(originalBoard, game.drawBoard());
+			
 		} catch (IOException | InstantiationException | IllegalAccessException | IllegalArgumentException
 				| InvocationTargetException | NoSuchMethodException | SecurityException e) {
 			e.printStackTrace();
@@ -341,17 +341,14 @@ public class PersistencyTests {
 			Game game = new Game(maze, 1, 1, 1, 4);
 			String originalBoard = game.drawBoard();
 			Actor spider = game.getMaze()[1][1].getActor();
+			
+			//Spider should move back and forth between the two available squares.
 			spider.move(game);
-			System.out.println(game.drawBoard());
 			spider.move(game);
-			System.out.println(game.drawBoard());
 			spider.move(game);
-			System.out.println(game.drawBoard());
 			spider.move(game);
-			System.out.println(game.drawBoard());
-			//Move spider in random direction. The spider should not move since it is
-			//surrounded by walls. 
-
+		
+			//Spider should be on the square it started on. 
 			assertEquals(originalBoard, game.drawBoard());
 	
 		} catch (IOException | InstantiationException | IllegalAccessException | IllegalArgumentException
