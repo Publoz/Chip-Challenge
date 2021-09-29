@@ -111,12 +111,14 @@ public class Game {
 		if(validMove(chap.getPos().movePos(dir))) {
 			Position moveToPos = chap.getPos().movePos(dir);
 			Tile moveToTile = maze[moveToPos.getRow()][moveToPos.getCol()];
-			if(!(moveToTile.getActor() == null) && moveToTile.getActor().isDeadly() == false) {
-				throw new IllegalArgumentException("Cannot move onto occupied tile");
-			} else if(moveToTile.getActor().isDeadly()) {
-				gameOver = true;
-				removeChap();
-				return;
+			if(!(moveToTile.getActor() == null)){
+				if(!moveToTile.getActor().isDeadly()) {
+					throw new IllegalArgumentException("Cannot move onto occupied tile");
+				} else if(moveToTile.getActor().isDeadly()) {
+					gameOver = true;
+					removeChap();
+					return;
+				}
 			}
 			
 			pickup(moveToTile);

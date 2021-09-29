@@ -399,6 +399,7 @@ public class GUI {
 		this.treasuresLeft = currentGame.countTreasure();
 		if(chipsPanel!=null) {
 			chipsPanel.updateValue(this.treasuresLeft);
+			currentGame.updateActors();
 			for(String key : currentGame.getKeys()) {
 				if(key==null) return;
 				switch(key) {
