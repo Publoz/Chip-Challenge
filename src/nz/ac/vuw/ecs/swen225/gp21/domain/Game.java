@@ -138,6 +138,13 @@ public class Game {
 							+ " treasure is left");
 				}
 				gameOver = true;
+			} else if(moveToTile instanceof Acid) {
+				gameOver = true;
+				removeChap();
+				return;
+			} else if(moveToTile instanceof Time) {
+				totalPauseTime += ((Time)moveToTile).getSeconds() * 1000.0;
+				maze[moveToPos.getRow()][moveToPos.getCol()] = new Free();
 			}
 				
 				
