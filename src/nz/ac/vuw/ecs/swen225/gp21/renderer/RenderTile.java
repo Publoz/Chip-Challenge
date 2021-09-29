@@ -46,7 +46,7 @@ public class RenderTile {
 
         }
         if(tile.getActor() instanceof Chap) {img = Board.chap;}
-        if(tile.getActor() != null && !(tile.getActor() instanceof Chap)){img = Board.chap;} //placeholder for plugin actor implementation
+        if(tile.getActor() != null && !(tile.getActor() instanceof Chap)){img = tile.getActor().getImage();}
 
 
         g.drawImage(img, this.x * 60, this.y * 60, 60, 60, new ImageObserver() {
