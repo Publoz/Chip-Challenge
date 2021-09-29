@@ -32,6 +32,7 @@ public class GUI {
 	private JLabel yellowKey;
 	private JLabel greenKey;
 	private JLabel blueKey;
+	private JLabel redKey;
 	InfoPanel levelPanel;
 	InfoPanel timePanel;
 	InfoPanel chipsPanel;
@@ -55,6 +56,7 @@ public class GUI {
 	ImageIcon keyY = new ImageIcon(RenderTile.class.getResource("keyyellow.png"));
 	ImageIcon keyG = new ImageIcon(RenderTile.class.getResource("keygreen.png"));
 	ImageIcon keyB = new ImageIcon(RenderTile.class.getResource("keyblue.png"));
+	ImageIcon keyR = new ImageIcon(RenderTile.class.getResource("keyred.png"));
 
 
 	public GUI(String filename) throws FontFormatException, IOException, InterruptedException {
@@ -157,8 +159,8 @@ public class GUI {
 		
 		//game collectedKeysPanel
 		collectedKeysPanel = new JPanel();
-		collectedKeysPanel.setLayout(new GridLayout(3, 1));
-		collectedKeysPanel.setBounds(gameBoardWidth-boardBorder, boardBorder, boardBorder*2, mainFrame.getHeight()/4);
+		collectedKeysPanel.setLayout(new GridLayout(4, 1));
+		collectedKeysPanel.setBounds(gameBoardWidth-boardBorder, boardBorder, boardBorder*2, mainFrame.getHeight()/3);
 		collectedKeysPanel.setBorder(new LineBorder(new Color(180,180,180), 3));
 		yellowKey = new JLabel();
 		yellowKey.setIcon(keyY);
@@ -166,6 +168,8 @@ public class GUI {
 		greenKey.setIcon(keyG);
 		blueKey = new JLabel();
 		blueKey.setIcon(keyB);
+		redKey = new JLabel();
+		redKey.setIcon(keyR);
 
 		//The game info panel settings
 		JPanel levelInfoPanel = new JPanel();
@@ -413,8 +417,9 @@ public class GUI {
 					case "b":
 						collectedKeysPanel.add(blueKey);
 						break;
-					//default :
-						//throw new IllegalArgumentException();
+					case "r":
+						collectedKeysPanel.add(redKey);
+						break;
 				}
 			}
 		}
