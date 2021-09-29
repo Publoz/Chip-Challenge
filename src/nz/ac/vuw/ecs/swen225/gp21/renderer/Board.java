@@ -35,7 +35,7 @@ public class Board {
             }
         };
 
-        //preload all image.
+        //preload all images.
 
         try {
             empty = ImageIO.read(RenderTile.class.getResource("empty.png"));
@@ -64,6 +64,7 @@ public class Board {
         chapPos = game.getChap();
         for (int row = 0; row < maze.length; row++) {
             for (int col = 0; col < maze.length; col++) {
+                renderTiles[col][row].tile = maze[row][col];
                 renderTiles[col][row].x = col- chapPos.getCol() + 4;
                 renderTiles[col][row].y = row - chapPos.getRow() + 4;
                 renderTiles[col][row].draw(g);
