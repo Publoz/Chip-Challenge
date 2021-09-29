@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import nz.ac.vuw.ecs.swen225.gp21.domain.Acid;
@@ -48,15 +49,14 @@ public class XMLSaveLoad {
 	 * @throws IOException If input file name is in the incorrect format.
 	 */
 	public static Game load(String fileName) throws IOException {
-		
+
 		if (!fileName.endsWith(".xml")) {
 			throw new IOException("Missing or incorrect file format.");
 		}
 
-		
-		
 		Class<?> spiderClass = loadClass();
-		
+		String keys = "";
+
 		try {
 
 			// Required steps to load XML document.
@@ -74,7 +74,7 @@ public class XMLSaveLoad {
 
 			// Get the parent element for all Tile elements.
 			Element tiles = root.getChild("Tiles");
-
+			keys = root.getAttributeValue("keys");
 			// Calculate the rows and cols. We assume that the board is rectangular.
 			int totalRows = tiles.getChildren().size();
 			int totalCols = tiles.getChildren().get(0).getChildren().size();
@@ -123,16 +123,25 @@ public class XMLSaveLoad {
 					} else if (type.equals("Info")) {
 						String info = currentTile.getAttributeValue("info");
 						maze[row][col] = new Info(info);
-					} else if(type.equals("Time")) {
+					} else if (type.equals("Time")) {
 						int bonus = Integer.parseInt(currentTile.getAttributeValue("seconds"));
 						maze[row][col] = new Time(bonus);
-					} else if(type.equals("Acid")) {
+					} else if (type.equals("Acid")) {
 						maze[row][col] = new Acid();
 					}
 				}
 			}
 
-			return new Game(maze, levelNumber, totalTime, chapRow, chapCol);
+			Game toReturn = new Game(maze, levelNumber, totalTime, chapRow, chapCol);
+
+			// Add collected keys to game.
+			if (keys != null) {
+				for (int i = 0; i < keys.length(); i++) {
+					toReturn.addKey("" + keys.charAt(i));
+				}
+			}
+
+			return toReturn;
 
 		} catch (IOException | JDOMException e) {
 			System.out.println("Error loading file." + e);
@@ -159,7 +168,7 @@ public class XMLSaveLoad {
 		if (!outputFileName.endsWith(".xml")) {
 			throw new IOException("Missing or incorrect file format.");
 		}
-		
+
 		Class<?> spiderClass = loadClass();
 
 		Document doc = new Document();
@@ -173,6 +182,19 @@ public class XMLSaveLoad {
 		root.setAttribute("totalTime", "" + game.timeLeft());
 		root.setAttribute("row", "" + game.findChap().getRow());
 		root.setAttribute("col", "" + game.findChap().getCol());
+		
+		//Add the collected keys as an attribute. 
+		String keys = "";
+		if (game.getKeys() != null) {
+			for (int i = 0; i < game.getKeys().length; i++) {
+				String key = game.getKeys()[i];
+				if(key != null) {
+					keys += key;
+				}
+			}
+		}
+		
+		root.setAttribute("keys", keys);
 
 		// Create a parent element which will contain all child Tiles.
 		Element allTiles = new Element("Tiles");
@@ -192,12 +214,13 @@ public class XMLSaveLoad {
 
 				// Save different attributes to tileElement depending on its type.
 				if (tileObject instanceof Free) {
-			
+
 					tileElement.setAttribute("key", ((Free) tileObject).getKey());
 					tileElement.setAttribute("treasure", "" + ((Free) tileObject).hasTreasure());
-					//Sets actor attribute to "Spider" if there is one on the tile. 
+					// Sets actor attribute to "Spider" if there is one on the tile.
 					Actor actorInTile = ((Free) tileObject).getActor();
-					if(actorInTile != null && actorInTile.getClass().getSimpleName().equals(spiderClass.getSimpleName())) {
+					if (actorInTile != null
+							&& actorInTile.getClass().getSimpleName().equals(spiderClass.getSimpleName())) {
 						tileElement.setAttribute("actor", "Spider");
 					} else {
 						tileElement.setAttribute("actor", "");
@@ -206,7 +229,7 @@ public class XMLSaveLoad {
 					tileElement.setAttribute("colour", ((Door) tileObject).getColour());
 				} else if (tileObject instanceof Info) {
 					tileElement.setAttribute("info", ((Info) tileObject).getInformation());
-				} else if(tileObject instanceof Time) {
+				} else if (tileObject instanceof Time) {
 					tileElement.setAttribute("seconds", "" + ((Time) tileObject).getSeconds());
 				}
 
@@ -228,15 +251,16 @@ public class XMLSaveLoad {
 			throw new IOException("Error saving XML: " + e);
 		}
 	}
-	
-	
+
 	/**
-	 * Loads in external actor from Level2.jar. Returns a Class object which can be instantiated. 
-	 * @return	Class object of external actor. 
-	 * @throws IOException	If there are any issues loading the Jar file.
+	 * Loads in external actor from Level2.jar. Returns a Class object which can be
+	 * instantiated.
+	 * 
+	 * @return Class object of external actor.
+	 * @throws IOException If there are any issues loading the Jar file.
 	 */
 	public static Class loadClass() throws IOException {
-		
+
 		Class<?> clazz;
 
 		// Load in the external spider class from the Jar file.
@@ -259,7 +283,7 @@ public class XMLSaveLoad {
 			e.printStackTrace();
 			throw new IOException("SecurityException: " + e);
 		}
-		
+
 		return clazz;
 	}
 

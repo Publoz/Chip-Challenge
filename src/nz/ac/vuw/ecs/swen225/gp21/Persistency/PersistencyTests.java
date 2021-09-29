@@ -247,7 +247,7 @@ public class PersistencyTests {
 			maze[1][1] = (toAdd);
 
 			Game original = new Game(maze, 1, 1, 1, 2);
-			System.out.println(original.drawBoard());
+			
 			
 			original.getMaze()[1][1].getActor().move(original);
 			
@@ -356,6 +356,52 @@ public class PersistencyTests {
 			e.printStackTrace();
 			fail();
 		}
+	}
+		
+		
+		@Test
+		/**
+		 * Ensures that save files remember when the player picks up keys.
+		 */
+		public void test11() {
+
+			try {
+
+				
+				Tile[][] maze = new Tile[3][6];
+
+				for (int row = 0; row < maze.length; row++) {
+					for (int col = 0; col < maze[0].length; col++) {
+						if (row == 0 || col == 0 || row == maze.length - 1 || col == maze[0].length - 1) {
+							maze[row][col] = new Wall();
+						} else {
+							maze[row][col] = new Free();
+						}
+					}
+				}
+
+				maze[1][2] = new Free("b", false);
+				maze[1][3] = new Door("b");
+				Game game = new Game(maze, 1, 1, 1, 1);
+				game.moveChap("d");
+				
+				XMLSaveLoad.save(game, "saved.xml");
+				game = XMLSaveLoad.load("saved.xml");
+				
+				game.moveChap("d");
+
+				assertEquals("W|W|W|W|W|W|\n"
+						    +"W|_|_|C|_|W|\n"
+						    +"W|W|W|W|W|W|\n", game.drawBoard());
+				
+
+		
+			} catch (IllegalArgumentException
+					| SecurityException | IOException e) {
+				e.printStackTrace();
+				fail();
+			}
+
 
 	}
 	

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Game levelNumber="1" totalTime="1" row="0" col="1">
+<Game levelNumber="1" totalTime="1" row="0" col="1" keys="">
   <Tiles>
     <Row>
       <Free key="" treasure="false" actor="Spider" />
