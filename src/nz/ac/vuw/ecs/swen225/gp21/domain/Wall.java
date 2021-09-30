@@ -14,6 +14,11 @@ public class Wall extends AbstractTile {
   }
 
   @Override
+  public void addActor(Actor actor) {
+    throw new IllegalStateException("Cannot add an actor to a wall!");
+  }
+
+  @Override
   public String toString() {
     return "W";
   }
