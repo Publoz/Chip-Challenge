@@ -22,6 +22,7 @@ public class Game {
 	//private Position chapPos;
 	private Chap chap;
 	private boolean gameOver = false;
+	private boolean win;
 	
 	
 	/**
@@ -116,6 +117,7 @@ public class Game {
 					throw new IllegalArgumentException("Cannot move onto occupied tile");
 				} else if(moveToTile.getActor().isDeadly()) {
 					gameOver = true;
+					win = false;
 					removeChap();
 					return;
 				}
@@ -138,8 +140,10 @@ public class Game {
 							+ " treasure is left");
 				}
 				gameOver = true;
+				win = true;
 			} else if(moveToTile instanceof Acid) {
 				gameOver = true;
+				win = false;
 				removeChap();
 				return;
 			} else if(moveToTile instanceof Time) {
@@ -379,6 +383,15 @@ public class Game {
 	 */
 	public boolean getGameOver() {
 		return gameOver;
+	}
+	
+	/**
+	 * Gets the win field which indicated if the user won.
+	 * 
+	 * @return the boolean value of whether the level was won
+	 */
+	public boolean wonGame() {
+		return win;
 	}
 	
 	/**
