@@ -1,4 +1,4 @@
-package test.nz.ac.vuw.ac.ecs.swen225.gp21.domain;
+package test.nz.ac.vuw.ecs.swen225.gp21.domain;
 
 import static org.junit.Assert.assertEquals;
 
