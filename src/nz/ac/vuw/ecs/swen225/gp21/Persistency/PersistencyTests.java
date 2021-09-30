@@ -182,6 +182,8 @@ public class PersistencyTests {
       toLoad = XMLSaveLoad.load("saved.xml");
       String finalString = toLoad.drawBoard();
 
+      System.out.println(originalString);
+      System.out.println(finalString);
       assertEquals(originalString, finalString);
 
     } catch (IOException e) {
@@ -255,7 +257,7 @@ public class PersistencyTests {
       assertEquals("W|W|W|W|\n"
                  + "W|_|#|W|\n"
                  + "W|W|W|W|\n", original.drawBoard());
-      
+
       assert (original.getGameOver());
 
     } catch (IOException | InstantiationException | IllegalAccessException
@@ -298,7 +300,7 @@ public class PersistencyTests {
 
       Actor spider = game.getMaze()[1][1].getActor();
       String originalBoard = game.drawBoard();
-      
+
       for(int i = 0; i < 4; i++)  {
         spider.move(game);
       }

@@ -1,6 +1,8 @@
-<Game levelNumber="2" totalTime="180" row="9" col="17">
+<Game levelNumber="2" totalTime="180" row="9" col="12">
 	<Tiles>
 		<Row y = "0">
+			<Wall></Wall>
+			<Wall></Wall>
 			<Wall></Wall>
 			<Wall></Wall>
 			<Wall></Wall>
@@ -39,6 +41,8 @@
 			<Free key = "" treasure = "false" actor = ""></Free>
 			<Free key = "" treasure = "false" actor = ""></Free>
 			<Free key = "" treasure = "false" actor = ""></Free>
+			<Wall></Wall>
+			<Wall></Wall>
 			<Wall></Wall></Row>
 		<Row y = "2">
 			<Wall></Wall>
@@ -59,6 +63,8 @@
 			<Free key = "" treasure = "false" actor = ""></Free>
 			<Exit></Exit>
 			<Free key = "" treasure = "false" actor = ""></Free>
+			<Wall></Wall>
+			<Wall></Wall>
 			<Wall></Wall></Row>
 		<Row y = "3">
 			<Wall></Wall>
@@ -79,6 +85,8 @@
 			<Free key = "" treasure = "false" actor = ""></Free>
 			<Free key = "" treasure = "false" actor = ""></Free>
 			<Free key = "" treasure = "false" actor = ""></Free>
+			<Wall></Wall>
+			<Wall></Wall>
 			<Wall></Wall></Row>
 		<Row y = "4">
 			<Wall></Wall>
@@ -99,6 +107,8 @@
 			<Free key = "" treasure = "false" actor = ""></Free>
 			<Free key = "" treasure = "false" actor = ""></Free>
 			<Free key = "" treasure = "false" actor = ""></Free>
+			<Wall></Wall>
+			<Wall></Wall>
 			<Wall></Wall></Row>
 		<Row y = "5">
 			<Wall></Wall>
@@ -119,6 +129,8 @@
 			<Free key = "" treasure = "false" actor = ""></Free>
 			<Free key = "" treasure = "false" actor = ""></Free>
 			<Free key = "" treasure = "false" actor = ""></Free>
+			<Wall></Wall>
+			<Wall></Wall>
 			<Wall></Wall></Row>
 		<Row y = "6">
 			<Wall></Wall>
@@ -139,6 +151,8 @@
 			<Free key = "" treasure = "false" actor = ""></Free>
 			<Free key = "" treasure = "false" actor = ""></Free>
 			<Free key = "" treasure = "false" actor = ""></Free>
+			<Wall></Wall>
+			<Wall></Wall>
 			<Wall></Wall></Row>
 		<Row y = "7">
 			<Wall></Wall>
@@ -155,6 +169,8 @@
 			<Wall></Wall>
 			<Wall></Wall>
 			<Free key = "" treasure = "false" actor = ""></Free>
+			<Wall></Wall>
+			<Wall></Wall>
 			<Wall></Wall>
 			<Wall></Wall>
 			<Wall></Wall>
@@ -179,6 +195,8 @@
 			<Wall></Wall>
 			<Free key = "" treasure = "false" actor = ""></Free>
 			<Free key = "" treasure = "false" actor = ""></Free>
+			<Wall></Wall>
+			<Wall></Wall>
 			<Wall></Wall></Row>
 		<Row y = "9">
 			<Wall></Wall>
@@ -199,6 +217,8 @@
 			<Free key = "" treasure = "false" actor = ""></Free>
 			<Free key = "" treasure = "false" actor = ""></Free>
 			<Free key = "" treasure = "false" actor = ""></Free>
+			<Wall></Wall>
+			<Wall></Wall>
 			<Wall></Wall></Row>
 		<Row y = "10">
 			<Wall></Wall>
@@ -219,6 +239,8 @@
 			<Wall></Wall>
 			<Free key = "" treasure = "false" actor = ""></Free>
 			<Free key = "" treasure = "false" actor = ""></Free>
+			<Wall></Wall>
+			<Wall></Wall>
 			<Wall></Wall></Row>
 		<Row y = "11">
 			<Wall></Wall>
@@ -235,6 +257,8 @@
 			<Wall></Wall>
 			<Wall></Wall>
 			<Free key = "" treasure = "false" actor = ""></Free>
+			<Wall></Wall>
+			<Wall></Wall>
 			<Wall></Wall>
 			<Wall></Wall>
 			<Wall></Wall>
@@ -259,6 +283,8 @@
 			<Free key = "" treasure = "false" actor = ""></Free>
 			<Free key = "y" treasure = "false" actor = ""></Free>
 			<Free key = "" treasure = "false" actor = ""></Free>
+			<Wall></Wall>
+			<Wall></Wall>
 			<Wall></Wall></Row>
 		<Row y = "13">
 			<Wall></Wall>
@@ -279,6 +305,8 @@
 			<Free key = "" treasure = "false" actor = ""></Free>
 			<Wall></Wall>
 			<Free key = "" treasure = "false" actor = ""></Free>
+			<Wall></Wall>
+			<Wall></Wall>
 			<Wall></Wall></Row>
 		<Row y = "14">
 			<Wall></Wall>
@@ -299,6 +327,8 @@
 			<Free key = "" treasure = "false" actor = ""></Free>
 			<Wall></Wall>
 			<Free key = "" treasure = "false" actor = ""></Free>
+			<Wall></Wall>
+			<Wall></Wall>
 			<Wall></Wall></Row>
 		<Row y = "15">
 			<Wall></Wall>
@@ -319,6 +349,8 @@
 			<Wall></Wall>
 			<Wall></Wall>
 			<Free key = "" treasure = "false" actor = ""></Free>
+			<Wall></Wall>
+			<Wall></Wall>
 			<Wall></Wall></Row>
 		<Row y = "16">
 			<Wall></Wall>
@@ -339,8 +371,12 @@
 			<Free key = "" treasure = "false" actor = ""></Free>
 			<Acid></Acid>
 			<Time seconds = "10"></Time>
+			<Wall></Wall>
+			<Wall></Wall>
 			<Wall></Wall></Row>
 		<Row y = "17">
+			<Wall></Wall>
+			<Wall></Wall>
 			<Wall></Wall>
 			<Wall></Wall>
 			<Wall></Wall>
