@@ -1,15 +1,21 @@
 package nz.ac.vuw.ecs.swen225.gp21.domain;
 
-public class Wall extends AbstractTile{
+/**
+ * The Wall tile is a tile that no actor can walk on.
 
-	@Override
-	public boolean canMoveHere() {
-		return false;
-	}
-	
-	@Override
-	public String toString() {
-		return "W";
-	}
+ * @author Paul Ireland - 300475268
+ *
+ */
+public class Wall extends AbstractTile {
+
+  @Override
+  public boolean canMoveHere() {
+    return false;
+  }
+
+  @Override
+  public String toString() {
+    return "W";
+  }
 
 }
