@@ -252,7 +252,10 @@ public class PersistencyTests {
       Game original = new Game(maze, 1, 1, 1, 2);
 
       original.getMaze()[1][1].getActor().move(original);
-
+      assertEquals("W|W|W|W|\n"
+                 + "W|_|#|W|\n"
+                 + "W|W|W|W|\n", original.drawBoard());
+      
       assert (original.getGameOver());
 
     } catch (IOException | InstantiationException | IllegalAccessException
