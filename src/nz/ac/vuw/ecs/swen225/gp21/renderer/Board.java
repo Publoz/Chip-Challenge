@@ -112,7 +112,7 @@ public class Board {
         }
     }
 
-    private void playSound(String s){
+    public void playSound(String s){
         Clip clip = null;
         try {
             clip = AudioSystem.getClip();
