@@ -90,11 +90,6 @@ public class Board {
                     || renderTiles[chapPos.getCol()][chapPos.getRow()].img == lock){
                 playSound("door");
             }
-            if(renderTiles[chapPos.getCol()][chapPos.getRow()].img == portal){
-                playSound("portal");
-            }
-
-
         }
 
         for (int row = 0; row < maze.length; row++) {

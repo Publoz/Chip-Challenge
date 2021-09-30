@@ -24,7 +24,6 @@ public class RenderTile {
     }
 
     public void draw(Graphics g){
-        this.hasEnemy = false;
         img = Board.empty;
         if(tile != null){
             if(tile instanceof Door){
@@ -52,8 +51,7 @@ public class RenderTile {
                 if(lasMoveDir == "a") {img = Board.chapleft;}
                 if(lasMoveDir == "d") {img = Board.chapright;}
             }
-            if(tile.getActor() != null && !(tile.getActor() instanceof Chap)){img = tile.getActor().getImage();
-            this.hasEnemy = true;}
+            if(tile.getActor() != null && !(tile.getActor() instanceof Chap)){img = tile.getActor().getImage(); }
         }
 
         g.drawImage(img, this.x * 60, this.y * 60, 60, 60, new ImageObserver() {
