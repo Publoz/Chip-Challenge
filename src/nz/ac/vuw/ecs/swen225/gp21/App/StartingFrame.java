@@ -13,12 +13,14 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -115,6 +117,19 @@ public class StartingFrame extends JFrame {
             e1.printStackTrace();
           }
         } else if (actionValue == 2) {
+          JFileChooser chooser=new JFileChooser();
+          chooser.setCurrentDirectory(new File("./src/nz/ac/vuw/ecs/swen225/gp21//Persistency/levels/"));
+          chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+          chooser.showOpenDialog(null);
+
+          //String path=chooser.getSelectedFile().getAbsolutePath();
+          String filename=chooser.getSelectedFile().getName();
+          try {
+            new GUI(filename);
+          } catch (FontFormatException | IOException | InterruptedException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+          }
 
         } else if (actionValue == 3) {
           Desktop d = Desktop.getDesktop();

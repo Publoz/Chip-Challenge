@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -105,9 +106,27 @@ public class GUI {
       @Override
       public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
-        // XMLSaveLoad.load();
-        updateInfo();
-        JOptionPane.showMessageDialog(mainFrame, "Loading already saved game!");
+        // 
+        JFileChooser chooser=new JFileChooser();
+        chooser.setCurrentDirectory(new File("./src/nz/ac/vuw/ecs/swen225/gp21//Persistency/levels/"));
+        chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        chooser.showOpenDialog(null);
+
+        //String path=chooser.getSelectedFile().getAbsolutePath();
+        String filename=chooser.getSelectedFile().getName();
+        int loading = load(filename);
+        if (loading < 0) {
+          JOptionPane.showMessageDialog(mainFrame, "Loading failed!");
+          return;
+        }
+        mainFrame.setVisible(false);
+        mainFrame.dispose();
+        try {
+          new GUI(filename);
+        } catch (FontFormatException | IOException | InterruptedException e1) {
+          // TODO Auto-generated catch block
+          e1.printStackTrace();
+        }
       }
     });
     mainFrame.setLoadItem(loadMenuItem);
@@ -531,7 +550,9 @@ public class GUI {
           }
           currentGame.updateActors();
           timePanel.updateValue(timeLeft--);
-          renderBoard.redraw(renderBoard.getGameBoard().getGraphics());
+          if(renderBoard.getGameBoard().getGraphics()!=null) {
+            renderBoard.redraw(renderBoard.getGameBoard().getGraphics());
+          }
         }
       };
       timer = new Timer("Timer");
