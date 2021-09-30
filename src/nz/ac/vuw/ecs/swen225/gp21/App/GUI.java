@@ -517,13 +517,14 @@ public class GUI {
     if (gameOn) {
       task = new TimerTask() {
         public void run() {
-          if (currentGame.getGameOver() || timeLeft == -1) {
+          if (currentGame.getGameOver() || timeLeft == 0) {
             int finishing = -10;
             startTimer(false);
-            if (timeLeft == -1) {
+            if (timeLeft == 0) {
               finishing = JOptionPane.showConfirmDialog(new JFrame(),
                   "GAME OVER\nYou ran out of time!\nRestart this level?", "Game Over", JOptionPane.YES_NO_OPTION);
             } else if(currentGame.wonGame()) {
+              renderBoard.playSound("portal");
               if (level == 1) {
                 finishing = JOptionPane.showConfirmDialog(new JFrame(), "Level completed!\n Go to the next level?",
                     "Level Completed", JOptionPane.YES_NO_OPTION);
@@ -532,6 +533,7 @@ public class GUI {
                     "Game Completed", JOptionPane.INFORMATION_MESSAGE);
               }
             } else {
+              renderBoard.playSound("hurt");
               if (level == 1) {
                 finishing = JOptionPane.showConfirmDialog(new JFrame(), "GAME OVER\nYou died.\nRestart this level?",
                     "Game Over", JOptionPane.YES_NO_OPTION);
@@ -544,7 +546,7 @@ public class GUI {
             mainFrame.dispose();
             if (finishing == JOptionPane.YES_OPTION) {
               try {
-                if (timeLeft == -1 || !currentGame.wonGame()) {
+                if (timeLeft == 0 || !currentGame.wonGame()) {
                   new GUI("level" + level + ".xml");
                 } else {
                   new GUI("level" + (level + 1) + ".xml");
@@ -556,6 +558,7 @@ public class GUI {
             } else {
               new StartingFrame("Chip's Challenge");
             }
+            startTimer(false);
             return;
           }
           currentGame.updateActors();
