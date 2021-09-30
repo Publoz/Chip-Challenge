@@ -358,6 +358,8 @@ public class GUI {
             JOptionPane.showMessageDialog(mainFrame, infoTile.getInformation(), "Info Tile", JOptionPane.INFORMATION_MESSAGE);
           }
         }
+        mainFrame.setFocusable(true);
+        mainFrame.requestFocus();
       }
     });
     return button;
