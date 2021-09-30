@@ -14,46 +14,66 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextPane;
 import javax.swing.border.LineBorder;
+/**
+ * In this class, the panel dedicated to one information of the game
+ * is created.
 
-public class InfoPanel extends JPanel{
-	String fontFilename="../chip-challenge/src/nz/ac/vuw/ecs/swen225/gp21/App/digital-7.ttf";
-	private JTextPane infoValue;
+ * @author mjmof
+ *
+ */
+public class InfoPanel extends JPanel {
+  
+  
+  String fontFilename = "../chip-challenge/src/nz/ac/vuw/ecs/swen225/gp21/App/digital-7.ttf";
+  private JTextPane infoValue;
 
-	public InfoPanel(String text, int value) throws FontFormatException, IOException {
-		this.setLayout(new GridLayout(2, 1));
-		JLabel infoLabel = new JLabel(text);
-		infoLabel.setForeground(Color.RED);
-		infoLabel.setFont(new Font("MV Boli", Font.HANGING_BASELINE, 20));
-		infoLabel.setHorizontalAlignment(JLabel.CENTER);
-		infoLabel.setVerticalAlignment(JLabel.TOP);
-		JPanel valuePanel = new JPanel();
-		valuePanel.setSize(this.getWidth(), this.getHeight());
-		valuePanel.setLayout(new BorderLayout());
-		infoValue = new JTextPane();
-		infoValue.setBorder(new LineBorder(new Color(190,190,190), 10));
-		infoValue.setPreferredSize(new Dimension(10, 20));
-		infoValue.setText("\t "+value);
-		infoValue.setSize(20, 30);
-		infoValue.setBackground(Color.black);
-		infoValue.setForeground(Color.GREEN);
+  /**
+   * The constructor for this class.
+   * The label of the field and its initial value are passed.
 
-		Font font = Font.createFont(Font.TRUETYPE_FONT, new File(fontFilename));
-		font = font.deriveFont(Font.BOLD,50);
+   * @param text name of the field
+   * @param value initial value
+   * @throws FontFormatException
+   * @throws IOException
+   */
+  public InfoPanel(String text, int value) throws FontFormatException, IOException {
+    this.setLayout(new GridLayout(2, 1));
+    JLabel infoLabel = new JLabel(text);
+    infoLabel.setForeground(Color.RED);
+    infoLabel.setFont(new Font("MV Boli", Font.HANGING_BASELINE, 20));
+    infoLabel.setHorizontalAlignment(JLabel.CENTER);
+    infoLabel.setVerticalAlignment(JLabel.TOP);
+    JPanel valuePanel = new JPanel();
+    valuePanel.setSize(this.getWidth(), this.getHeight());
+    valuePanel.setLayout(new BorderLayout());
+    infoValue = new JTextPane();
+    infoValue.setBorder(new LineBorder(new Color(190, 190, 190), 10));
+    infoValue.setPreferredSize(new Dimension(10, 20));
+    infoValue.setText("\t " + value);
+    infoValue.setSize(20, 30);
+    infoValue.setBackground(Color.black);
+    infoValue.setForeground(Color.GREEN);
 
-		GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-		ge.registerFont(font);
+    Font font = Font.createFont(Font.TRUETYPE_FONT, new File(fontFilename));
+    font = font.deriveFont(Font.BOLD, 50);
 
+    GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+    ge.registerFont(font);
 
-		infoValue.setFont(font);
-		infoValue.setEditable(false);
+    infoValue.setFont(font);
+    infoValue.setEditable(false);
 
-		valuePanel.add(infoValue, BorderLayout.CENTER);
+    valuePanel.add(infoValue, BorderLayout.CENTER);
 
-		this.add(infoLabel);
-		this.add(valuePanel);
-	}
+    this.add(infoLabel);
+    this.add(valuePanel);
+  }
 
-	public void updateValue(int value) {
-		infoValue.setText("\t "+value);
-	}
+  /**
+   * This method updates the value of the panel and is called from the GUI.
+   * @param value updated value
+   */
+  public void updateValue(int value) {
+    infoValue.setText("\t " + value);
+  }
 }
