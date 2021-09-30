@@ -23,11 +23,11 @@ public class Board {
     public Board(Game game) {
         this.game = game;
         this.maze = game.getMaze();
-        renderTiles = new RenderTile[maze.length][maze.length];
+        renderTiles = new RenderTile[maze[0].length][maze.length];
         chapPos = game.getChap();
         lChapPos = game.getChap();
         for (int row = 0; row < maze.length; row++) {
-            for (int col = 0; col < maze.length; col++) {
+            for (int col = 0; col < maze[0].length; col++) {
                     renderTiles[col][row] = (new RenderTile(col, row, maze[row][col].toString(), maze[row][col]));
             }
         }
@@ -93,7 +93,7 @@ public class Board {
         }
 
         for (int row = 0; row < maze.length; row++) {
-            for (int col = 0; col < maze.length; col++) {
+            for (int col = 0; col < maze[0].length; col++) {
                 renderTiles[col][row].tile = maze[row][col];
                 int xOffset = col - chapPos.getCol() + 4;
                 int yOffset = row - chapPos.getRow() + 4;
