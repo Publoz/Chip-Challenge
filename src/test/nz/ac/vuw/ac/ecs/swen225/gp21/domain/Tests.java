@@ -205,7 +205,8 @@ public class Tests {
   }
 
   /**
-   * Timing works.
+   * Testing that Timing works.
+   * Will take a couple of seconds to complete.
    */
   @Test
   void test6() {
@@ -303,12 +304,13 @@ public class Tests {
     assertEquals(p1, p2);
     assert (!p1.equals(p3));
     assertEquals(p1.movePos("s"), p3);
+    assertEquals(p1.hashCode(), p2.hashCode());
 
   }
 
   /**
    *  Testing actors can be incorporated with a simple actor class
-   *  and testing info tile.
+   *  and testing info tile. Test if game is over but can also set its values.
    */
   @Test
   void test9() {
@@ -342,6 +344,7 @@ public class Tests {
     Position c = game.getChap();
     assert(game.getMaze()[c.getRow()][c.getCol()] instanceof Info);
     assertEquals("hi", ((Info)game.getMaze()[c.getRow()][c.getCol()]).getInformation());
+    game.updateActors();
     game.moveChap("a");
     game.moveChap("a");
 
@@ -354,6 +357,8 @@ public class Tests {
     assertEquals(answer, game.drawBoard());
     assertEquals(true, game.getGameOver());
     assertEquals(false, game.wonGame());
+    game.setGameOver(false, false);
+    assertEquals(false, game.getGameOver());
 
   }
 
