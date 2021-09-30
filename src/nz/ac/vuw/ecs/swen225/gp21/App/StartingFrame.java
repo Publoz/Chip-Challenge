@@ -119,7 +119,7 @@ public class StartingFrame extends JFrame{
 					try {
 						frame.setVisible(false);
 						frame.dispose();
-						new GUI("level1.xml");
+						new GUI("level2.xml");
 					} catch (FontFormatException | IOException | InterruptedException e1) {
 						// TODO Auto-generated catch block
 						e1.printStackTrace();

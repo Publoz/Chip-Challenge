@@ -240,9 +240,6 @@ public class GUI {
 			}
 		});
 
-
-
-		startTimer(true);
 		
 		
 		
@@ -251,6 +248,7 @@ public class GUI {
 		mainFrame.add(levelInfoPanel);
 		mainFrame.add(collectedKeysPanel);
 		mainFrame.setVisible(true);
+		startTimer(true);
 	}
 
 
@@ -403,7 +401,6 @@ public class GUI {
 		this.treasuresLeft = currentGame.countTreasure();
 		if(chipsPanel!=null) {
 			chipsPanel.updateValue(this.treasuresLeft);
-			currentGame.updateActors();
 			for(String key : currentGame.getKeys()) {
 				if(key==null) return;
 				switch(key) {
@@ -458,7 +455,9 @@ public class GUI {
 		        			}
 			    	    	return;
 			        	}
+			        	currentGame.updateActors();
 			        	timePanel.updateValue(timeLeft--);
+			        	renderBoard.redraw(renderBoard.getGameBoard().getGraphics());
 			        }
 			    };
 			timer = new Timer("Timer");
