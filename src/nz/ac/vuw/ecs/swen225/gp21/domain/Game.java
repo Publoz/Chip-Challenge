@@ -183,6 +183,9 @@ public class Game {
    * Moves all the actors based on their move.
    */
   public void updateActors() {
+    if(paused) {
+      throw new IllegalStateException("Cannot move actors while paused");
+    }
     for (Actor act : actors) {
       act.move(this);
     }
@@ -344,7 +347,7 @@ public class Game {
    * Called when the user wants to resume game updates the time paused.
    */
   public void resumeGame() {
-    if (startPauseTime < 0) {
+    if (!paused) {
       throw new IllegalStateException("Pause was not initiated");
     }
     totalPauseTime += System.currentTimeMillis() - startPauseTime;

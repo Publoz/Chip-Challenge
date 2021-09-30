@@ -523,18 +523,28 @@ public class GUI {
             if (timeLeft == -1) {
               finishing = JOptionPane.showConfirmDialog(new JFrame(),
                   "GAME OVER\nYou ran out of time!\nRestart this level?", "Game Over", JOptionPane.YES_NO_OPTION);
-            } else if (level == 1) {
-              finishing = JOptionPane.showConfirmDialog(new JFrame(), "Level completed!\n Go to the next level?",
-                  "Level Completed", JOptionPane.YES_NO_OPTION);
-            } else if (level == 2) {
-              JOptionPane.showMessageDialog(new JFrame(), "CONGRADULATIONS!\nYou've completed the game",
-                  "Game Completed", JOptionPane.INFORMATION_MESSAGE);
+            } else if(currentGame.wonGame()) {
+              if (level == 1) {
+                finishing = JOptionPane.showConfirmDialog(new JFrame(), "Level completed!\n Go to the next level?",
+                    "Level Completed", JOptionPane.YES_NO_OPTION);
+              } else if (level == 2) {
+                JOptionPane.showMessageDialog(new JFrame(), "CONGRADULATIONS!\nYou've completed the game",
+                    "Game Completed", JOptionPane.INFORMATION_MESSAGE);
+              }
+            } else {
+              if (level == 1) {
+                finishing = JOptionPane.showConfirmDialog(new JFrame(), "GAME OVER\nYou died.\nRestart this level?",
+                    "Game Over", JOptionPane.YES_NO_OPTION);
+              } else if (level == 2) {
+                finishing = JOptionPane.showConfirmDialog(new JFrame(), "GAME OVER\nYou died.\nRestart this level?",
+                    "Game Over", JOptionPane.YES_NO_OPTION);
+              }
             }
             mainFrame.setVisible(false);
             mainFrame.dispose();
             if (finishing == JOptionPane.YES_OPTION) {
               try {
-                if (timeLeft == -1) {
+                if (timeLeft == -1 || !currentGame.wonGame()) {
                   new GUI("level" + level + ".xml");
                 } else {
                   new GUI("level" + (level + 1) + ".xml");
@@ -549,7 +559,8 @@ public class GUI {
             return;
           }
           currentGame.updateActors();
-          timePanel.updateValue(timeLeft--);
+          updateInfo();
+          timePanel.updateValue(timeLeft);
           if(renderBoard.getGameBoard().getGraphics()!=null) {
             renderBoard.redraw(renderBoard.getGameBoard().getGraphics());
           }
