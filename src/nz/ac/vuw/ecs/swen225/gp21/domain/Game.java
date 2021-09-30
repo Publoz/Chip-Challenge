@@ -18,7 +18,7 @@ public class Game {
   /**
    * The number of keys Chap can hold.
    */
-  public static final int MAX_KEYS = 8;
+  public static final int MAX_KEYS = 4;
 
   private Tile[][] maze;
   private int level;
@@ -30,6 +30,7 @@ public class Game {
   private int treasureLeft;
   private String[] keys = new String[MAX_KEYS];
   private ArrayList<Actor> actors = new ArrayList<Actor>();
+  private String lastMoveDir = "s";
 
   // private Position chapPos;
   private Chap chap;
@@ -53,9 +54,9 @@ public class Game {
     treasureLeft = countTreasure();
     chap = new Chap(new Position(row, col));
     maze[chap.getPos().getRow()][chap.getPos().getCol()].addActor(chap);
-    assert (findChap().getRow() == row && findChap().getCol() == col); 
+    assert (findChap().getRow() == row && findChap().getCol() == col);
     //check that chap loaded right
-                                                                       
+
     loadActors();
   }
 
@@ -80,9 +81,11 @@ public class Game {
   }
 
   /**
-   * Returns a boolean if an actor can move here. 
-   * Checks if the tile allows movement Then checks if it is a door we have the
+   * Returns a boolean if Chap can move here.
+   *
+   * <p>Checks if the tile allows movement Then checks if it is a door we have the
    * key for Otherwise return false
+   * Also assumes that Chap has moved one tile away
 
    * @param moveTo the position to move to
    * @return a boolean if valid
@@ -114,13 +117,16 @@ public class Game {
   }
 
   /**
-   * Moves chap in a direction. 
-   * Checks if move is valid and then updates the tiles
+   * Moves chap in a direction.
+   *
+   * <p>Checks if move is valid and then updates the tiles
+   * Performs special actions on special tiles
 
    * @param dir the direction to move (w, a, s, d)
    */
   public void moveChap(String dir) {
     if (validMove(chap.getPos().movePos(dir))) {
+      lastMoveDir = dir;
       Position moveToPos = chap.getPos().movePos(dir);
       Tile moveToTile = maze[moveToPos.getRow()][moveToPos.getCol()];
       if (!(moveToTile.getActor() == null)) {
@@ -137,7 +143,7 @@ public class Game {
       pickup(moveToTile);
 
       //Moving onto special tiles, need to perform special actions
-      if (moveToTile instanceof Door) { 
+      if (moveToTile instanceof Door) {
         removeKey(((Door) moveToTile).getColour().toLowerCase());
         maze[moveToPos.getRow()][moveToPos.getCol()] = new Free();
       } else if (moveToTile instanceof ExitLock) {
@@ -200,7 +206,7 @@ public class Game {
 
   /**
    * Chap picks up items if there is one on this tile.
-   *  
+   *
    * <p>Checks if tile has a key and if so calls addKey Then checks if the tile has
    * treasure and if so removes it IllegalStateException is called if the
    * treasureLeft doesn't match the amount of treasure left
@@ -221,7 +227,7 @@ public class Game {
 
   /**
    * Adds a key to Chap's inventory.
-   * 
+   *
    * <p>If the key is invalid, or if the keys are full an exception is thrown. If the
    * key is valid, add it to next free space in inventory.
 
@@ -243,7 +249,7 @@ public class Game {
 
   /**
    * Removes a key from inventory.
-   * 
+   *
    * <p>Check if we have key and remove first instance Throw IllegalArgumentException
    * if we don't have key
 
@@ -437,6 +443,15 @@ public class Game {
   public void setGameOver(boolean gameOver, boolean win) {
     this.gameOver = gameOver;
     this.win = win;
+  }
+
+  /**
+   * Returns the last direction chap moved.
+
+   * @return the String representing his last direction moved
+   */
+  public String getLastMoveDir() {
+    return lastMoveDir;
   }
 
   /**
