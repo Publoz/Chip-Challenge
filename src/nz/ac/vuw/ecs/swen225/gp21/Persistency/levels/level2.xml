@@ -1,4 +1,4 @@
-<Game levelNumber="2" totalTime="180" row="9" col="12">
+<Game levelNumber="2" totalTime="180" row="9" col="15">
 	<Tiles>
 		<Row y = "0">
 			<Wall></Wall>
@@ -193,7 +193,7 @@
 			<Free key = "" treasure = "false" actor = ""></Free>
 			<Wall></Wall>
 			<Wall></Wall>
-			<Free key = "" treasure = "false" actor = ""></Free>
+			<Info info = "Watch out for spiders and acid! Time tiles will give you an extra 10 seconds."></Info>
 			<Free key = "" treasure = "false" actor = ""></Free>
 			<Wall></Wall>
 			<Wall></Wall>
