@@ -7,7 +7,9 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class Board {
     private JComponent gameBoard;
@@ -15,7 +17,8 @@ public class Board {
     private Tile[][] maze;
     private Position chapPos, lChapPos;
     private Game game;
-    public static BufferedImage chap,empty,portal,lock,treasure,info,doorG,doorB,doorY,doorR,wall,keyY,keyG,keyB,keyR, acid, time;
+    public static BufferedImage chap,empty,portal,lock,treasure,info,doorG,doorB,doorY,doorR,wall,keyY,keyG,keyB,keyR, acid, time, chapleft, chapright, chapup;
+    InputStream move;
     public Board(Game game) {
         this.game = game;
         this.maze = game.getMaze();
@@ -55,13 +58,28 @@ public class Board {
             acid = ImageIO.read(RenderTile.class.getResource("acid.png"));
             time = ImageIO.read(RenderTile.class.getResource("timetile.png"));
 
+            chapleft = ImageIO.read(RenderTile.class.getResource("chapleft.png"));
+            chapright = ImageIO.read(RenderTile.class.getResource("chapright.png"));
+            chapup = ImageIO.read(RenderTile.class.getResource("chapback.png"));
+
+            //move = new FileInputStream(String.valueOf(RenderTile.class.getResource("move.wav")));
+
         } catch (IOException e) {
             System.out.println("Unable to load images");
         }
 
     }
     public void redraw(Graphics g) {
-        chapPos = game.getChap();
+        lChapPos = chapPos;
+        if(chapPos != game.getChap()) {
+            chapPos = game.getChap();
+        }
+        if(lChapPos != chapPos){
+            //AudioStream audioStream = new AudioStream(in);
+            //System.out.println("moved");
+        }
+        //System.out.println(lChapPos.getCol() + " " + lChapPos.getRow());
+        //System.out.println(chapPos.getCol() + " " + chapPos.getRow());
         for (int row = 0; row < maze.length; row++) {
             for (int col = 0; col < maze.length; col++) {
                 renderTiles[col][row].tile = maze[row][col];
@@ -69,6 +87,7 @@ public class Board {
                 int yOffset = row - chapPos.getRow() + 4;
                 renderTiles[col][row].x = xOffset;
                 renderTiles[col][row].y = yOffset;
+                renderTiles[col][row].lasMoveDir = game.getLastMoveDir();
 
                 renderTiles[col][row].draw(g);
 
