@@ -54,6 +54,10 @@ public class Game {
 	 * Skips Chap
 	 */
 	public void loadActors() {
+		if(!actors.isEmpty()) {
+			throw new IllegalStateException("Can't load in more actors");
+		}
+		
 		for(int row = 0; row < maze.length; row++) {
 			for(int col = 0; col < maze[0].length; col++) {
 				if(maze[row][col].getActor() != null 
@@ -125,7 +129,7 @@ public class Game {
 			
 			pickup(moveToTile);
 			
-			if(moveToTile instanceof Door) {
+			if(moveToTile instanceof Door) { //moving onto special tiles
 				removeKey(((Door)moveToTile).getColour().toLowerCase());
 				maze[moveToPos.getRow()][moveToPos.getCol()] = new Free();
 			} else if(moveToTile instanceof ExitLock) {
@@ -141,6 +145,8 @@ public class Game {
 				}
 				gameOver = true;
 				win = true;
+				removeChap();
+				return;
 			} else if(moveToTile instanceof Acid) {
 				gameOver = true;
 				win = false;
@@ -266,6 +272,11 @@ public class Game {
 	 * @return a position for where chap is
 	 */
 	public Position findChap() {
+		if(gameOver) {
+			throw new IllegalStateException("Gameover don't need to find chap");
+			
+		}
+		
 		for(int i = 0; i < maze.length; i++) {
 			for(int j = 0; j < maze[0].length; j++) {
 				if(maze[i][j].getActor() == chap) {
@@ -395,12 +406,14 @@ public class Game {
 	}
 	
 	/**
-	 * Sets the gameOver field.
+	 * Sets the gameOver field and the win field.
 	 * 
-	 * @param value the value of field now
+	 * @param gameOver the value of the gameOver field now
+	 * @param win the value of the win field
 	 */
-	public void setGameOver(boolean value) {
-		gameOver = value;
+	public void setGameOver(boolean gameOver, boolean win) {
+		this.gameOver = gameOver;
+		this.win = win;
 	}
 	
 	
