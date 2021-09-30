@@ -14,6 +14,7 @@ public class RenderTile {
     String imgType;
     Tile tile;
     public BufferedImage img;
+    public String lasMoveDir;
     public RenderTile(int xpos, int ypos, String imgType, Tile t) {
         this.imgType = imgType;
         this.tile = t;
@@ -43,7 +44,12 @@ public class RenderTile {
                 if(tile.getKey().equals("y")){ img = Board.keyY; }
                 if(tile.getKey().equals("r")){ img = Board.keyR; }
             }
-            if(tile.getActor() instanceof Chap) {img = Board.chap;}
+            if(tile.getActor() instanceof Chap) {
+                img = Board.chap;
+                if(lasMoveDir == "w") {img = Board.chapup;}
+                if(lasMoveDir == "a") {img = Board.chapleft;}
+                if(lasMoveDir == "d") {img = Board.chapright;}
+            }
             if(tile.getActor() != null && !(tile.getActor() instanceof Chap)){img = tile.getActor().getImage();}
         }
 
