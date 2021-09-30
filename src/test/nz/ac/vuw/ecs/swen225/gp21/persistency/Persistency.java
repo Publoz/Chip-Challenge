@@ -1,4 +1,4 @@
-package nz.ac.vuw.ecs.swen225.gp21.Persistency;
+package test.nz.ac.vuw.ecs.swen225.gp21.persistency;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -8,6 +8,7 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.junit.jupiter.api.Test;
 
+import nz.ac.vuw.ecs.swen225.gp21.Persistency.XMLSaveLoad;
 import nz.ac.vuw.ecs.swen225.gp21.domain.Acid;
 import nz.ac.vuw.ecs.swen225.gp21.domain.Actor;
 import nz.ac.vuw.ecs.swen225.gp21.domain.Door;
@@ -21,7 +22,7 @@ import nz.ac.vuw.ecs.swen225.gp21.domain.Tile;
 import nz.ac.vuw.ecs.swen225.gp21.domain.Time;
 import nz.ac.vuw.ecs.swen225.gp21.domain.Wall;
 
-public class PersistencyTests {
+public class Persistency {
 
   /**
    * Testing basic room with no objects. Ensure Game objects can be repeatedly

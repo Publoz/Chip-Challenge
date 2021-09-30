@@ -29,7 +29,7 @@ import org.jdom2.output.XMLOutputter;
 
 
 /**
- * Contains static methods which save and load a Game object to and from XML. 
+ * Contains static methods which save and load a Game object to and from XML.
  *
  * @author Phil Edie
  *

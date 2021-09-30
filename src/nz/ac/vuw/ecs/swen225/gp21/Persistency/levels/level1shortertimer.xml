@@ -1,0 +1,134 @@
+<Game levelNumber="1" totalTime="20" row="8" col="5" keys="">
+	<Tiles>
+		<Row>
+			<Wall></Wall>
+			<Wall></Wall>
+			<Wall></Wall>
+			<Wall></Wall>
+			<Wall></Wall>
+			<Wall></Wall>
+			<Wall></Wall>
+			<Wall></Wall>
+			<Wall></Wall>
+			<Wall></Wall>
+			<Wall></Wall></Row>
+		<Row>
+			<Wall></Wall>
+			<Free key="" treasure="True" actor = ""></Free>
+			<Free key="" treasure="True" actor = ""></Free>
+			<Wall></Wall>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Exit></Exit>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Wall></Wall>
+			<Free key="" treasure="True" actor = ""></Free>
+			<Free key="g" treasure="False" actor = ""></Free>
+			<Wall></Wall></Row>
+		<Row>
+			<Wall></Wall>
+			<Wall></Wall>
+			<Free key="" treasure="True" actor = ""></Free>
+			<Wall></Wall>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Wall></Wall>
+			<Free key="" treasure="True" actor = ""></Free>
+			<Wall></Wall>
+			<Wall></Wall></Row>
+		<Row>
+			<Wall></Wall>
+			<Wall></Wall>
+			<Door colour = "y"></Door>
+			<Wall></Wall>
+			<Wall></Wall>
+			<ExitLock></ExitLock>
+			<Wall></Wall>
+			<Wall></Wall>
+			<Free key="" treasure="True" actor = ""></Free>
+			<Wall></Wall>
+			<Wall></Wall></Row>
+		<Row>
+			<Wall></Wall>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Wall></Wall></Row>
+		<Row>
+			<Wall></Wall>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Info info="Pick up all of the treasures to proceed to the next level."></Info>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Wall></Wall></Row>
+		<Row>
+			<Wall></Wall>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Wall></Wall></Row>
+		<Row>
+			<Wall></Wall>
+			<Wall></Wall>
+			<Door colour="g"></Door>
+			<Wall></Wall>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Wall></Wall>
+			<Door colour="b"></Door>
+			<Wall></Wall>
+			<Wall></Wall></Row>
+		<Row>
+			<Wall></Wall>
+			<Wall></Wall>
+			<Free key="" treasure="True" actor = ""></Free>
+			<Wall></Wall>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Wall></Wall>
+			<Free key="" treasure="True" actor = ""></Free>
+			<Wall></Wall>
+			<Wall></Wall></Row>
+		<Row>
+			<Wall></Wall>
+			<Free key="b" treasure="False" actor = ""></Free>
+			<Free key="" treasure="True" actor = ""></Free>
+			<Wall></Wall>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Free key="" treasure="False" actor = ""></Free>
+			<Wall></Wall>
+			<Free key="" treasure="True" actor = ""></Free>
+			<Free key="y" treasure="False" actor = ""></Free>
+			<Wall></Wall></Row>
+		<Row>
+			<Wall></Wall>
+			<Wall></Wall>
+			<Wall></Wall>
+			<Wall></Wall>
+			<Wall></Wall>
+			<Wall></Wall>
+			<Wall></Wall>
+			<Wall></Wall>
+			<Wall></Wall>
+			<Wall></Wall>
+			<Wall></Wall></Row></Tiles></Game>
