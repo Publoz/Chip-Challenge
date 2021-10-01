@@ -22,8 +22,8 @@ import javax.swing.border.LineBorder;
  *
  */
 public class InfoPanel extends JPanel {
-  
-  
+
+
   String fontFilename = "../chip-challenge/src/nz/ac/vuw/ecs/swen225/gp21/App/digital-7.ttf";
   private JTextPane infoValue;
 
@@ -33,8 +33,8 @@ public class InfoPanel extends JPanel {
 
    * @param text name of the field
    * @param value initial value
-   * @throws FontFormatException
-   * @throws IOException
+   * @throws FontFormatException Invalid font
+   * @throws IOException Input/output exception
    */
   public InfoPanel(String text, int value) throws FontFormatException, IOException {
     this.setLayout(new GridLayout(2, 1));

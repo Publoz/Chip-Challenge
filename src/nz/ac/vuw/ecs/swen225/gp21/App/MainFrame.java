@@ -57,23 +57,24 @@ public class MainFrame extends JFrame {
     JFrame frame = this;
     this.addWindowListener(new WindowAdapter() {
       public void windowClosing(WindowEvent we) {
-        int result = JOptionPane.showConfirmDialog(frame, "Game is not saved. Are you sure you want to exit?",
+        int result = JOptionPane.showConfirmDialog(frame,
+            "Game is not saved. Are you sure you want to exit?",
             "Exit Confirmation : ", JOptionPane.YES_NO_OPTION);
-        if (result == JOptionPane.YES_OPTION)
+        if (result == JOptionPane.YES_OPTION) {
           frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        else if (result == JOptionPane.NO_OPTION)
+        } else if (result == JOptionPane.NO_OPTION) {
           frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+        }
       }
     });
   }
 
   /**
-   * This method is called from the GUI after all the 
+   * This method is called from the GUI after all the
    * menu items have been added to the menu.
    * Action listeners are the main reason for this choice.
    */
   public void createMenuBar() {
-    JMenuBar menuBar = new JMenuBar();
 
     JMenu gameMenu = new JMenu("Game");
     gameMenu.add(saveItem);
@@ -116,6 +117,7 @@ public class MainFrame extends JFrame {
     helpMenu.add(aboutItem);
     helpMenu.add(shortcutsItem);
 
+    JMenuBar menuBar = new JMenuBar();
     menuBar.add(gameMenu);
     menuBar.add(levelsMenu);
     menuBar.add(helpMenu);
@@ -123,7 +125,8 @@ public class MainFrame extends JFrame {
   }
 
   /**
-   * Getter for the save menu item
+   * Getter for the save menu item.
+
    * @return save menu item
    */
   public JMenuItem getSaveItem() {
@@ -131,7 +134,8 @@ public class MainFrame extends JFrame {
   }
 
   /**
-   * Setter for the save menu item
+   * Setter for the save menu item.
+
    * @param saveItem item to be added
    */
   public void setSaveItem(JMenuItem saveItem) {
@@ -139,7 +143,8 @@ public class MainFrame extends JFrame {
   }
 
   /**
-   * Getter for the load menu item
+   * Getter for the load menu item.
+
    * @return load menu item
    */
   public JMenuItem getLoadItem() {
@@ -147,7 +152,8 @@ public class MainFrame extends JFrame {
   }
 
   /**
-   * Setter for the load menu item
+   * Setter for the load menu item.
+
    * @param loadItem item to be added
    */
   public void setLoadItem(JMenuItem loadItem) {
@@ -155,15 +161,17 @@ public class MainFrame extends JFrame {
   }
 
   /**
-   * Getter for the menu item for loading level1
-   * @return menu item for loading level1 
+   * Getter for the menu item for loading level1.
+
+   * @return menu item for loading level1
    */
   public JMenuItem getLevel1Item() {
     return level1Item;
   }
 
   /**
-   * Setter for the menu item for loading level1
+   * Setter for the menu item for loading level1.
+
    * @param level1Item item to be added
    */
   public void setLevel1Item(JMenuItem level1Item) {
@@ -171,7 +179,8 @@ public class MainFrame extends JFrame {
   }
 
   /**
-   * Getter for the menu item for loading level2
+   * Getter for the menu item for loading level2.
+
    * @return menu item for loading level2
    */
   public JMenuItem getLevel2Item() {
@@ -179,7 +188,8 @@ public class MainFrame extends JFrame {
   }
 
   /**
-   * Setter for the menu item for loading level2
+   * Setter for the menu item for loading level2.
+
    * @param level2Item item to be added
    */
   public void setLevel2Item(JMenuItem level2Item) {
@@ -187,8 +197,13 @@ public class MainFrame extends JFrame {
   }
 
   //Shortcuts details
-  private String shortcuts = "CTRL + X -> Exit without saving\n" + "CTRL + S -> Save and Exit\n"
-      + "CTRL + 1 -> Start a game from level 1\n" + "CTRL + 2 -> Start a game from level 2\n"
-      + "CTRL + R -> Resume an already saved game\n" + "SPACEBAR -> Pause the game\n" + "ESC -> Resume the game\n"
+  private String shortcuts =
+      "CTRL + X -> Exit without saving\n"
+      + "CTRL + S -> Save and Exit\n"
+      + "CTRL + 1 -> Start a game from level 1\n"
+      + "CTRL + 2 -> Start a game from level 2\n"
+      + "CTRL + R -> Resume an already saved game\n"
+      + "SPACEBAR -> Pause the game\n"
+      + "ESC -> Resume the game\n"
       + "KEYBOARD ARROWs -> Move the player";
 }

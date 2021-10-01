@@ -31,8 +31,23 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.SoftBevelBorder;
 import javax.swing.border.TitledBorder;
 
+/**
+ * StartingFrame is the initial menu which the user can pick
+ * an action.
+ * These actions include starting from level 1, starting a saved game,
+ * and finding more information about the game.
+
+ * @author mofattmoha
+ *
+ */
 public class StartingFrame extends JFrame {
 
+  /**
+   * The constructor for this class.
+   * All the components of the frame are added here.
+
+   * @param title the window's name
+   */
   public StartingFrame(String title) {
     // set name and icon of the frame
     this.setTitle(title);
@@ -58,8 +73,10 @@ public class StartingFrame extends JFrame {
     JPanel optionsPanel = new JPanel();
     optionsPanel.setBorder(new LineBorder(new Color(0, 120, 0), this.getHeight() / 8, false));
     optionsPanel.setLayout(new GridLayout(3, 1));
-    JButton startButton = createButton("Start Game", new Color(0, 120, 0), new Color(200, 0, 200), 1);
-    JButton loadButton = createButton("Continue a saved Game", new Color(0, 120, 0), Color.YELLOW, 2);
+    JButton startButton = createButton("Start Game",
+        new Color(0, 120, 0), new Color(200, 0, 200), 1);
+    JButton loadButton = createButton("Continue a saved Game",
+        new Color(0, 120, 0), Color.YELLOW, 2);
     JButton infoButton = createButton("More Info", new Color(0, 120, 0), Color.BLACK, 3);
     optionsPanel.add(startButton);
     optionsPanel.add(loadButton);
@@ -70,6 +87,16 @@ public class StartingFrame extends JFrame {
     this.setVisible(true);
   }
 
+  /**
+   * The required buttons are created using this method.
+   * This is to avoid repetition of code.
+
+   * @param name of the buttin
+   * @param color1 background color
+   * @param color2 font color
+   * @param actionValue int showing the action to be taken
+   * @return
+   */
   private JButton createButton(String name, Color color1, Color color2, int actionValue) {
     JButton button = new JButton(name);
     button.setFont(new Font("MV Boli", Font.HANGING_BASELINE, 25));
@@ -117,13 +144,14 @@ public class StartingFrame extends JFrame {
             e1.printStackTrace();
           }
         } else if (actionValue == 2) {
-          JFileChooser chooser=new JFileChooser();
-          chooser.setCurrentDirectory(new File("./src/nz/ac/vuw/ecs/swen225/gp21//Persistency/levels/"));
+          JFileChooser chooser = new JFileChooser();
+          chooser.setCurrentDirectory(
+              new File("./src/nz/ac/vuw/ecs/swen225/gp21//Persistency/levels/"));
           chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
           chooser.showOpenDialog(null);
 
           //String path=chooser.getSelectedFile().getAbsolutePath();
-          String filename=chooser.getSelectedFile().getName();
+          String filename = chooser.getSelectedFile().getName();
           try {
             new GUI(filename);
           } catch (FontFormatException | IOException | InterruptedException e1) {
@@ -147,13 +175,15 @@ public class StartingFrame extends JFrame {
   }
 
   /**
-   * Start of the game is from here.
-   * @param args
-   * @throws FontFormatException
-   * @throws IOException
-   * @throws InterruptedException
-   */
-  public static void main(String[] args) throws FontFormatException, IOException, InterruptedException {
+    * Start of the game is from here.
+
+    * @param args arguments
+    * @throws FontFormatException Invalid font
+    * @throws IOException Input/output exception
+    * @throws InterruptedException When saving the file fails
+    */
+  public static void main(String[] args)
+      throws FontFormatException, IOException, InterruptedException {
     new StartingFrame("Chip's Challenge");
   }
 }
