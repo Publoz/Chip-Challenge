@@ -12,6 +12,10 @@ import java.awt.image.BufferedImage;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Queue;
+import java.util.Stack;
+import java.util.List;
 
 public class Board {
     private JComponent gameBoard;
@@ -19,6 +23,8 @@ public class Board {
     private Tile[][] maze;
     private Position chapPos, lChapPos;
     private Game game;
+    private Clip moveClip, pickupClip, doorClip, hurtClip, portalClip;
+    AudioInputStream moveStream, pickupStream, doorStream, hurtStream, portalStream;
     public static BufferedImage chap,empty,portal,lock,treasure,info,doorG,doorB,doorY,doorR,wall,keyY,keyG,keyB,keyR, acid, time, chapleft, chapright, chapup;
     public Board(Game game) {
         this.game = game;
@@ -62,10 +68,26 @@ public class Board {
             chapleft = ImageIO.read(RenderTile.class.getResource("chapleft.png"));
             chapright = ImageIO.read(RenderTile.class.getResource("chapright.png"));
             chapup = ImageIO.read(RenderTile.class.getResource("chapback.png"));
+            
+            //preload sounds
+            moveClip = AudioSystem.getClip();
+            moveStream = AudioSystem.getAudioInputStream(RenderTile.class.getResource("move.wav"));
+            moveClip.open(moveStream);
+            pickupClip = AudioSystem.getClip();
+            pickupStream = AudioSystem.getAudioInputStream(RenderTile.class.getResource("pickup.wav"));
+            pickupClip.open(pickupStream);
+            doorClip = AudioSystem.getClip();
+            doorStream = AudioSystem.getAudioInputStream(RenderTile.class.getResource("door.wav"));
+            doorClip.open(doorStream);
+            hurtClip = AudioSystem.getClip();
+            hurtStream = AudioSystem.getAudioInputStream(RenderTile.class.getResource("hurt.wav"));
+            hurtClip.open(hurtStream);
+            portalClip = AudioSystem.getClip();
+            portalStream = AudioSystem.getAudioInputStream(RenderTile.class.getResource("portal.wav"));
+            portalClip.open(portalStream);
 
 
-
-        } catch (IOException e) {
+        } catch (IOException | LineUnavailableException | UnsupportedAudioFileException e) {
             System.out.println("Unable to load images");
         }
 
@@ -108,14 +130,29 @@ public class Board {
     }
 
     public void playSound(String s){
-        Clip clip = null;
-        try {
-            clip = AudioSystem.getClip();
-            clip.open(AudioSystem.getAudioInputStream(RenderTile.class.getResource(s+".wav")));
-            clip.start();
-        } catch (IOException | UnsupportedAudioFileException | LineUnavailableException e) {
-            System.out.println("Unable to play sound");
-        }
+      if(s.equals("move")){
+        moveClip.stop();
+        moveClip.setFramePosition(0);
+        moveClip.start();
+      } else if(s.equals("pickup")) {
+        pickupClip.stop();
+        pickupClip.setFramePosition(0);
+        pickupClip.start();
+      } else if(s.equals("door")) {
+        doorClip.stop();
+        doorClip.setFramePosition(0);
+        doorClip.start();
+      } else if(s.equals("portal")) {
+        portalClip.stop();
+        portalClip.setFramePosition(0);
+        portalClip.start();
+      } else if(s.equals("hurt")) {
+        hurtClip.stop();
+        hurtClip.setFramePosition(0);
+        hurtClip.start();
+      }
+
+      
 
     }
 
