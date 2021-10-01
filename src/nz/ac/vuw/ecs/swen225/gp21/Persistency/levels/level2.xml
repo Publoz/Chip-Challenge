@@ -334,7 +334,7 @@
 			<Wall></Wall>
 			<Free key = "" treasure = "false" actor = ""></Free>
 			<Wall></Wall>
-			<Free key = "" treasure = "false" actor = ""></Free>
+			<Acid></Acid>
 			<Wall></Wall>
 			<Free key = "" treasure = "false" actor = ""></Free>
 			<Free key = "" treasure = "false" actor = ""></Free>
