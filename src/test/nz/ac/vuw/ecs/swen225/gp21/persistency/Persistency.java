@@ -183,8 +183,6 @@ public class Persistency {
       toLoad = XMLSaveLoad.load("saved.xml");
       String finalString = toLoad.drawBoard();
 
-      System.out.println(originalString);
-      System.out.println(finalString);
       assertEquals(originalString, finalString);
 
     } catch (IOException e) {
