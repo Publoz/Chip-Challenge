@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" contentScriptType="application/ecmascript" contentStyleType="text/css" height="166px" preserveAspectRatio="none" style="width:383px;height:166px;background:#FFFFFF;" version="1.1" viewBox="0 0 383 166" width="383px" zoomAndPan="magnify"><defs><filter height="300%" id="focmopsgllvmg" width="300%" x="-1" y="-1"><feGaussianBlur result="blurOut" stdDeviation="2.0"/><feColorMatrix in="blurOut" result="blurOut2" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 .4 0"/><feOffset dx="4.0" dy="4.0" in="blurOut2" result="blurOut3"/><feBlend in="SourceGraphic" in2="blurOut3" mode="normal"/></filter></defs><g><!--MD5=[07985186f6961338f9bfc243a8c86cd0]
+cluster nz.ac.vuw.ecs.swen225.gp21.Persistency--><polygon fill="#FFFFFF" filter="url(#focmopsgllvmg)" points="16,6,356,6,363,28.2969,366,28.2969,366,143,16,143,16,6" style="stroke:#000000;stroke-width:1.5;"/><line style="stroke:#000000;stroke-width:1.5;" x1="16" x2="363" y1="28.2969" y2="28.2969"/><text fill="#000000" font-family="sans-serif" font-size="14" font-weight="bold" lengthAdjust="spacing" textLength="334" x="20" y="20.9951">nz.ac.vuw.ecs.swen225.gp21.Persistency</text><!--MD5=[48ff1d306dc82c34d311c8db3e2a3ebe]
+class nz.ac.vuw.ecs.swen225.gp21.Persistency.XMLSaveLoad--><a href="XMLSaveLoad.html" target="_top" title="XMLSaveLoad.html" xlink:actuate="onRequest" xlink:href="XMLSaveLoad.html" xlink:show="new" xlink:title="XMLSaveLoad.html" xlink:type="simple"><rect codeLine="3" fill="#FEFECE" filter="url(#focmopsgllvmg)" height="86.4141" id="nz.ac.vuw.ecs.swen225.gp21.Persistency.XMLSaveLoad" style="stroke:#A80036;stroke-width:1.5;" width="168" x="107" y="41"/><ellipse cx="145.85" cy="57" fill="#ADD1B2" rx="11" ry="11" style="stroke:#A80036;stroke-width:1.0;"/><path d="M148.8188,62.6406 Q148.2406,62.9375 147.6,63.0781 Q146.9594,63.2344 146.2563,63.2344 Q143.7563,63.2344 142.4281,61.5938 Q141.1156,59.9375 141.1156,56.8125 Q141.1156,53.6875 142.4281,52.0313 Q143.7563,50.375 146.2563,50.375 Q146.9594,50.375 147.6,50.5313 Q148.2563,50.6875 148.8188,50.9844 L148.8188,53.7031 Q148.1938,53.125 147.6,52.8594 Q147.0063,52.5781 146.3813,52.5781 Q145.0375,52.5781 144.35,53.6563 Q143.6625,54.7188 143.6625,56.8125 Q143.6625,58.9063 144.35,59.9844 Q145.0375,61.0469 146.3813,61.0469 Q147.0063,61.0469 147.6,60.7813 Q148.1938,60.5 148.8188,59.9219 L148.8188,62.6406 Z " fill="#000000"/><text fill="#000000" font-family="sans-serif" font-size="12" lengthAdjust="spacing" textLength="83" x="165.15" y="61.1543">XMLSaveLoad</text><line style="stroke:#A80036;stroke-width:1.5;" x1="108" x2="274" y1="73" y2="73"/><line style="stroke:#A80036;stroke-width:1.5;" x1="108" x2="274" y1="81" y2="81"/><ellipse cx="118" cy="92" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" text-decoration="underline" textLength="108" x="127" y="95.2104">load(String): Game</text><ellipse cx="118" cy="104.8047" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" text-decoration="underline" textLength="142" x="127" y="108.0151">save(Game, String): void</text><ellipse cx="118" cy="117.6094" fill="#84BE84" rx="3" ry="3" style="stroke:#038048;stroke-width:1.0;"/><text fill="#000000" font-family="sans-serif" font-size="11" lengthAdjust="spacing" text-decoration="underline" textLength="104" x="127" y="120.8198">loadClass(): Class</text></a><text fill="#888888" font-family="sans-serif" font-size="10" lengthAdjust="spacing" textLength="186" x="92" y="158.2822">UMLDoclet 2.0.14, PlantUML 1.2021.9</text><!--MD5=[45a515ddfa6f14885c94f8af269fec3b]
+@startuml
+    namespace nz.ac.vuw.ecs.swen225.gp21.Persistency {
+
+        class XMLSaveLoad [[XMLSaveLoad.html]] {
+            {static} +load(String): Game
+            {static} +save(Game, String): void
+            {static} +loadClass(): Class
+        }
+
+    }
+
+    center footer UMLDoclet 2.0.14, PlantUML 1.2021.9
+@enduml
+
+PlantUML version 1.2021.9(Sun Jul 25 22:13:56 NZST 2021)
+(APACHE source distribution)
+Java Runtime: OpenJDK Runtime Environment
+JVM: OpenJDK 64-Bit Server VM
+Default Encoding: UTF-8
+Language: en
+Country: NZ
+--></g></svg>
