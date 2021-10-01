@@ -64,9 +64,9 @@ public class GUI {
   ImageIcon keyR = new ImageIcon(RenderTile.class.getResource("keyred.png"));
 
   /**
-   * The GUI constructor which takes in the name of the file 
-   * storing the game information. In the constructor, most 
-   * of the components of the GUI are created and a timer is 
+   * The GUI constructor which takes in the name of the file
+   * storing the game information. In the constructor, most
+   * of the components of the GUI are created and a timer is
    * started at the end.
 
    * @param filename name of the game file
@@ -80,7 +80,7 @@ public class GUI {
     gameHistory = new RecordAndPlay();
     mainFrame = new MainFrame("Chip's Challenge-Level " + level);
     mainFrame.setLayout(null);
-    
+
 
     // --- CREATING THE MENU BAR ---//
     JMenuItem saveMenuItem = mainFrame.getSaveItem();
@@ -106,14 +106,15 @@ public class GUI {
       @Override
       public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
-        // 
-        JFileChooser chooser=new JFileChooser();
-        chooser.setCurrentDirectory(new File("./src/nz/ac/vuw/ecs/swen225/gp21//Persistency/levels/"));
+        //
+        JFileChooser chooser = new JFileChooser();
+        chooser.setCurrentDirectory(
+            new File("./src/nz/ac/vuw/ecs/swen225/gp21//Persistency/levels/"));
         chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
         chooser.showOpenDialog(null);
 
         //String path=chooser.getSelectedFile().getAbsolutePath();
-        String filename=chooser.getSelectedFile().getName();
+        String filename = chooser.getSelectedFile().getName();
         int loading = load(filename);
         if (loading < 0) {
           JOptionPane.showMessageDialog(mainFrame, "Loading failed!");
@@ -178,7 +179,7 @@ public class GUI {
     mainFrame.setLevel2Item(level2MenuItem);
 
     mainFrame.createMenuBar();
-    
+
 
     // --- CREATING AND ADDING THE BOARD ---//
     renderBoard = new Board(this.currentGame);
@@ -189,13 +190,14 @@ public class GUI {
         mainFrame.getHeight() - 3 * boardBorder);
     gameBoard.setBackground(new Color(190, 190, 190));
     gameBoard.setLayout(new GridLayout(9, 9));
-    
-    
+
+
 
     // --- CREATING THE PANEL SHOWING THE COLLECTED KEYS ---//
     collectedKeysPanel = new JPanel();
     collectedKeysPanel.setLayout(new GridLayout(4, 1));
-    collectedKeysPanel.setBounds(gameBoardWidth - boardBorder, boardBorder, boardBorder * 2, mainFrame.getHeight() / 3);
+    collectedKeysPanel.setBounds(gameBoardWidth - boardBorder,
+        boardBorder, boardBorder * 2, mainFrame.getHeight() / 3);
     collectedKeysPanel.setBorder(new LineBorder(new Color(180, 180, 180), 3));
     yellowKey = new JLabel();
     yellowKey.setIcon(keyY);
@@ -209,8 +211,8 @@ public class GUI {
     // --- CREATING THE INFO PANEL OF THE GAME --- //
     JPanel levelInfoPanel = new JPanel();
     levelInfoPanel.setLayout(new GridLayout(4, 1));
-    levelInfoPanel.setBounds(gameBoardWidth + boardBorder, boardBorder, gameBoardWidth / 2 - 2 * boardBorder,
-        mainFrame.getHeight() - 3 * boardBorder);
+    levelInfoPanel.setBounds(gameBoardWidth + boardBorder, boardBorder,
+        gameBoardWidth / 2 - 2 * boardBorder, mainFrame.getHeight() - 3 * boardBorder);
     levelInfoPanel.setBackground(new Color(190, 190, 190));
 
     levelPanel = new InfoPanel("LEVEL", level);
@@ -254,7 +256,7 @@ public class GUI {
         if (e.getKeyCode() == 17) {
           ctrlPressed = false;
         } else {
-          CtrlNotPressedActions(e);
+          ctrlNotPressedActions(e);
         }
       }
 
@@ -265,7 +267,7 @@ public class GUI {
           ctrlPressed = true;
         } else if (ctrlPressed) {
           try {
-            CtrlPressedActions(e);
+            ctrlPressedActions(e);
           } catch (FontFormatException | IOException | InterruptedException e1) {
             // TODO Auto-generated catch block
             e1.printStackTrace();
@@ -278,7 +280,7 @@ public class GUI {
     mainFrame.add(levelInfoPanel);
     mainFrame.add(collectedKeysPanel);
     mainFrame.setVisible(true);
-    
+
     // --- STARTING TIMER ---//
     startTimer(true);
   }
@@ -297,7 +299,7 @@ public class GUI {
   }
 
   /**
-   * Creates the buttons on the screen with their action listeners
+   * Creates the buttons on the screen with their action listeners.
 
    * @param label name of the button
    * @param action to be performed based on the value
@@ -313,49 +315,53 @@ public class GUI {
       public void actionPerformed(ActionEvent e) {
         // TODO Auto-generated method stub
         switch (action) {
-        case 0:
-          currentGame.pauseGame();
-          startTimer(false);
-          JOptionPane.showMessageDialog(new JFrame(), "Game Paused");
-          currentGame.resumeGame();
-          startTimer(true);
-          break;
-        case 1:
-          currentGame.moveChap("w");
-          break;
-        case 2:
-          int restarting = JOptionPane.showOptionDialog(new JFrame(), "Are you sure you want to restart this level?",
-              "Restart", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, null, e);
-          if (restarting == JOptionPane.YES_OPTION) {
-            mainFrame.setVisible(false);
-            startTimer(false);
+          case 0:
             currentGame.pauseGame();
-            mainFrame.dispose();
-            try {
-              new GUI("level" + level + ".xml");
-            } catch (FontFormatException | IOException | InterruptedException e1) {
-              // TODO Auto-generated catch block
-              e1.printStackTrace();
+            startTimer(false);
+            JOptionPane.showMessageDialog(new JFrame(), "Game Paused");
+            currentGame.resumeGame();
+            startTimer(true);
+            break;
+          case 1:
+            currentGame.moveChap("w");
+            break;
+          case 2:
+            int restarting = JOptionPane.showOptionDialog(new JFrame(),
+                "Are you sure you want to restart this level?",
+                "Restart", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE, null, null, e);
+            if (restarting == JOptionPane.YES_OPTION) {
+              mainFrame.setVisible(false);
+              startTimer(false);
+              currentGame.pauseGame();
+              mainFrame.dispose();
+              try {
+                new GUI("level" + level + ".xml");
+              } catch (FontFormatException | IOException | InterruptedException e1) {
+                // TODO Auto-generated catch block
+                e1.printStackTrace();
+              }
             }
-          }
-          break;
-        case 3:
-          currentGame.moveChap("a");
-          break;
-        case 4:
-          currentGame.moveChap("s");
-          break;
-        case 5:
-          currentGame.moveChap("d");
-          break;
+            break;
+          case 3:
+            currentGame.moveChap("a");
+            break;
+          case 4:
+            currentGame.moveChap("s");
+            break;
+          case 5:
+            currentGame.moveChap("d");
+            break;
+          default:
+            break;
         }
         if (!currentGame.isPaused()) {
           updateInfo();
           renderBoard.redraw(renderBoard.getGameBoard().getGraphics());
           Position chapPos = currentGame.getChap();
-          if(currentGame.getMaze()[chapPos.getRow()][chapPos.getCol()] instanceof Info) {
-            Info infoTile = (Info)currentGame.getMaze()[chapPos.getRow()][chapPos.getCol()];
-            JOptionPane.showMessageDialog(mainFrame, infoTile.getInformation(), "Info Tile", JOptionPane.INFORMATION_MESSAGE);
+          if (currentGame.getMaze()[chapPos.getRow()][chapPos.getCol()] instanceof Info) {
+            Info infoTile = (Info) currentGame.getMaze()[chapPos.getRow()][chapPos.getCol()];
+            JOptionPane.showMessageDialog(mainFrame, infoTile.getInformation(),
+                "Info Tile", JOptionPane.INFORMATION_MESSAGE);
           }
         }
         mainFrame.setFocusable(true);
@@ -364,20 +370,23 @@ public class GUI {
     });
     return button;
   }
-  
+
 
   /**
-   * Implementing the actions to be done when the CTRL key is held and another key is tapped at the same time
+   * Implementing the actions to be done when the CTRL key is held
+   * and another key is tapped at the same time.
    * Not all the keys have a meaning when combined with CTRL
 
    * @param e the key info
    * @throws FontFormatException Invalid font
-   * @throws IOException 
-   * @throws InterruptedException
+   * @throws IOException Input/output exception
+   * @throws InterruptedException When saving the file fails
    */
-  private void CtrlPressedActions(KeyEvent e) throws FontFormatException, IOException, InterruptedException {
+  private void ctrlPressedActions(KeyEvent e)
+      throws FontFormatException, IOException, InterruptedException {
     if (e.getKeyCode() == 88) {
-      int result = JOptionPane.showOptionDialog(mainFrame, "Game is not saved. Do you want to save it before exiting?",
+      int result = JOptionPane.showOptionDialog(mainFrame,
+          "Game is not saved. Do you want to save it before exiting?",
           null, JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null,
           new Object[] { "Yes", "No", "Cancel" }, null);
       if (result != JOptionPane.CANCEL_OPTION) {
@@ -424,21 +433,22 @@ public class GUI {
     }
   }
 
-  
+
   /**
    * Implementing the actions to be done when the CTRL key is not held and another key is pressed.
    * Movements and pause/resume actions are handled in this method.
 
    * @param e the key info
    * @throws FontFormatException Invalid font
-   * @throws IOException 
-   * @throws InterruptedException
+   * @throws IOException Input/output exception
+   * @throws InterruptedException When saving the file fails
    */
-  private void CtrlNotPressedActions(KeyEvent e) {
+  private void ctrlNotPressedActions(KeyEvent e) {
     if (e.getKeyCode() == 32) {
       startTimer(false);
       currentGame.pauseGame();
-      int optionChosen = JOptionPane.showOptionDialog(mainFrame, "Game is paused", null, JOptionPane.DEFAULT_OPTION,
+      int optionChosen = JOptionPane.showOptionDialog(mainFrame,
+          "Game is paused", null, JOptionPane.DEFAULT_OPTION,
           JOptionPane.INFORMATION_MESSAGE, null, new Object[] {}, null);
       if (optionChosen == JOptionPane.CLOSED_OPTION) {
         startTimer(true);
@@ -468,16 +478,18 @@ public class GUI {
     updateInfo();
     renderBoard.redraw(renderBoard.getGameBoard().getGraphics());
     Position chapPos = currentGame.getChap();
-    if(currentGame.getMaze()[chapPos.getRow()][chapPos.getCol()] instanceof Info) {
-      Info infoTile = (Info)currentGame.getMaze()[chapPos.getRow()][chapPos.getCol()];
-      JOptionPane.showMessageDialog(mainFrame, infoTile.getInformation(), "Info Tile", JOptionPane.INFORMATION_MESSAGE);
+    if (currentGame.getMaze()[chapPos.getRow()][chapPos.getCol()] instanceof Info) {
+      Info infoTile = (Info) currentGame.getMaze()[chapPos.getRow()][chapPos.getCol()];
+      JOptionPane.showMessageDialog(mainFrame, infoTile.getInformation(),
+          "Info Tile", JOptionPane.INFORMATION_MESSAGE);
     }
   }
 
-  
+
   /**
    * This method is called after each movement and makes the
-   * available updates to the screen. Updates such as the level, the number of treasures and the time left.
+   * available updates to the screen. Updates such as the level,
+   * the number of treasures and the time left.
    * Adding the collected keys to the appropriate is also handled here.
    */
   private void updateInfo() {
@@ -487,29 +499,32 @@ public class GUI {
     if (chipsPanel != null) {
       chipsPanel.updateValue(this.treasuresLeft);
       for (String key : currentGame.getKeys()) {
-        if (key == null)
+        if (key == null) {
           return;
+        }
         switch (key) {
-        case "y":
-          collectedKeysPanel.add(yellowKey);
-          // collectedKeysPanel.add(yellowKey);
-          break;
-        case "g":
-          collectedKeysPanel.add(greenKey);
-          break;
-        case "b":
-          collectedKeysPanel.add(blueKey);
-          break;
-        case "r":
-          collectedKeysPanel.add(redKey);
-          break;
+          case "y":
+            collectedKeysPanel.add(yellowKey);
+            // collectedKeysPanel.add(yellowKey);
+            break;
+          case "g":
+            collectedKeysPanel.add(greenKey);
+            break;
+          case "b":
+            collectedKeysPanel.add(blueKey);
+            break;
+          case "r":
+            collectedKeysPanel.add(redKey);
+            break;
+          default:
+            break;
         }
       }
     }
   }
 
   /**
-   * In this method, the timer is started or pause, depending 
+   * In this method, the timer is started or pause, depending
    * on the passed value to the parameter.
    * Timer and TimerTask used to make the timer updated every second.
    * This method should also stop the timer when the game is finished or paused.
@@ -524,23 +539,28 @@ public class GUI {
             startTimer(false);
             if (timeLeft == 0) {
               finishing = JOptionPane.showConfirmDialog(new JFrame(),
-                  "GAME OVER\nYou ran out of time!\nRestart this level?", "Game Over", JOptionPane.YES_NO_OPTION);
-            } else if(currentGame.wonGame()) {
+                  "GAME OVER\nYou ran out of time!\nRestart this level?",
+                  "Game Over", JOptionPane.YES_NO_OPTION);
+            } else if (currentGame.wonGame()) {
               renderBoard.playSound("portal");
               if (level == 1) {
-                finishing = JOptionPane.showConfirmDialog(new JFrame(), "Level completed!\n Go to the next level?",
+                finishing = JOptionPane.showConfirmDialog(new JFrame(),
+                    "Level completed!\n Go to the next level?",
                     "Level Completed", JOptionPane.YES_NO_OPTION);
               } else if (level == 2) {
-                JOptionPane.showMessageDialog(new JFrame(), "CONGRADULATIONS!\nYou've completed the game",
+                JOptionPane.showMessageDialog(new JFrame(),
+                    "CONGRADULATIONS!\nYou've completed the game",
                     "Game Completed", JOptionPane.INFORMATION_MESSAGE);
               }
             } else {
               renderBoard.playSound("hurt");
               if (level == 1) {
-                finishing = JOptionPane.showConfirmDialog(new JFrame(), "GAME OVER\nYou died.\nRestart this level?",
+                finishing = JOptionPane.showConfirmDialog(new JFrame(),
+                    "GAME OVER\nYou died.\nRestart this level?",
                     "Game Over", JOptionPane.YES_NO_OPTION);
               } else if (level == 2) {
-                finishing = JOptionPane.showConfirmDialog(new JFrame(), "GAME OVER\nYou died.\nRestart this level?",
+                finishing = JOptionPane.showConfirmDialog(new JFrame(),
+                    "GAME OVER\nYou died.\nRestart this level?",
                     "Game Over", JOptionPane.YES_NO_OPTION);
               }
             }
@@ -566,7 +586,7 @@ public class GUI {
           currentGame.updateActors();
           updateInfo();
           timePanel.updateValue(timeLeft);
-          if(renderBoard.getGameBoard().getGraphics()!=null) {
+          if (renderBoard.getGameBoard().getGraphics() != null) {
             renderBoard.redraw(renderBoard.getGameBoard().getGraphics());
           }
         }
