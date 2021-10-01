@@ -183,8 +183,8 @@ public class Game {
    * Moves all the actors based on their move.
    */
   public void updateActors() {
-    if(paused) {
-      throw new IllegalStateException("Cannot move actors while paused");
+    if (paused) {
+      return;
     }
     for (Actor act : actors) {
       act.move(this);
